@@ -15,7 +15,7 @@ android {
 
         testInstrumentationRunner = AppConfig.testRunner
     }
-
+    buildFeatures.viewBinding = true
     buildTypes {
         getByName("release") {
             isMinifyEnabled = false
