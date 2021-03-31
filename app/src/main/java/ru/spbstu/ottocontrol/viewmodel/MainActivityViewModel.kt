@@ -13,11 +13,12 @@ class MainActivityViewModel : ViewModel(), ViewModelInterfaceForView, ViewModelI
     override lateinit var view: ViewInterfaceForViewModel
 
 
+    // Calls from View
     override fun createModel() { model = Model(this)}
     override fun initBluetooth() = model.initBluetooth()
     override fun onClickButtonFindRobot() = model.searchAvailableDevices()
 
-    // Model
+    // Calls from Model
     override fun notifyViewAboutStateChange() {
         availableDevicesText.clear()
         for (device in model.availableDevices)

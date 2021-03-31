@@ -9,12 +9,11 @@ class Model(override var viewModel: ViewModelInterfaceForModel) : ModelInterface
     private val bluetoothConnector = BluetoothConnector(this)
 
 
-    // ViewModel
+    // Calls from ViewModel
     override fun initBluetooth() = bluetoothConnector.initBluetooth()
     override fun searchAvailableDevices() = bluetoothConnector.searchAvailableDevices()
 
-
-    // BluetoothConnector
+    // Calls from BluetoothConnector
     fun addDevice(device: BluetoothDevice) {
         availableDevices.add(device)
         viewModel.notifyViewAboutStateChange()

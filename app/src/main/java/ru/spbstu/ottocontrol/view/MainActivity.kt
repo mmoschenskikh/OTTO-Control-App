@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity(), ViewInterfaceForViewModel {
         showState()
     }
 
-    // ViewModel
+    // Call from ViewModel
     override fun showState() {
         listOfDevices.removeAllViews()
         for (deviceText in viewModel.availableDevicesText) {
