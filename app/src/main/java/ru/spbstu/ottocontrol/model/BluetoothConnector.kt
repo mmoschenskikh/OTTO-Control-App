@@ -1,4 +1,4 @@
-package ru.spbstu.ottocontrol
+package ru.spbstu.ottocontrol.model
 
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
@@ -10,7 +10,7 @@ import android.os.Parcelable
 import android.widget.Toast
 
 
-class BluetoothConnector(val viewModel: MainActivityViewModel)  {
+class BluetoothConnector(val model: Model)  {
     lateinit var bluetoothAdapter: BluetoothAdapter
 
 
@@ -18,8 +18,7 @@ class BluetoothConnector(val viewModel: MainActivityViewModel)  {
         override fun onReceive(context: Context, intent: Intent) {
             if (intent.action == BluetoothDevice.ACTION_FOUND) {
                 val device = intent.getParcelableExtra<Parcelable>(BluetoothDevice.EXTRA_DEVICE) as BluetoothDevice
-                viewModel.availableDevices.add("${device.name}; ${device.address}")
-                viewModel.notifyViewAboutStateChange()
+                model.addDevice(device)
             }
         }
     }
@@ -28,18 +27,20 @@ class BluetoothConnector(val viewModel: MainActivityViewModel)  {
     fun initBluetooth() { bluetoothAdapter = BluetoothAdapter.getDefaultAdapter() }
 
     fun searchAvailableDevices() {
-        if (bluetoothAdapter.isDiscovering) bluetoothAdapter.cancelDiscovery()
+        if (bluetoothAdapter.isDiscovering)
+            bluetoothAdapter.cancelDiscovery()
 
         if (askForTurnBluetoothOn()) {
-            viewModel.availableDevices.clear()
+            model.clearListOfDevices()
 
-            viewModel.view.registerReceiver(mReceiver, IntentFilter(BluetoothDevice.ACTION_FOUND))
+            model.getContext().registerReceiver(mReceiver, IntentFilter(BluetoothDevice.ACTION_FOUND))
             bluetoothAdapter.startDiscovery()
         }
     }
 
     private fun askForTurnBluetoothOn(): Boolean {
-        if (!bluetoothAdapter.isEnabled) Toast.makeText(viewModel.view, "Включите Bluetooth", Toast.LENGTH_SHORT).show()
+        if (!bluetoothAdapter.isEnabled)
+            Toast.makeText(model.getContext(), "Включите Bluetooth", Toast.LENGTH_SHORT).show()
         return bluetoothAdapter.isEnabled
     }
 }

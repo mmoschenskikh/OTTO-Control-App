@@ -1,18 +1,22 @@
-package ru.spbstu.ottocontrol
+package ru.spbstu.ottocontrol.view
 
 import android.os.Bundle
 import android.widget.Button
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import ru.spbstu.ottocontrol.R
+
+import ru.spbstu.ottocontrol.viewmodel.MainActivityViewModel
+import ru.spbstu.ottocontrol.viewmodel.ViewModelInterfaceForView
 
 
-class MainActivity : AppCompatActivity() {
-    lateinit var viewModel: MainActivityViewModel
-    lateinit var listOfDevices: LinearLayout
-    lateinit var buttonFindRobot: Button
+class MainActivity : AppCompatActivity(), ViewInterfaceForViewModel {
+    private lateinit var viewModel: ViewModelInterfaceForView
+    private lateinit var listOfDevices: LinearLayout
+    private lateinit var buttonFindRobot: Button
 
-    var init = false
+    private var init = false
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,6 +28,7 @@ class MainActivity : AppCompatActivity() {
             setContentView(R.layout.activity_main)
             viewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
             viewModel.view = this
+            viewModel.createModel()
 
             viewModel.initBluetooth()
 
@@ -36,11 +41,12 @@ class MainActivity : AppCompatActivity() {
         showState()
     }
 
-    fun showState() {
+    // ViewModel
+    override fun showState() {
         listOfDevices.removeAllViews()
-        for (item in viewModel.availableDevices) {
+        for (deviceText in viewModel.availableDevicesText) {
             val button = Button(this)
-            button.text = item
+            button.text = deviceText
             listOfDevices.addView(button)
         }
     }
