@@ -1,4 +1,4 @@
-package ru.spbstu.ottocontrol.model
+package ru.spbstu.ottocontrol.model.bluetoothconnector
 
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
@@ -7,14 +7,14 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Parcelable
-import android.widget.Toast
+import ru.spbstu.ottocontrol.model.ModelInterfaceForBluetoothConnector
 
 
-class BluetoothConnector(val model: Model)  {
-    lateinit var bluetoothAdapter: BluetoothAdapter
+class BluetoothConnector(val model: ModelInterfaceForBluetoothConnector) : BluetoothConnectorInterfaceForModel  {
+    private lateinit var bluetoothAdapter: BluetoothAdapter
 
 
-    private val mReceiver = object : BroadcastReceiver() {
+    private val broadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
             if (intent.action == BluetoothDevice.ACTION_FOUND) {
                 val device = intent.getParcelableExtra<Parcelable>(BluetoothDevice.EXTRA_DEVICE) as BluetoothDevice
@@ -24,23 +24,22 @@ class BluetoothConnector(val model: Model)  {
     }
 
 
-    fun initBluetooth() { bluetoothAdapter = BluetoothAdapter.getDefaultAdapter() }
-
-    fun searchAvailableDevices() {
+    // Calls from Model
+    override fun initBluetoothAdapter() { bluetoothAdapter = BluetoothAdapter.getDefaultAdapter() }
+    override fun searchPairedDevices() {
         if (bluetoothAdapter.isDiscovering)
             bluetoothAdapter.cancelDiscovery()
-
         if (askForTurnBluetoothOn()) {
-            model.clearListOfDevices()
-
-            model.getContext().registerReceiver(mReceiver, IntentFilter(BluetoothDevice.ACTION_FOUND))
+            model.clearListOfPairedDevices()
+            model.registerDeviceDetectionReceiver(broadcastReceiver, IntentFilter(BluetoothDevice.ACTION_FOUND))
             bluetoothAdapter.startDiscovery()
         }
     }
 
+
     private fun askForTurnBluetoothOn(): Boolean {
         if (!bluetoothAdapter.isEnabled)
-            Toast.makeText(model.getContext(), "Включите Bluetooth", Toast.LENGTH_SHORT).show()
+            model.askForTurnBluetoothOn()
         return bluetoothAdapter.isEnabled
     }
 }

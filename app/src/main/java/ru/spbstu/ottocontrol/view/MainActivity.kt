@@ -3,6 +3,7 @@ package ru.spbstu.ottocontrol.view
 import android.os.Bundle
 import android.widget.Button
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import ru.spbstu.ottocontrol.R
@@ -41,7 +42,7 @@ class MainActivity : AppCompatActivity(), ViewInterfaceForViewModel {
         showState()
     }
 
-    // Call from ViewModel
+    // Calls from ViewModel
     override fun showState() {
         listOfDevices.removeAllViews()
         for (deviceText in viewModel.availableDevicesText) {
@@ -50,4 +51,5 @@ class MainActivity : AppCompatActivity(), ViewInterfaceForViewModel {
             listOfDevices.addView(button)
         }
     }
+    override fun toast(message: String, duration: Int) = Toast.makeText(this, message, duration).show()
 }

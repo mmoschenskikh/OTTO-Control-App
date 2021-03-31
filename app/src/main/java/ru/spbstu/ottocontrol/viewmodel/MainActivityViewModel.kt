@@ -1,6 +1,9 @@
 package ru.spbstu.ottocontrol.viewmodel
 
+import android.content.BroadcastReceiver
 import android.content.Context
+import android.content.IntentFilter
+import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import ru.spbstu.ottocontrol.model.Model
 import ru.spbstu.ottocontrol.model.ModelInterfaceForViewModel
@@ -25,5 +28,8 @@ class MainActivityViewModel : ViewModel(), ViewModelInterfaceForView, ViewModelI
             availableDevicesText.add("${device.name}; ${device.address}")
         view.showState()
     }
-    override fun getContext(): Context = view as Context
+    override fun askForTurnBluetoothOn() = view.toast("Включите Bluetooth", Toast.LENGTH_SHORT)
+    override fun registerDeviceDetectionReceiver(broadcastReceiver: BroadcastReceiver, intentFilter: IntentFilter) {
+        (view as Context).registerReceiver(broadcastReceiver, intentFilter)
+    }
 }
