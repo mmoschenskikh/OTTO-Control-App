@@ -27,7 +27,7 @@
             android:layout_marginEnd="50sp"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
-            android:text="@string/buttonFindRobot"
+            android:text="@string/button_find_robot"
             android:textAlignment="center" />
 
         <Button
@@ -40,7 +40,7 @@
             android:layout_marginEnd="50sp"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
-            android:text="@string/buttonDisconnect"
+            android:text="@string/button_disconnect"
             android:textAlignment="center" />
 
         <ScrollView
@@ -121,7 +121,7 @@
             android:layout_marginStart="100sp"
             android:layout_marginTop="10sp"
             android:layout_marginEnd="100sp"
-            android:text="@string/buttonLeft"
+            android:text="@string/button_left"
             android:textAlignment="center" />
 
         <Button
@@ -132,7 +132,7 @@
             android:layout_marginStart="100sp"
             android:layout_marginTop="10sp"
             android:layout_marginEnd="100sp"
-            android:text="@string/buttonRight"
+            android:text="@string/button_right"
             android:textAlignment="center" />
 
         <Button
@@ -143,7 +143,7 @@
             android:layout_marginStart="100sp"
             android:layout_marginTop="10sp"
             android:layout_marginEnd="100sp"
-            android:text="@string/buttonBack"
+            android:text="@string/button_back"
             android:textAlignment="center" />
 
         <Button
@@ -154,7 +154,7 @@
             android:layout_marginStart="100sp"
             android:layout_marginTop="10sp"
             android:layout_marginEnd="100sp"
-            android:text="@string/buttonForward"
+            android:text="@string/button_forward"
             android:textAlignment="center" />
 
     </LinearLayout>
