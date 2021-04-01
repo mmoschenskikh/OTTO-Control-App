@@ -34,6 +34,6 @@ object IntermediateLayerBetweenModelAndViewModel : ViewModelInterfaceForModel, M
 
     // Demonstration
     lateinit var someFragmentViewModel: SomeFragmentViewModel
-    override fun getAnswerFromModel(answer: String) = model.askModelFromViewModel(answer)                       // Call from Model
-    override fun askModelFromViewModel(question: String) = someFragmentViewModel.getAnswerFromModel(question)   // Call from ViewModel
+    override fun getAnswerFromModel(answer: String) = someFragmentViewModel.getAnswerFromModel(answer) // Call from Model
+    override fun askModelFromViewModel(question: String) = model.askModelFromViewModel(question)       // Call from ViewModel
 }
