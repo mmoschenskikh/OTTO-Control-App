@@ -1,4 +1,4 @@
-package ru.spbstu.ottocontrol.view
+package ru.spbstu.ottocontrol.view.mainactivity
 
 import android.os.Bundle
 import android.widget.Button
@@ -8,12 +8,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import ru.spbstu.ottocontrol.R
 
-import ru.spbstu.ottocontrol.viewmodel.MainActivityViewModel
-import ru.spbstu.ottocontrol.viewmodel.ViewModelInterfaceForView
+import ru.spbstu.ottocontrol.viewmodel.mainactivity.MainActivityViewModel
 
 
-class MainActivity : AppCompatActivity(), ViewInterfaceForViewModel {
-    private lateinit var viewModel: ViewModelInterfaceForView
+class MainActivity : AppCompatActivity() {
+    private lateinit var viewModel: MainActivityViewModel
     private lateinit var listOfDevices: LinearLayout
     private lateinit var buttonFindRobot: Button
 
@@ -28,8 +27,9 @@ class MainActivity : AppCompatActivity(), ViewInterfaceForViewModel {
 
             setContentView(R.layout.activity_main)
             viewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
+
+            // It's a bad solution
             viewModel.view = this
-            viewModel.createModel()
 
             viewModel.initBluetooth()
 
@@ -42,8 +42,8 @@ class MainActivity : AppCompatActivity(), ViewInterfaceForViewModel {
         showState()
     }
 
-    // Calls from ViewModel
-    override fun showState() {
+
+    fun showState() {
         listOfDevices.removeAllViews()
         for (deviceText in viewModel.availableDevicesText) {
             val button = Button(this)
@@ -51,5 +51,5 @@ class MainActivity : AppCompatActivity(), ViewInterfaceForViewModel {
             listOfDevices.addView(button)
         }
     }
-    override fun toast(message: String, duration: Int) = Toast.makeText(this, message, duration).show()
+    fun toast(message: String, duration: Int) = Toast.makeText(this, message, duration).show()
 }
