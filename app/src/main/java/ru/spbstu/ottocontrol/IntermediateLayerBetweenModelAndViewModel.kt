@@ -15,17 +15,21 @@ object IntermediateLayerBetweenModelAndViewModel : ViewModelInterfaceForModel, M
     lateinit var mainActivityViewModel: MainActivityViewModel
 
 
-    // Calls from Model
-    override fun notifyViewAboutStateChange() = mainActivityViewModel.notifyViewAboutStateChange()
+    // Calls to ViewModels from Model
+    override fun askForAccessToBluetoothModule() { mainActivityViewModel.askForAccessToBluetoothModule() }
     override fun askForTurnBluetoothOn() = mainActivityViewModel.askForTurnBluetoothOn()
-    override fun registerDeviceDetectionReceiver(broadcastReceiver: BroadcastReceiver, intentFilter: IntentFilter) =
-        mainActivityViewModel.registerDeviceDetectionReceiver(broadcastReceiver, intentFilter)
+    override fun registerDeviceDetectionReceiver(broadcastReceiver: BroadcastReceiver, intentFilter: IntentFilter) = mainActivityViewModel.registerDeviceDetectionReceiver(broadcastReceiver, intentFilter)
+    override fun changeListOfPairedDevices() = mainActivityViewModel.changeListOfPairedDevices()
 
 
-    // Calls from ViewModels
+
+    // Calls to Model from ViewModels
     override fun initBluetooth() = model.initBluetooth()
     override fun searchPairedDevices() = model.searchPairedDevices()
     override fun getPairedDevices(): MutableList<BluetoothDevice> = model.getPairedDevices()
+    override fun connectToDevice(index: Int) = model.connectToDevice(index)
+    override fun sendCommandToDevice(command: String) = model.sendCommandToDevice(command)
+    override fun closeDeviceConnection() = model.closeDeviceConnection()
 
 
     // Demonstration

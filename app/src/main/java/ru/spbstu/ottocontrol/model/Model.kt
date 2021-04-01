@@ -2,38 +2,67 @@ package ru.spbstu.ottocontrol.model
 
 import android.bluetooth.BluetoothDevice
 import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
 import android.content.IntentFilter
+import android.os.Handler
+import android.os.Message
+import android.os.Parcelable
+import android.util.Log
 import ru.spbstu.ottocontrol.IntermediateLayerBetweenModelAndViewModel
-import ru.spbstu.ottocontrol.model.bluetoothsearcher.BluetoothSearcherInterfaceForModel
+import ru.spbstu.ottocontrol.model.bluetoothdeviceconnector.BluetoothDeviceConnector
 import ru.spbstu.ottocontrol.model.bluetoothsearcher.BluetoothSearcher
+import ru.spbstu.ottocontrol.model.interpreter.Interpreter
 import ru.spbstu.ottocontrol.viewmodel.ViewModelInterfaceForModel
 
-class Model :
-    ModelInterfaceForViewModel,
-    ModelInterfaceForBluetoothConnector
-{
+class Model : ModelInterfaceForViewModel {
     private val viewModel: ViewModelInterfaceForModel = IntermediateLayerBetweenModelAndViewModel
-
-
     private val pairedDevices: MutableList<BluetoothDevice> = mutableListOf()
-    private val bluetoothSearcher: BluetoothSearcherInterfaceForModel = BluetoothSearcher(this)
+    private val bluetoothSearcher: BluetoothSearcher = BluetoothSearcher()
+    private val interpreter = Interpreter()
 
+    private lateinit var bluetoothDeviceConnector: BluetoothDeviceConnector
 
-    // Calls from ViewModel
-    override fun initBluetooth() = bluetoothSearcher.initBluetoothAdapter()
-    override fun searchPairedDevices() = bluetoothSearcher.searchPairedDevices()
-    override fun getPairedDevices(): MutableList<BluetoothDevice> = pairedDevices
-
-
-    // Calls from BluetoothConnector
-    override fun addDevice(device: BluetoothDevice) {
-        pairedDevices.add(device)
-        viewModel.notifyViewAboutStateChange()
+    private val broadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+            if (intent.action == BluetoothDevice.ACTION_FOUND) {
+                pairedDevices.add(intent.getParcelableExtra<Parcelable>(BluetoothDevice.EXTRA_DEVICE) as BluetoothDevice)
+                viewModel.changeListOfPairedDevices()
+            }
+        }
     }
-    override fun clearListOfPairedDevices() = pairedDevices.clear()
-    override fun askForTurnBluetoothOn() = viewModel.askForTurnBluetoothOn()
-    override fun registerDeviceDetectionReceiver(broadcastReceiver: BroadcastReceiver, intentFilter: IntentFilter)
-            = viewModel.registerDeviceDetectionReceiver(broadcastReceiver, intentFilter)
+
+    // Deprecated constructor!
+    private val handler = object : Handler() {
+        override fun handleMessage(msg: Message) {
+            if (msg.what == 1)
+                handleCommandFromRobot(msg.obj as ByteArray)
+        }
+    }
+    private fun handleCommandFromRobot(bytes: ByteArray) = Log.i("Command from robot", interpreter.getCommandFromDevice(bytes))
+
+
+    override fun initBluetooth() {
+        if (!bluetoothSearcher.initBluetoothAdapter())
+            viewModel.askForAccessToBluetoothModule()
+    }
+
+    override fun searchPairedDevices() {
+        if (bluetoothSearcher.isDiscovering())
+            bluetoothSearcher.cancelDiscovery()
+        if (!bluetoothSearcher.searchPairedDevices()) {
+            viewModel.askForTurnBluetoothOn()
+            return
+        }
+        pairedDevices.clear()
+        viewModel.registerDeviceDetectionReceiver(broadcastReceiver, IntentFilter(BluetoothDevice.ACTION_FOUND))
+    }
+
+    override fun getPairedDevices(): MutableList<BluetoothDevice> = pairedDevices
+    override fun connectToDevice(index: Int) { bluetoothDeviceConnector = BluetoothDeviceConnector(pairedDevices[index], handler) }
+    override fun sendCommandToDevice(command: String) = bluetoothDeviceConnector.sendDataToDevice(interpreter.getCommandToDevice(command))
+    override fun closeDeviceConnection() = bluetoothDeviceConnector.closeDeviceConnection()
+
 
 
     // Demonstration

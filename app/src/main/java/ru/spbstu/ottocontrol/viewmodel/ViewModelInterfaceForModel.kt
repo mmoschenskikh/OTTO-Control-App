@@ -6,9 +6,10 @@ import android.content.IntentFilter
 import ru.spbstu.ottocontrol.model.ModelInterfaceForViewModel
 
 interface ViewModelInterfaceForModel {
-    fun notifyViewAboutStateChange()
+    fun askForAccessToBluetoothModule()
     fun askForTurnBluetoothOn()
     fun registerDeviceDetectionReceiver(broadcastReceiver: BroadcastReceiver, intentFilter: IntentFilter)
+    fun changeListOfPairedDevices()
 
     fun getAnswerFromModel(answer: String)
 }

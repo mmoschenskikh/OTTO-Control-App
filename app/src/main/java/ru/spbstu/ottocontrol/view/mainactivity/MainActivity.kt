@@ -15,6 +15,11 @@ class MainActivity : AppCompatActivity() {
     private lateinit var viewModel: MainActivityViewModel
     private lateinit var listOfDevices: LinearLayout
     private lateinit var buttonFindRobot: Button
+    private lateinit var buttonDisconnect: Button
+    private lateinit var buttonLeft: Button
+    private lateinit var buttonRight: Button
+    private lateinit var buttonForward: Button
+    private lateinit var buttonBack: Button
 
     private var init = false
 
@@ -33,8 +38,25 @@ class MainActivity : AppCompatActivity() {
 
             viewModel.initBluetooth()
 
+
             buttonFindRobot = findViewById(R.id.findRobot)
             buttonFindRobot.setOnClickListener() { viewModel.onClickButtonFindRobot() }
+
+            buttonDisconnect = findViewById(R.id.disconnect)
+            buttonDisconnect.setOnClickListener() { viewModel.onClickDisconnect() }
+
+            buttonLeft = findViewById(R.id.left)
+            buttonLeft.setOnClickListener() { viewModel.onClickLeft() }
+
+            buttonRight = findViewById(R.id.right)
+            buttonRight.setOnClickListener() { viewModel.onClickRight() }
+
+            buttonForward = findViewById(R.id.forward)
+            buttonForward.setOnClickListener() { viewModel.onClickForward() }
+
+            buttonBack = findViewById(R.id.back)
+            buttonBack.setOnClickListener() { viewModel.onClickBack() }
+
 
             listOfDevices = findViewById(R.id.listOfDevices)
         }
@@ -45,9 +67,10 @@ class MainActivity : AppCompatActivity() {
 
     fun showState() {
         listOfDevices.removeAllViews()
-        for (deviceText in viewModel.availableDevicesText) {
+        for (i in viewModel.availableDevicesText.indices) {
             val button = Button(this)
-            button.text = deviceText
+            button.text = viewModel.availableDevicesText[i]
+            button.setOnClickListener { viewModel.connectToDevice(i) }
             listOfDevices.addView(button)
         }
     }
