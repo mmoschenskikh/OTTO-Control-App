@@ -4,8 +4,8 @@ import android.bluetooth.BluetoothDevice
 import android.content.BroadcastReceiver
 import android.content.IntentFilter
 import ru.spbstu.ottocontrol.IntermediateLayerBetweenModelAndViewModel
-import ru.spbstu.ottocontrol.model.bluetoothconnector.BluetoothConnectorInterfaceForModel
-import ru.spbstu.ottocontrol.model.bluetoothconnector.BluetoothConnector
+import ru.spbstu.ottocontrol.model.bluetoothsearcher.BluetoothSearcherInterfaceForModel
+import ru.spbstu.ottocontrol.model.bluetoothsearcher.BluetoothSearcher
 import ru.spbstu.ottocontrol.viewmodel.ViewModelInterfaceForModel
 
 class Model :
@@ -16,12 +16,12 @@ class Model :
 
 
     private val pairedDevices: MutableList<BluetoothDevice> = mutableListOf()
-    private val bluetoothConnector: BluetoothConnectorInterfaceForModel = BluetoothConnector(this)
+    private val bluetoothSearcher: BluetoothSearcherInterfaceForModel = BluetoothSearcher(this)
 
 
     // Calls from ViewModel
-    override fun initBluetooth() = bluetoothConnector.initBluetoothAdapter()
-    override fun searchPairedDevices() = bluetoothConnector.searchPairedDevices()
+    override fun initBluetooth() = bluetoothSearcher.initBluetoothAdapter()
+    override fun searchPairedDevices() = bluetoothSearcher.searchPairedDevices()
     override fun getPairedDevices(): MutableList<BluetoothDevice> = pairedDevices
 
 

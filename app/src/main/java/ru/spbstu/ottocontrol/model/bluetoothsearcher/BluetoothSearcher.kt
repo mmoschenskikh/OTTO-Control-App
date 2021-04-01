@@ -1,4 +1,4 @@
-package ru.spbstu.ottocontrol.model.bluetoothconnector
+package ru.spbstu.ottocontrol.model.bluetoothsearcher
 
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
@@ -10,7 +10,7 @@ import android.os.Parcelable
 import ru.spbstu.ottocontrol.model.ModelInterfaceForBluetoothConnector
 
 
-class BluetoothConnector(val model: ModelInterfaceForBluetoothConnector) : BluetoothConnectorInterfaceForModel  {
+class BluetoothSearcher(val model: ModelInterfaceForBluetoothConnector) : BluetoothSearcherInterfaceForModel  {
     private lateinit var bluetoothAdapter: BluetoothAdapter
 
 
