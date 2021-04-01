@@ -32,7 +32,7 @@ object IntermediateLayerBetweenModelAndViewModel : ViewModelInterfaceForModel, M
     override fun closeDeviceConnection() = model.closeDeviceConnection()
 
 
-    // Demonstration
+    // Example
     lateinit var someFragmentViewModel: SomeFragmentViewModel
     override fun getAnswerFromModel(answer: String) = someFragmentViewModel.getAnswerFromModel(answer) // Call from Model
     override fun askModelFromViewModel(question: String) = model.askModelFromViewModel(question)       // Call from ViewModel

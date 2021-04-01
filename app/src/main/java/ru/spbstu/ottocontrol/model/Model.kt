@@ -65,6 +65,6 @@ class Model : ModelInterfaceForViewModel {
 
 
 
-    // Demonstration
+    // Example
     override fun askModelFromViewModel(question: String) = viewModel.getAnswerFromModel(question + "\nHi View")
 }
