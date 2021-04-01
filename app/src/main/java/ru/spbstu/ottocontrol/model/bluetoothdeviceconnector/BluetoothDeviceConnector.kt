@@ -8,11 +8,11 @@ import java.io.IOException
 import java.lang.reflect.InvocationTargetException
 import kotlin.concurrent.thread
 
-class BluetoothDeviceConnector(val device: BluetoothDevice, val handler: Handler) {
+class BluetoothDeviceConnector {
+    private val inOutBluetooth = InOutBluetooth()
     private lateinit var socket: BluetoothSocket
-    private var inOutBluetooth: InOutBluetooth? = null
 
-    init {
+    fun openDeviceConnection(device: BluetoothDevice, handler: Handler) {
         try {
             val method = device.javaClass.getMethod("createRfcommSocket", Int::class.javaPrimitiveType)
             socket = method.invoke(device, 1) as BluetoothSocket
@@ -31,16 +31,16 @@ class BluetoothDeviceConnector(val device: BluetoothDevice, val handler: Handler
                 } catch (ex: IOException) { ex.printStackTrace() }
                 return@thread
             }
-            inOutBluetooth = InOutBluetooth(socket, handler)
+            inOutBluetooth.openCommunication(socket, handler)
         }
     }
 
     fun closeDeviceConnection() {
         try {
             socket.close()
-            inOutBluetooth?.closeCommunication()
+            inOutBluetooth.closeCommunication()
         } catch (e: IOException) { e.printStackTrace() }
     }
 
-    fun sendDataToDevice(bytes: ByteArray) = inOutBluetooth!!.sendDataToDevice(bytes)
+    fun sendDataToDevice(bytes: ByteArray) = inOutBluetooth.sendDataToDevice(bytes)
 }

@@ -17,11 +17,10 @@ import ru.spbstu.ottocontrol.viewmodel.ViewModelInterfaceForModel
 
 class Model : ModelInterfaceForViewModel {
     private val viewModel: ViewModelInterfaceForModel = IntermediateLayerBetweenModelAndViewModel
-    private val pairedDevices: MutableList<BluetoothDevice> = mutableListOf()
-    private val bluetoothSearcher: BluetoothSearcher = BluetoothSearcher()
+    private val pairedDevices = mutableListOf<BluetoothDevice>()
+    private val bluetoothSearcher = BluetoothSearcher()
+    private val bluetoothDeviceConnector = BluetoothDeviceConnector()
     private val interpreter = Interpreter()
-
-    private lateinit var bluetoothDeviceConnector: BluetoothDeviceConnector
 
     private val broadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
@@ -59,7 +58,7 @@ class Model : ModelInterfaceForViewModel {
     }
 
     override fun getPairedDevices(): MutableList<BluetoothDevice> = pairedDevices
-    override fun connectToDevice(index: Int) { bluetoothDeviceConnector = BluetoothDeviceConnector(pairedDevices[index], handler) }
+    override fun connectToDevice(index: Int) = bluetoothDeviceConnector.openDeviceConnection(pairedDevices[index], handler)
     override fun sendCommandToDevice(command: String) = bluetoothDeviceConnector.sendDataToDevice(interpreter.getCommandToDevice(command))
     override fun closeDeviceConnection() = bluetoothDeviceConnector.closeDeviceConnection()
 
