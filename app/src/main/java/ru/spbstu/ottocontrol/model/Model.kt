@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Handler
+import android.os.Looper
 import android.os.Message
 import android.os.Parcelable
 import android.util.Log
@@ -16,10 +17,11 @@ import ru.spbstu.ottocontrol.model.interpreter.Interpreter
 import ru.spbstu.ottocontrol.viewmodel.ViewModelInterfaceForModel
 
 class Model : ModelInterfaceForViewModel {
+    private val CODE_RECEIVED_DATA_FROM_DEVICE = 1
     private val viewModel: ViewModelInterfaceForModel = IntermediateLayerBetweenModelAndViewModel
     private val pairedDevices = mutableListOf<BluetoothDevice>()
     private val bluetoothSearcher = BluetoothSearcher()
-    private val bluetoothDeviceConnector = BluetoothDeviceConnector()
+    private val bluetoothDeviceConnector = BluetoothDeviceConnector(CODE_RECEIVED_DATA_FROM_DEVICE)
     private val interpreter = Interpreter()
 
     private val broadcastReceiver = object : BroadcastReceiver() {
@@ -31,14 +33,13 @@ class Model : ModelInterfaceForViewModel {
         }
     }
 
-    // Deprecated constructor!
-    private val handler = object : Handler() {
+    private val handler = object : Handler(Looper.myLooper()!!) {
         override fun handleMessage(msg: Message) {
-            if (msg.what == 1)
-                handleCommandFromRobot(msg.obj as ByteArray)
+            if (msg.what == CODE_RECEIVED_DATA_FROM_DEVICE)
+                handleCommandFromDevice(msg.obj as ByteArray)
         }
     }
-    private fun handleCommandFromRobot(bytes: ByteArray) = Log.i("Command from robot", interpreter.getCommandFromDevice(bytes))
+    private fun handleCommandFromDevice(bytes: ByteArray) = Log.i("Command from device", interpreter.getCommandFromDevice(bytes))
 
 
     override fun initBluetooth() {

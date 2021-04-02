@@ -8,8 +8,8 @@ import java.io.IOException
 import java.lang.reflect.InvocationTargetException
 import kotlin.concurrent.thread
 
-class BluetoothDeviceConnector {
-    private val inOutBluetooth = InOutBluetooth()
+class BluetoothDeviceConnector(CODE_RECEIVED_DATA_FROM_DEVICE: Int) {
+    private val inOutBluetooth = InOutBluetooth(CODE_RECEIVED_DATA_FROM_DEVICE)
     private lateinit var socket: BluetoothSocket
 
     fun openDeviceConnection(device: BluetoothDevice, handler: Handler) {

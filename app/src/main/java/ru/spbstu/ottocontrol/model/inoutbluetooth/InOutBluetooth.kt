@@ -8,7 +8,7 @@ import java.io.OutputStream
 import kotlin.concurrent.thread
 
 
-class InOutBluetooth {
+class InOutBluetooth(val CODE_RECEIVED_DATA_FROM_DEVICE: Int) {
     private var inputStream: InputStream? = null
     private var outputStream: OutputStream? = null
     private lateinit var socket: BluetoothSocket
@@ -27,7 +27,7 @@ class InOutBluetooth {
             while (true) {
                 try {
                     val bytes = inputStream!!.read(buffer)
-                    handler.sendMessage(handler.obtainMessage(1, bytes, -1, buffer))
+                    handler.sendMessage(handler.obtainMessage(CODE_RECEIVED_DATA_FROM_DEVICE, bytes, -1, buffer))
                 } catch (e: IOException) { e.printStackTrace() }
             }
         }
