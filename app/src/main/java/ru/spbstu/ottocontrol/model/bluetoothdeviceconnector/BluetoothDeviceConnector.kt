@@ -36,11 +36,13 @@ class BluetoothDeviceConnector {
     }
 
     fun closeDeviceConnection() {
+        if (!this::socket.isInitialized)
+            return
         try {
             socket.close()
             inOutBluetooth.closeCommunication()
         } catch (e: IOException) { e.printStackTrace() }
     }
 
-    fun sendDataToDevice(bytes: ByteArray) = inOutBluetooth.sendDataToDevice(bytes)
+    fun sendDataToDevice(bytes: ByteArray) = inOutBluetooth.let { if (this::socket.isInitialized) it.sendDataToDevice(bytes) }
 }

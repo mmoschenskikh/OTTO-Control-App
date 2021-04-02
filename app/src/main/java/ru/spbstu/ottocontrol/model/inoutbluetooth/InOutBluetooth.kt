@@ -35,11 +35,6 @@ class InOutBluetooth {
 
     fun closeCommunication() {
         try {
-            if (!this::socket.isInitialized) {
-                if (!thread.isInterrupted)
-                    thread.interrupt()
-                return
-            }
             socket.close()
             inputStream?.close()
             outputStream?.close()
