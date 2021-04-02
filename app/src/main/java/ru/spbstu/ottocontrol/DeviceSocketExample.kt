@@ -5,15 +5,15 @@ import kotlin.concurrent.thread
 import kotlin.math.min
 
 object DeviceSocketExample {
-    var dataWasRecivedFromAndroid = false
+    var dataWasReceivedFromAndroid = false
     var dataIsBeingProcessed = false
     lateinit var bytesFromAndroid: ByteArray
 
     object outputStream {
         fun write(bytes: ByteArray) {
-            if (!dataIsBeingProcessed && !dataWasRecivedFromAndroid) {
+            if (!dataIsBeingProcessed && !dataWasReceivedFromAndroid) {
                 dataIsBeingProcessed = true
-                dataWasRecivedFromAndroid = true
+                dataWasReceivedFromAndroid = true
                 bytesFromAndroid = bytes
             }
         }
@@ -22,11 +22,11 @@ object DeviceSocketExample {
     object inputStream {
         fun read(bytes: ByteArray): Int {
             while (true) {
-                if (!dataIsBeingProcessed && dataWasRecivedFromAndroid) {
+                if (!dataIsBeingProcessed && dataWasReceivedFromAndroid) {
                     val size = min(bytesFromAndroid.lastIndex, bytes.lastIndex)
                     for (i in 0..size)
                         bytes[i] = if (bytesFromAndroid[i] == 1.toByte()) 2 else bytesFromAndroid[i]
-                    dataWasRecivedFromAndroid = false
+                    dataWasReceivedFromAndroid = false
                     return size
                 }
             }
