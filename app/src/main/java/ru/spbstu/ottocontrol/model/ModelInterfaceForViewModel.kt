@@ -8,7 +8,7 @@ interface ModelInterfaceForViewModel {
     fun searchPairedDevices()
     fun getPairedDevices(): MutableList<BluetoothDevice>
     fun connectToDevice(index: Int)
-    fun sendCommandToDevice(command: String)
+    fun sendDataToDevice(data: String)
     fun closeDeviceConnection()
 
     fun askModelFromViewModel(question: String)

@@ -36,10 +36,10 @@ class Model : ModelInterfaceForViewModel {
     private val handler = object : Handler(Looper.myLooper()!!) {
         override fun handleMessage(msg: Message) {
             if (msg.what == CODE_RECEIVED_DATA_FROM_DEVICE)
-                handleCommandFromDevice(msg.obj as ByteArray)
+                handleDataFromDevice(msg.obj as ByteArray)
         }
     }
-    private fun handleCommandFromDevice(bytes: ByteArray) = Log.i("Command from device", interpreter.getCommandFromDevice(bytes))
+    private fun handleDataFromDevice(bytes: ByteArray) = viewModel.handleDataFromDevice(interpreter.getDataFromDevice(bytes))
 
 
     override fun initBluetooth() {
@@ -62,7 +62,7 @@ class Model : ModelInterfaceForViewModel {
 
     override fun getPairedDevices(): MutableList<BluetoothDevice> = pairedDevices
     override fun connectToDevice(index: Int) = bluetoothDeviceConnector.openDeviceConnection(pairedDevices[index], handler)
-    override fun sendCommandToDevice(command: String) = bluetoothDeviceConnector.sendDataToDevice(interpreter.getCommandToDevice(command))
+    override fun sendDataToDevice(data: String) = bluetoothDeviceConnector.sendDataToDevice(interpreter.getDataToDevice(data))
     override fun closeDeviceConnection() = bluetoothDeviceConnector.closeDeviceConnection()
 
 

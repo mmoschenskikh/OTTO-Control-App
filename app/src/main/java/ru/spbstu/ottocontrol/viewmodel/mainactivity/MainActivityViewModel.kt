@@ -32,15 +32,20 @@ class MainActivityViewModel : ViewModel()  {
     fun onClickButtonFindRobot() = model.searchPairedDevices()
     fun registerDeviceDetectionReceiver(broadcastReceiver: BroadcastReceiver, intentFilter: IntentFilter) { (view as Context).registerReceiver(broadcastReceiver, intentFilter) }
     fun connectToDevice(index: Int) = model.connectToDevice(index)
-    fun onClickLeft() = model.sendCommandToDevice("left")
-    fun onClickRight() = model.sendCommandToDevice("right")
-    fun onClickForward() = model.sendCommandToDevice("forward")
-    fun onClickBack() = model.sendCommandToDevice("back")
+    fun onClickLeft() = model.sendDataToDevice("left")
+    fun onClickRight() = model.sendDataToDevice("right")
+    fun onClickForward() = model.sendDataToDevice("forward")
+    fun onClickBack() = model.sendDataToDevice("back")
     fun onClickDisconnect() = model.closeDeviceConnection()
     fun changeListOfPairedDevices() {
         availableDevicesText.clear()
         for (device in model.getPairedDevices())
             availableDevicesText.add("${device.name}; ${device.address}")
         view.showState()
+    }
+    fun handleDataFromRobot(data: String) {
+        val splittedData = data.split(' ')
+        if (splittedData.size == 2 && splittedData[0] == "stepped")
+            view.toast(data, Toast.LENGTH_SHORT)
     }
 }

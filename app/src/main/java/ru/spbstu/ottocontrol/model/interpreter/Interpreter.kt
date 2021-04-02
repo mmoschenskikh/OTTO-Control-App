@@ -1,22 +1,22 @@
 package ru.spbstu.ottocontrol.model.interpreter
 
 class Interpreter {
-    fun getCommandToDevice(command: String): ByteArray {
-        val commandToDevice = ByteArray(1024)
-        when (command) {
-            "left" -> commandToDevice[0] = 1
-            "right" -> commandToDevice[1] = 1
-            "forward" -> commandToDevice[2] = 1
-            "back" -> commandToDevice[3] = 1
+    fun getDataToDevice(data: String): ByteArray {
+        val dataToDevice = ByteArray(1024)
+        when (data) {
+            "left" -> dataToDevice[0] = 1
+            "right" -> dataToDevice[1] = 1
+            "forward" -> dataToDevice[2] = 1
+            "back" -> dataToDevice[3] = 1
         }
-        return commandToDevice
+        return dataToDevice
     }
 
-    fun getCommandFromDevice(commandFromDevice: ByteArray): String = when {
-        commandFromDevice[0] == 1.toByte() -> "stepped left"
-        commandFromDevice[1] == 1.toByte() -> "stepped right"
-        commandFromDevice[2] == 1.toByte() -> "stepped forward"
-        commandFromDevice[3] == 1.toByte() -> "stepped back"
+    fun getDataFromDevice(dataFromDevice: ByteArray): String = when {
+        dataFromDevice[0] == 2.toByte() -> "stepped left"
+        dataFromDevice[1] == 2.toByte() -> "stepped right"
+        dataFromDevice[2] == 2.toByte() -> "stepped forward"
+        dataFromDevice[3] == 2.toByte() -> "stepped back"
         else -> "unknown"
     }
 }
