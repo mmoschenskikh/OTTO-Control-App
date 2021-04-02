@@ -23,11 +23,11 @@ object DeviceSocketExample {
         fun read(bytes: ByteArray): Int {
             while (true) {
                 if (!dataIsBeingProcessed && dataWasReceivedFromAndroid) {
-                    val size = min(bytesFromAndroid.lastIndex, bytes.lastIndex)
-                    for (i in 0..size)
+                    val lastIndex = min(bytesFromAndroid.lastIndex, bytes.lastIndex)
+                    for (i in 0..lastIndex)
                         bytes[i] = if (bytesFromAndroid[i] == 1.toByte()) 2 else bytesFromAndroid[i]
                     dataWasReceivedFromAndroid = false
-                    return size
+                    return lastIndex + 1
                 }
             }
         }
