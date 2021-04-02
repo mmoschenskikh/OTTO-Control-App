@@ -43,7 +43,9 @@ class Model : ModelInterfaceForViewModel {
 
     override fun initBluetooth() {
         if (!bluetoothSearcher.initBluetoothAdapter())
-            viewModel.askForAccessToBluetoothModule()
+            viewModel.notifyThatBluetoothIsNotSupported()
+        else
+            viewModel.askForPermissionToUseBluetoothModule()
     }
 
     override fun searchPairedDevices() {

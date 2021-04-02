@@ -16,7 +16,8 @@ object IntermediateLayerBetweenModelAndViewModel : ViewModelInterfaceForModel, M
 
 
     // Calls to ViewModels from Model
-    override fun askForAccessToBluetoothModule() { mainActivityViewModel.askForAccessToBluetoothModule() }
+    override fun askForPermissionToUseBluetoothModule() { mainActivityViewModel.askForPermissionToUseBluetoothModule() }
+    override fun notifyThatBluetoothIsNotSupported() = mainActivityViewModel.notifyThatBluetoothIsNotSupported()
     override fun askForTurnBluetoothOn() = mainActivityViewModel.askForTurnBluetoothOn()
     override fun registerDeviceDetectionReceiver(broadcastReceiver: BroadcastReceiver, intentFilter: IntentFilter) = mainActivityViewModel.registerDeviceDetectionReceiver(broadcastReceiver, intentFilter)
     override fun changeListOfPairedDevices() = mainActivityViewModel.changeListOfPairedDevices()

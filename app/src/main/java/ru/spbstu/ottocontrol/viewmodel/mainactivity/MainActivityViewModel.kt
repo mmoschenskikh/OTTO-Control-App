@@ -25,7 +25,8 @@ class MainActivityViewModel : ViewModel()  {
     init { IntermediateLayerBetweenModelAndViewModel.mainActivityViewModel = this }
 
 
-    fun askForAccessToBluetoothModule() = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
+    fun askForPermissionToUseBluetoothModule() = view.startActivityForResult(Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE), 1)
+    fun notifyThatBluetoothIsNotSupported() = view.toast("Bluetooth не поддерживается", Toast.LENGTH_SHORT)
     fun askForTurnBluetoothOn() = view.toast("Включите Bluetooth", Toast.LENGTH_SHORT)
     fun initBluetooth() = model.initBluetooth()
     fun onClickButtonFindRobot() = model.searchPairedDevices()
