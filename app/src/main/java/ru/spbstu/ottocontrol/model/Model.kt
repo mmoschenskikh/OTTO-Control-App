@@ -9,7 +9,6 @@ import android.os.Handler
 import android.os.Looper
 import android.os.Message
 import android.os.Parcelable
-import android.util.Log
 import ru.spbstu.ottocontrol.IntermediateLayerBetweenModelAndViewModel
 import ru.spbstu.ottocontrol.model.bluetoothdeviceconnector.BluetoothDeviceConnector
 import ru.spbstu.ottocontrol.model.bluetoothsearcher.BluetoothSearcher
@@ -39,7 +38,7 @@ class Model : ModelInterfaceForViewModel {
                 handleDataFromDevice(msg.obj as ByteArray)
         }
     }
-    private fun handleDataFromDevice(bytes: ByteArray) = viewModel.handleDataFromDevice(interpreter.getDataFromDevice(bytes))
+    private fun handleDataFromDevice(bytes: ByteArray) = viewModel.getDataFromDevice(interpreter.getDataFromDevice(bytes))
 
 
     override fun initBluetooth() {

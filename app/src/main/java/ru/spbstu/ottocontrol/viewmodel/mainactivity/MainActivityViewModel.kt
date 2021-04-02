@@ -43,9 +43,5 @@ class MainActivityViewModel : ViewModel()  {
             availableDevicesText.add("${device.name}; ${device.address}")
         view.showState()
     }
-    fun handleDataFromRobot(data: String) {
-        val splittedData = data.split(' ')
-        if (splittedData.size == 2 && splittedData[0] == "stepped")
-            view.toast(data, Toast.LENGTH_SHORT)
-    }
+    fun showCommandExecutedByRobot(command: String) = view.toast(command, Toast.LENGTH_SHORT)
 }

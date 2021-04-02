@@ -21,7 +21,11 @@ object IntermediateLayerBetweenModelAndViewModel : ViewModelInterfaceForModel, M
     override fun askForTurnBluetoothOn() = mainActivityViewModel.askForTurnBluetoothOn()
     override fun registerDeviceDetectionReceiver(broadcastReceiver: BroadcastReceiver, intentFilter: IntentFilter) = mainActivityViewModel.registerDeviceDetectionReceiver(broadcastReceiver, intentFilter)
     override fun changeListOfPairedDevices() = mainActivityViewModel.changeListOfPairedDevices()
-    override fun handleDataFromDevice(data: String) = mainActivityViewModel.handleDataFromRobot(data)
+    override fun getDataFromDevice(data: String) {
+        val splittedData = data.split(' ')
+        if (splittedData.size == 2 && splittedData[0] == "stepped")
+            mainActivityViewModel.showCommandExecutedByRobot(data)
+    }
 
 
     // Calls to Model from ViewModels
@@ -29,7 +33,7 @@ object IntermediateLayerBetweenModelAndViewModel : ViewModelInterfaceForModel, M
     override fun searchPairedDevices() = model.searchPairedDevices()
     override fun getPairedDevices(): MutableList<BluetoothDevice> = model.getPairedDevices()
     override fun connectToDevice(index: Int) = model.connectToDevice(index)
-    override fun sendDataToDevice(command: String) = model.sendDataToDevice(command)
+    override fun sendDataToDevice(data: String) = model.sendDataToDevice(data)
     override fun closeDeviceConnection() = model.closeDeviceConnection()
 
 

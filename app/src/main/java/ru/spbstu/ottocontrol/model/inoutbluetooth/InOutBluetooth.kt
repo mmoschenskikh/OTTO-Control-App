@@ -2,7 +2,7 @@ package ru.spbstu.ottocontrol.model.inoutbluetooth
 
 import android.bluetooth.BluetoothSocket
 import android.os.Handler
-import ru.spbstu.ottocontrol.DeviceSocketExample
+import ru.spbstu.ottocontrol.BluetoothSocketExample
 import java.io.IOException
 import java.io.InputStream
 import java.io.OutputStream
@@ -30,7 +30,7 @@ class InOutBluetooth(val CODE_RECEIVED_DATA_FROM_DEVICE: Int) {
                     // EXAMPLE: instead of this:
                     // val bytes = inputStream!!.read(buffer)
                     // we use:
-                    val bytes = DeviceSocketExample.inputStream.read(buffer)
+                    val bytes = BluetoothSocketExample.inputStream.read(buffer)
 
                     handler.sendMessage(handler.obtainMessage(CODE_RECEIVED_DATA_FROM_DEVICE, bytes, -1, buffer))
                 } catch (e: IOException) { e.printStackTrace() }
@@ -53,7 +53,7 @@ class InOutBluetooth(val CODE_RECEIVED_DATA_FROM_DEVICE: Int) {
             // EXAMPLE: instead of this:
             // outputStream!!.write(bytes)
             // we use:
-            DeviceSocketExample.outputStream.write(bytes)
+            BluetoothSocketExample.outputStream.write(bytes)
         } catch (e: IOException) { e.printStackTrace() }
     }
 }

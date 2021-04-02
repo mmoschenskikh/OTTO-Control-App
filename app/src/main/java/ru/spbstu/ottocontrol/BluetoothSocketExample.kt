@@ -4,7 +4,7 @@ import java.lang.Thread.sleep
 import kotlin.concurrent.thread
 import kotlin.math.min
 
-object DeviceSocketExample {
+object BluetoothSocketExample {
     var dataWasReceivedFromAndroid = false
     var dataIsBeingProcessed = false
     lateinit var bytesFromAndroid: ByteArray
