@@ -1,13 +1,16 @@
 package ru.spbstu.ottocontrol.viewmodel.somefragment
 
 import android.util.Log
-import ru.spbstu.ottocontrol.IntermediateLayerBetweenModelAndViewModel
-import ru.spbstu.ottocontrol.model.ModelInterfaceForViewModel
+import ru.spbstu.ottocontrol.model.ModelImpl
+import ru.spbstu.ottocontrol.model.ModelInterface
+import ru.spbstu.ottocontrol.viewmodel.ViewModelImpl
 
 class SomeFragmentViewModel {
-    private val model: ModelInterfaceForViewModel = IntermediateLayerBetweenModelAndViewModel
+    private val model: ModelInterface = ModelImpl
 
-    init { IntermediateLayerBetweenModelAndViewModel.someFragmentViewModel = this  }
+
+    init { ViewModelImpl.someFragmentViewModel = this }
+
 
     fun askModel() {
         val question = "Hi Model"

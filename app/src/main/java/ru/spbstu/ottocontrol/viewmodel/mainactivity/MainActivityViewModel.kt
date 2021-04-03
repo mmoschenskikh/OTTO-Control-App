@@ -1,28 +1,26 @@
 package ru.spbstu.ottocontrol.viewmodel.mainactivity
 
 import android.bluetooth.BluetoothAdapter
-import android.bluetooth.BluetoothDevice
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.widget.Toast
 import androidx.lifecycle.ViewModel
-import ru.spbstu.ottocontrol.IntermediateLayerBetweenModelAndViewModel
-import ru.spbstu.ottocontrol.model.ModelInterfaceForViewModel
+import ru.spbstu.ottocontrol.model.ModelImpl
+import ru.spbstu.ottocontrol.model.ModelInterface
 import ru.spbstu.ottocontrol.view.mainactivity.MainActivity
+import ru.spbstu.ottocontrol.viewmodel.ViewModelImpl
 
 
 class MainActivityViewModel : ViewModel()  {
-    // It's a bad solution
-    lateinit var view: MainActivity
+    private val model: ModelInterface = ModelImpl
 
     val availableDevicesText: MutableList<String> = mutableListOf()
+    lateinit var view: MainActivity // It's a bad solution
 
-    private val model: ModelInterfaceForViewModel = IntermediateLayerBetweenModelAndViewModel
 
-
-    init { IntermediateLayerBetweenModelAndViewModel.mainActivityViewModel = this }
+    init { ViewModelImpl.mainActivityViewModel = this }
 
 
     fun askForPermissionToUseBluetoothModule() = view.startActivityForResult(Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE), 1)

@@ -3,7 +3,7 @@ package ru.spbstu.ottocontrol.viewmodel
 import android.content.BroadcastReceiver
 import android.content.IntentFilter
 
-interface ViewModelInterfaceForModel {
+interface ViewModelInterface {
     fun askForPermissionToUseBluetoothModule()
     fun notifyThatBluetoothIsNotSupported()
     fun askForTurnBluetoothOn()
