@@ -43,4 +43,6 @@ dependencies {
     testImplementation(Testing.jUnit)
     androidTestImplementation(Testing.extJUnit)
     androidTestImplementation(Testing.espresso)
+
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0")
 }
