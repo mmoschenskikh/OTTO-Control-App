@@ -45,4 +45,5 @@ dependencies {
     androidTestImplementation(Testing.espresso)
 
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0")
+    implementation("androidx.activity:activity-ktx:1.2.2")
 }

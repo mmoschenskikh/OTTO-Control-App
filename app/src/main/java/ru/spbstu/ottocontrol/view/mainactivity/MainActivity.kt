@@ -1,18 +1,22 @@
 package ru.spbstu.ottocontrol.view.mainactivity
 
+import android.content.BroadcastReceiver
+import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.Observer
 import ru.spbstu.ottocontrol.R
 
 import ru.spbstu.ottocontrol.viewmodel.mainactivity.MainActivityViewModel
 
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var viewModel: MainActivityViewModel
+    private val viewModel: MainActivityViewModel by viewModels()
     private lateinit var listOfDevices: LinearLayout
     private lateinit var buttonFindRobot: Button
     private lateinit var buttonDisconnect: Button
@@ -21,58 +25,56 @@ class MainActivity : AppCompatActivity() {
     private lateinit var buttonForward: Button
     private lateinit var buttonBack: Button
 
-    private var init = false
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        if (!init) {
-            init = true
+        setContentView(R.layout.activity_main)
 
-            setContentView(R.layout.activity_main)
-            viewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
+        viewModel.initBluetooth()
 
-            // It's a bad solution
-            viewModel.view = this
+        buttonFindRobot = findViewById(R.id.findRobot)
+        buttonFindRobot.setOnClickListener() { viewModel.onClickButtonFindRobot() }
 
-            viewModel.initBluetooth()
+        buttonDisconnect = findViewById(R.id.disconnect)
+        buttonDisconnect.setOnClickListener() { viewModel.onClickDisconnect() }
 
+        buttonLeft = findViewById(R.id.left)
+        buttonLeft.setOnClickListener() { viewModel.onClickLeft() }
 
-            buttonFindRobot = findViewById(R.id.findRobot)
-            buttonFindRobot.setOnClickListener() { viewModel.onClickButtonFindRobot() }
+        buttonRight = findViewById(R.id.right)
+        buttonRight.setOnClickListener() { viewModel.onClickRight() }
 
-            buttonDisconnect = findViewById(R.id.disconnect)
-            buttonDisconnect.setOnClickListener() { viewModel.onClickDisconnect() }
+        buttonForward = findViewById(R.id.forward)
+        buttonForward.setOnClickListener() { viewModel.onClickForward() }
 
-            buttonLeft = findViewById(R.id.left)
-            buttonLeft.setOnClickListener() { viewModel.onClickLeft() }
+        buttonBack = findViewById(R.id.back)
+        buttonBack.setOnClickListener() { viewModel.onClickBack() }
 
-            buttonRight = findViewById(R.id.right)
-            buttonRight.setOnClickListener() { viewModel.onClickRight() }
-
-            buttonForward = findViewById(R.id.forward)
-            buttonForward.setOnClickListener() { viewModel.onClickForward() }
-
-            buttonBack = findViewById(R.id.back)
-            buttonBack.setOnClickListener() { viewModel.onClickBack() }
+        listOfDevices = findViewById(R.id.listOfDevices)
 
 
-            listOfDevices = findViewById(R.id.listOfDevices)
+        val pairedDevicesObserver = Observer<MutableList<String>> { pairedDevices ->
+            listOfDevices.removeAllViews()
+            for (i in pairedDevices.indices) {
+                val button = Button(this)
+                button.text = pairedDevices[i]
+                button.setOnClickListener { viewModel.connectToDevice(i) }
+                listOfDevices.addView(button)
+            }
         }
+        viewModel.pairedDevicesText.observe(this, pairedDevicesObserver)
 
-        showState()
+        val toastShortObserver = Observer<String> { message -> Toast.makeText(this, message, Toast.LENGTH_SHORT).show() }
+        viewModel.toastShort.observe(this, toastShortObserver)
+
+        val intentObserver = Observer<Pair<Intent, Int>> { intentToCode -> startActivityForResult(intentToCode.first, intentToCode.second) }
+        viewModel.intent.observe(this, intentObserver)
+
+        val registerReceiverObserver = Observer<Pair<BroadcastReceiver, IntentFilter>> { registerReceiver -> registerReceiver(registerReceiver.first, registerReceiver.second) }
+        viewModel.receiverRegistrar.observe(this, registerReceiverObserver)
+
+
+        viewModel.changeListOfPairedDevices()
     }
-
-
-    fun showState() {
-        listOfDevices.removeAllViews()
-        for (i in viewModel.availableDevicesText.indices) {
-            val button = Button(this)
-            button.text = viewModel.availableDevicesText[i]
-            button.setOnClickListener { viewModel.connectToDevice(i) }
-            listOfDevices.addView(button)
-        }
-    }
-    fun toast(message: String, duration: Int) = Toast.makeText(this, message, duration).show()
 }
