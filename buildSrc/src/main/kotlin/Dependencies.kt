@@ -12,13 +12,13 @@ object AppConfig {
 }
 
 object Versions {
-    const val kotlin = "1.4.31"
-    const val buildTools = "4.1.0"
+    const val kotlin = "1.4.32"
+    const val androidGradlePlugin = "4.1.3"
 
     const val appCompat = "1.2.0"
     const val constraintLayout = "2.0.4"
     const val ktx = "1.3.2"
-    const val material = "1.2.0"
+    const val material = "1.3.0"
 
     const val jUnit = "4.13.2"
     const val extJUnit = "1.1.1"
@@ -26,7 +26,7 @@ object Versions {
 }
 
 object BuildPlugins {
-    const val gradle = "com.android.tools.build:gradle:${Versions.buildTools}"
+    const val gradle = "com.android.tools.build:gradle:${Versions.androidGradlePlugin}"
     const val kotlinGradle = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}"
 
     const val androidApplication = "com.android.application"
