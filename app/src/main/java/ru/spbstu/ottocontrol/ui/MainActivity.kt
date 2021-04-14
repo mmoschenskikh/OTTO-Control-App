@@ -1,4 +1,4 @@
-package ru.spbstu.ottocontrol
+package ru.spbstu.ottocontrol.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
