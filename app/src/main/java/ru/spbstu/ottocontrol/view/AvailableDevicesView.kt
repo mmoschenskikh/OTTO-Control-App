@@ -27,7 +27,8 @@ class AvailableDevicesView : Fragment() {
             viewModel.onClickButtonUpdateList()
         }
 
-        val toastShort = Observer<String> { message -> Toast.makeText(activity, message, Toast.LENGTH_SHORT).show() }
+        viewModel.showToast = false
+        val toastShort = Observer<String> { message -> if (viewModel.showToast) Toast.makeText(activity, message, Toast.LENGTH_SHORT).show() }
         viewModel.toastShort.observe(viewLifecycleOwner, toastShort)
 
         val listOfDevices: LinearLayout = view.findViewById(R.id.listOfDevices)
