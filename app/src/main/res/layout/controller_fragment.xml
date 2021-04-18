@@ -19,6 +19,54 @@
         app:layout_constraintVertical_bias="0">
 
         <Button
+            android:id="@+id/buttonChoosePiano"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="5dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:text="@string/choose_piano" />
+
+        <Button
+            android:id="@+id/buttonChooseLed"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="5dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:text="@string/choose_led" />
+
+        <Button
+            android:id="@+id/buttonChooseText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="5dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:text="@string/choose_text" />
+
+        <Button
+            android:id="@+id/buttonChoosePicture"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="50dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:text="@string/choose_picture" />
+
+        <Button
             android:id="@+id/stepLeft"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
