@@ -1,10 +1,12 @@
 <resources>
     <string name="app_name">OTTO</string>
-    <string name="button_find_robot">Найти робота</string>
+    <string name="button_update_list">Обновить список</string>
+    <string name="button_show_list">Показать доступные устройства</string>
     <string name="button_disconnect">Отсоединиться</string>
     <string name="button_left">Влево</string>
     <string name="button_right">Вправо</string>
     <string name="button_back">Назад</string>
     <string name="button_forward">Вперёд</string>
-    <string name="test">Test</string>
+    <string name="choose_robot">Выберите робота</string>
+    <string name="example">Example</string>
 </resources>
