@@ -24,7 +24,7 @@ class InOutBluetooth(val CODE_RECEIVED_DATA_FROM_DEVICE: Int) {
         } catch (ex: IOException) { ex.printStackTrace() }
 
         thread = thread {
-            val buffer = ByteArray(1024)
+            val buffer = ByteArray(32)
             while (true) {
                 try {
                     // EXAMPLE: instead of this:
