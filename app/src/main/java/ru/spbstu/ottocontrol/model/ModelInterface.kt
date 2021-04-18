@@ -9,6 +9,4 @@ interface ModelInterface {
     fun connectToDevice(index: Int)
     fun sendDataToDevice(data: String)
     fun closeDeviceConnection()
-
-    fun askModelFromViewModel(question: String)
 }

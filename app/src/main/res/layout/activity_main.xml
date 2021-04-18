@@ -4,158 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.mainactivity.MainActivity">
+    tools:context=".view.MainActivity">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="20sp"
-        android:layout_marginEnd="20sp"
-        android:orientation="vertical"
+    <fragment
+        android:id="@+id/nav_host_fragment"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/navgraph" />
 
-        <Button
-            android:id="@+id/findRobot"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="50sp"
-            android:layout_marginTop="10sp"
-            android:layout_marginEnd="50sp"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:text="@string/button_find_robot"
-            android:textAlignment="center" />
-
-        <Button
-            android:id="@+id/disconnect"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="50sp"
-            android:layout_marginTop="10sp"
-            android:layout_marginEnd="50sp"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:text="@string/button_disconnect"
-            android:textAlignment="center" />
-
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="233dp"
-            android:layout_marginTop="5sp"
-            android:background="#D8D8D8">
-
-            <LinearLayout
-                android:id="@+id/listOfDevices"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20sp"
-                android:layout_marginEnd="20sp"
-                android:orientation="vertical">
-
-                <Button
-                    android:id="@+id/button9"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="10sp"
-                    android:text="@string/test"
-                    android:textAlignment="center" />
-
-                <Button
-                    android:id="@+id/button10"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="10sp"
-                    android:text="@string/test"
-                    android:textAlignment="center" />
-
-                <Button
-                    android:id="@+id/button11"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="10sp"
-                    android:text="@string/test"
-                    android:textAlignment="center" />
-
-                <Button
-                    android:id="@+id/button12"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="10sp"
-                    android:text="@string/test"
-                    android:textAlignment="center" />
-
-                <Button
-                    android:id="@+id/button13"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="10sp"
-                    android:text="@string/test"
-                    android:textAlignment="center" />
-
-                <Button
-                    android:id="@+id/button14"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="10sp"
-                    android:text="@string/test"
-                    android:textAlignment="center" />
-            </LinearLayout>
-        </ScrollView>
-
-        <Button
-            android:id="@+id/left"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="100sp"
-            android:layout_marginTop="10sp"
-            android:layout_marginEnd="100sp"
-            android:text="@string/button_left"
-            android:textAlignment="center" />
-
-        <Button
-            android:id="@+id/right"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="100sp"
-            android:layout_marginTop="10sp"
-            android:layout_marginEnd="100sp"
-            android:text="@string/button_right"
-            android:textAlignment="center" />
-
-        <Button
-            android:id="@+id/back"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="100sp"
-            android:layout_marginTop="10sp"
-            android:layout_marginEnd="100sp"
-            android:text="@string/button_back"
-            android:textAlignment="center" />
-
-        <Button
-            android:id="@+id/forward"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="100sp"
-            android:layout_marginTop="10sp"
-            android:layout_marginEnd="100sp"
-            android:text="@string/button_forward"
-            android:textAlignment="center" />
-
-    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

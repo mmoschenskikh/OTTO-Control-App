@@ -10,6 +10,4 @@ interface ViewModelInterface {
     fun registerDeviceDetectionReceiver(broadcastReceiver: BroadcastReceiver, intentFilter: IntentFilter)
     fun changeListOfPairedDevices()
     fun getDataFromDevice(data: String)
-
-    fun getAnswerFromModel(answer: String)
 }
