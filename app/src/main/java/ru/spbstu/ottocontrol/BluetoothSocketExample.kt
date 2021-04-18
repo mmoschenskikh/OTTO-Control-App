@@ -23,11 +23,10 @@ object BluetoothSocketExample {
         fun read(bytes: ByteArray): Int {
             while (true) {
                 if (!dataIsBeingProcessed && dataWasReceivedFromAndroid) {
-                    val lastIndex = min(bytesFromAndroid.lastIndex, bytes.lastIndex)
-                    for (i in 0..lastIndex)
-                        bytes[i] = if (bytesFromAndroid[i] == 1.toByte()) 2 else bytesFromAndroid[i]
+                    for (i in bytesFromAndroid.indices)
+                        bytes[i] = bytesFromAndroid[i] // data processing
                     dataWasReceivedFromAndroid = false
-                    return lastIndex + 1
+                    return bytesFromAndroid.size
                 }
             }
         }

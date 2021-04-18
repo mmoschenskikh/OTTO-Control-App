@@ -7,7 +7,11 @@ object ViewModels : ViewModelInterface {
     lateinit var initViewModel: InitViewModel
     lateinit var availableDevicesViewModel: AvailableDevicesViewModel
     lateinit var controllerViewModel: ControllerViewModel
-    
+    lateinit var ledViewModel: LedViewModel
+    lateinit var pianoViewModel: PianoViewModel
+    lateinit var textViewModel: TextViewModel
+    lateinit var pictureViewModel: PictureViewModel
+
     override fun askForPermissionToUseBluetoothModule() { initViewModel.askForPermissionToUseBluetoothModule() }
     override fun notifyThatBluetoothIsNotSupported() = initViewModel.notifyThatBluetoothIsNotSupported()
     override fun askForTurnBluetoothOn() = availableDevicesViewModel.askForTurnBluetoothOn()
@@ -15,7 +19,14 @@ object ViewModels : ViewModelInterface {
     override fun changeListOfPairedDevices() = availableDevicesViewModel.changeListOfPairedDevices()
     override fun getDataFromDevice(data: String) {
         val splittedData = data.split(' ')
-        if (splittedData.size == 2 && splittedData[0] == "stepped")
-            controllerViewModel.showCommandExecutedByRobot(data)
+        if (splittedData.isNotEmpty()) {
+            when (splittedData[0]) {
+                "step" -> controllerViewModel.showCommandExecutedByRobot(data)
+                "led" -> ledViewModel.showCommandExecutedByRobot(data)
+                "piano" -> pianoViewModel.showCommandExecutedByRobot(data)
+                "text" -> textViewModel.showCommandExecutedByRobot(data)
+                "matrix" -> pictureViewModel.showCommandExecutedByRobot(data)
+            }
+        }
     }
 }
