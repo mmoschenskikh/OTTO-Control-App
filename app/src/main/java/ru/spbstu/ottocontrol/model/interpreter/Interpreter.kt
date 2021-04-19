@@ -3,40 +3,27 @@ package ru.spbstu.ottocontrol.model.interpreter
 class Interpreter {
     private val sizeMatrix = 4
 
+    private val commandsStrToByte = mapOf<String, Byte>("step" to 0, "led" to 1, "piano" to 2, "matrix" to 3, "text" to 4)
+    private val stepsStrToByte = mapOf<String, Byte>("left" to 0, "right" to 1, "forward" to 2, "back" to 3)
+    private val ledStrToByte = mapOf<String, Byte>("#FF0000" to 0, "#FFFFFF" to 1, "#000000" to 2)
+    private val pianoStrToByte = mapOf<String, Byte>("a" to 0, "b" to 1, "c" to 2, "d" to 3)
+
     fun getDataToDevice(data: String): ByteArray {
         val dataToDevice = ByteArray(sizeMatrix * sizeMatrix + 1)
         val splittedData = data.split(" ")
-        when (splittedData[0]) {
-            "step" -> {
-                dataToDevice[0] = 0
-                when (splittedData[1]) {
-                    "left" -> dataToDevice[1] = 0
-                    "right" -> dataToDevice[1] = 1
-                    "forward" -> dataToDevice[1] = 2
-                    "back" -> dataToDevice[1] = 3
-                }
-            }
-            "led" -> {
-                dataToDevice[0] = 1
-                when (splittedData[1]) {
-                    "#FF0000" -> dataToDevice[1] = 0
-                }
-            }
-            "piano" -> {
-                dataToDevice[0] = 2
-                when (splittedData[1]) {
-                    "a" -> dataToDevice[1] = 0
-                }
-            }
+        val command = splittedData[0]
+        dataToDevice[0] = commandsStrToByte[command] ?: throw IllegalArgumentException("Unknown command")
+        when (command) {
+            "step" -> dataToDevice[1] = stepsStrToByte[splittedData[1]] ?: throw IllegalArgumentException("Unknown command")
+            "led" -> dataToDevice[1] = ledStrToByte[splittedData[1]] ?: throw IllegalArgumentException("Unknown command")
+            "piano" -> dataToDevice[1] = pianoStrToByte[splittedData[1]] ?: throw IllegalArgumentException("Unknown command")
             "matrix" -> {
-                dataToDevice[0] = 3
                 for (i in 1..splittedData.lastIndex) {
                     val coordinate = splittedData[i].split(":")
                     dataToDevice[coordinate[0].toInt() * sizeMatrix + coordinate[1].toInt() + 1] = 1
                 }
             }
             "text" -> {
-                dataToDevice[0] = 4
                 for (i in splittedData[1].indices)
                     dataToDevice[i + 1] = splittedData[1][i].toByte()
             }
@@ -44,39 +31,25 @@ class Interpreter {
         return dataToDevice
     }
 
+    private val commandsByteToStr = commandsStrToByte.entries.associate{(k, v) -> v to k}
+    private val stepsStrByteToStr = stepsStrToByte.entries.associate{(k, v) -> v to k}
+    private val ledStrByteToStr = ledStrToByte.entries.associate{(k, v) -> v to k}
+    private val pianoStrByteToStr = pianoStrToByte.entries.associate{(k, v) -> v to k}
+
     fun getDataFromDevice(dataFromDevice: ByteArray): String {
         val builder = StringBuilder()
-        when (dataFromDevice[0]) {
-            0.toByte() -> {
-                builder.append("step ")
-                when (dataFromDevice[1]) {
-                    0.toByte() -> builder.append("right ")
-                    1.toByte() -> builder.append("left ")
-                    2.toByte() -> builder.append("forward ")
-                    3.toByte() -> builder.append("back ")
-                }
-            }
-            1.toByte() -> {
-                builder.append("led ")
-                when (dataFromDevice[1]) {
-                    0.toByte() -> builder.append("#FF0000 ")
-                }
-            }
-            2.toByte() -> {
-                builder.append("piano ")
-                when (dataFromDevice[1]) {
-                    0.toByte() -> builder.append("a ")
-                }
-            }
-            3.toByte() -> {
-                builder.append("matrix ")
-                for (i in 1..dataFromDevice.lastIndex) {
+        val command = commandsByteToStr[dataFromDevice[0]]
+        builder.append("$command ")
+        when (command) {
+            "step" -> builder.append("${stepsStrByteToStr[dataFromDevice[1]]} ")
+            "led" -> builder.append("${ledStrByteToStr[dataFromDevice[1]]} ")
+            "piano" -> builder.append("${pianoStrByteToStr[dataFromDevice[1]]} ")
+            "matrix" -> {
+                for (i in 1..dataFromDevice.lastIndex)
                     if (dataFromDevice[i] == 1.toByte())
                         builder.append("${(i - 1) / sizeMatrix}:${(i - 1) % sizeMatrix} ")
-                }
             }
-            4.toByte() -> {
-                builder.append("text ")
+            "text" -> {
                 for (i in 1..dataFromDevice.lastIndex)
                     if (dataFromDevice[i] != 0.toByte())
                         builder.append(("${dataFromDevice[i].toChar()}"))

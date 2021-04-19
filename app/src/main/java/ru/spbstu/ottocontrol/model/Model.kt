@@ -27,7 +27,9 @@ object Model : ModelInterface {
     private val broadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
             if (intent.action == BluetoothDevice.ACTION_FOUND) {
-                pairedDevices.add(intent.getParcelableExtra<Parcelable>(BluetoothDevice.EXTRA_DEVICE) as BluetoothDevice)
+                val device = intent.getParcelableExtra<Parcelable>(BluetoothDevice.EXTRA_DEVICE) as BluetoothDevice
+                if (!pairedDevices.contains(device))
+                    pairedDevices.add(device)
                 viewModel.changeListOfPairedDevices()
             }
         }
@@ -57,6 +59,7 @@ object Model : ModelInterface {
             return
         }
         pairedDevices.clear()
+        viewModel.changeListOfPairedDevices()
         viewModel.registerDeviceDetectionReceiver(broadcastReceiver, IntentFilter(BluetoothDevice.ACTION_FOUND))
     }
 
