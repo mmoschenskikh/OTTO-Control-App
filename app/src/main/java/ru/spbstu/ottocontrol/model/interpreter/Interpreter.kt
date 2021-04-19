@@ -1,7 +1,5 @@
 package ru.spbstu.ottocontrol.model.interpreter
 
-import java.lang.Exception
-
 class Interpreter {
     private val sizeMatrix = 4
 
@@ -14,11 +12,11 @@ class Interpreter {
         val dataToDevice = ByteArray(sizeMatrix * sizeMatrix + 1)
         val splittedData = data.split(" ")
         val command = splittedData[0]
-        dataToDevice[0] = commandsStrToByte[command] ?: throw Exception("Unknown command")
+        dataToDevice[0] = commandsStrToByte[command] ?: throw IllegalArgumentException("Unknown command")
         when (command) {
-            "step" -> dataToDevice[1] = stepsStrToByte[splittedData[1]] ?: throw Exception("Unknown command")
-            "led" -> dataToDevice[1] = ledStrToByte[splittedData[1]] ?: throw Exception("Unknown command")
-            "piano" -> dataToDevice[1] = pianoStrToByte[splittedData[1]] ?: throw Exception("Unknown command")
+            "step" -> dataToDevice[1] = stepsStrToByte[splittedData[1]] ?: throw IllegalArgumentException("Unknown command")
+            "led" -> dataToDevice[1] = ledStrToByte[splittedData[1]] ?: throw IllegalArgumentException("Unknown command")
+            "piano" -> dataToDevice[1] = pianoStrToByte[splittedData[1]] ?: throw IllegalArgumentException("Unknown command")
             "matrix" -> {
                 for (i in 1..splittedData.lastIndex) {
                     val coordinate = splittedData[i].split(":")
@@ -47,10 +45,9 @@ class Interpreter {
             "led" -> builder.append("${ledStrByteToStr[dataFromDevice[1]]} ")
             "piano" -> builder.append("${pianoStrByteToStr[dataFromDevice[1]]} ")
             "matrix" -> {
-                for (i in 1..dataFromDevice.lastIndex) {
+                for (i in 1..dataFromDevice.lastIndex)
                     if (dataFromDevice[i] == 1.toByte())
                         builder.append("${(i - 1) / sizeMatrix}:${(i - 1) % sizeMatrix} ")
-                }
             }
             "text" -> {
                 for (i in 1..dataFromDevice.lastIndex)
