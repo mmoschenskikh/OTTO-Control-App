@@ -27,8 +27,10 @@ class AvailableDevicesViewModel : ViewModel() {
     fun onClickButtonUpdateList() = model.searchPairedDevices()
     fun changeListOfPairedDevices() {
         val devices = mutableListOf<String>()
-        for (device in model.getPairedDevices())
-            devices.add("${device.name}; ${device.address}")
+        for (device in model.getPairedDevices()) {
+            val name = if (device.name == null) "Нет имени" else device.name
+            devices.add("$name; ${device.address}")
+        }
         pairedDevicesText.value = devices
     }
 }
