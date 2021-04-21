@@ -28,9 +28,10 @@ object Model : ModelInterface {
         override fun onReceive(context: Context, intent: Intent) {
             if (intent.action == BluetoothDevice.ACTION_FOUND) {
                 val device = intent.getParcelableExtra<Parcelable>(BluetoothDevice.EXTRA_DEVICE) as BluetoothDevice
-                if (!pairedDevices.contains(device))
+                if (!pairedDevices.contains(device)) {
                     pairedDevices.add(device)
-                viewModel.changeListOfPairedDevices()
+                    viewModel.changeListOfPairedDevices()
+                }
             }
         }
     }
@@ -52,13 +53,14 @@ object Model : ModelInterface {
     }
 
     override fun searchPairedDevices() {
+        pairedDevices.clear()
+        pairedDevices.addAll(bluetoothSearcher.getBondedDevices())
         if (bluetoothSearcher.isDiscovering())
             bluetoothSearcher.cancelDiscovery()
         if (!bluetoothSearcher.searchPairedDevices()) {
             viewModel.askForTurnBluetoothOn()
             return
         }
-        pairedDevices.clear()
         viewModel.changeListOfPairedDevices()
         viewModel.registerDeviceDetectionReceiver(broadcastReceiver, IntentFilter(BluetoothDevice.ACTION_FOUND))
     }
