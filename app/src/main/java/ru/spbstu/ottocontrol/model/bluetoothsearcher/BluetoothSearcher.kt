@@ -30,4 +30,6 @@ class BluetoothSearcher  {
         bluetoothAdapter.startDiscovery()
         return true
     }
+
+    fun getBondedDevices(): MutableSet<BluetoothDevice> = bluetoothAdapter.bondedDevices
 }
