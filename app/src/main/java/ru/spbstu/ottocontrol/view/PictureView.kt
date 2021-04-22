@@ -36,8 +36,9 @@ class PictureView : Fragment()  {
             for (j in 0..7) {
                 val cell = TextView(context)
                 cell.id = i
-                cell.height = 129
-                cell.width = 129
+                cell.autoSizeMaxTextSize
+                cell.height = 85
+                cell.width = 85
                 cell.setBackgroundResource(R.drawable.cell_black)
                 var count = 0
                 cell.setOnClickListener {
@@ -54,8 +55,8 @@ class PictureView : Fragment()  {
         for (i in 0..1) {
             val button = Button(context)
             button.id = i
-            button.height = 250
-            button.width = 250
+            button.height = 190
+            button.width = 190
             if (i == 1) {
                 button.setBackgroundResource(R.drawable.cell_black)
                 button.setOnClickListener {

@@ -40,7 +40,6 @@ dependencies {
     implementation(Android.appcompat)
     implementation(Dependencies.materialDesign)
     implementation(Android.constraintLayout)
-    implementation("com.android.support:support-v13:28.0.0")
     testImplementation(Testing.jUnit)
     androidTestImplementation(Testing.extJUnit)
     androidTestImplementation(Testing.espresso)
