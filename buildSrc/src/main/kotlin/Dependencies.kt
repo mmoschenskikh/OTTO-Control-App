@@ -20,6 +20,7 @@ object Versions {
     const val coreKtx = "1.3.2"
     const val fragmentKtx = "1.3.3"
     const val material = "1.3.0"
+    const val navigation = "2.3.5"
 
     const val jUnit = "4.13.2"
     const val extJUnit = "1.1.1"
@@ -45,6 +46,12 @@ object Android {
 object Dependencies {
     const val kotlin = "org.jetbrains.kotlin:kotlin-stdlib:${Versions.kotlin}"
     const val materialDesign = "com.google.android.material:material:${Versions.material}"
+}
+
+object Navigation {
+    const val navigationFragmentKtx =
+        "androidx.navigation:navigation-fragment-ktx:${Versions.navigation}"
+    const val navigationUiKtx = "androidx.navigation:navigation-ui-ktx:${Versions.navigation}"
 }
 
 object Testing {
