@@ -17,7 +17,8 @@ object Versions {
 
     const val appCompat = "1.2.0"
     const val constraintLayout = "2.0.4"
-    const val ktx = "1.3.2"
+    const val coreKtx = "1.3.2"
+    const val fragmentKtx = "1.3.3"
     const val material = "1.3.0"
 
     const val jUnit = "4.13.2"
@@ -35,9 +36,10 @@ object BuildPlugins {
 
 object Android {
     const val appcompat = "androidx.appcompat:appcompat:${Versions.appCompat}"
-    const val coreKtx = "androidx.core:core-ktx:${Versions.ktx}"
+    const val coreKtx = "androidx.core:core-ktx:${Versions.coreKtx}"
     const val constraintLayout =
         "androidx.constraintlayout:constraintlayout:${Versions.constraintLayout}"
+    const val fragmentKtx = "androidx.fragment:fragment-ktx:${Versions.fragmentKtx}"
 }
 
 object Dependencies {

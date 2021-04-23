@@ -37,6 +37,7 @@ android {
 dependencies {
     implementation(Dependencies.kotlin)
     implementation(Android.coreKtx)
+    implementation(Android.fragmentKtx)
     implementation(Android.appcompat)
     implementation(Dependencies.materialDesign)
     implementation(Android.constraintLayout)
