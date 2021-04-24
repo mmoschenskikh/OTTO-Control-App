@@ -8,18 +8,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.gridlayout.widget.GridLayout
-import android.widget.Toast
-import android.widget.TextView
+import android.widget.ToggleButton
 import androidx.annotation.RequiresApi
-import androidx.core.view.forEach
-import androidx.core.view.get
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import ru.spbstu.ottocontrol.R
 import ru.spbstu.ottocontrol.viewmodel.PictureViewModel
 
 class PictureView : Fragment()  {
+
     private val viewModel: PictureViewModel by viewModels()
 
     @RequiresApi(Build.VERSION_CODES.Q)
@@ -28,54 +27,63 @@ class PictureView : Fragment()  {
 
         val view = inflater.inflate(R.layout.picture_fragment, container, false)
 
-        val grid1: GridLayout = view.findViewById(R.id.gridLayout)
-        grid1.rowCount = 8
-        grid1.columnCount = 8
+        val grid: GridLayout = view.findViewById(R.id.gridLayout)
+        grid.rowCount = 8
+        grid.columnCount = 8
+        grid.useDefaultMargins = true
+
+        val correction = ((resources.displayMetrics.widthPixels - 20) % 10) * 10
+        val cellSize = (resources.displayMetrics.widthPixels - 20 + correction) / 10
 
         for (i in 0..7) {
             for (j in 0..7) {
-                val cell = TextView(context)
+                val layout = ConstraintLayout(requireContext())
+                layout.maxHeight = cellSize
+                layout.maxWidth = cellSize
+                val cell = ToggleButton(context)
+                cell.textOff = ""
                 cell.id = i
-                cell.autoSizeMaxTextSize
-                cell.height = 85
-                cell.width = 85
-                cell.setBackgroundResource(R.drawable.cell_black)
-                var count = 0
+                cell.isChecked = true
+                cell.setBackgroundColor(Color.BLACK)
                 cell.setOnClickListener {
-                    if (cell.isPressed) count++
-                    if (count % 2 == 1) cell.setBackgroundResource(R.drawable.cell_white)
-                    else cell.setBackgroundResource(R.drawable.cell_black)
+                    if (!cell.isChecked) {
+                        cell.setBackgroundColor(Color.WHITE)
+                        cell.isChecked = false
+                    }
+                    else {
+                        cell.setBackgroundColor(Color.BLACK)
+                        cell.isChecked = true
+                    }
                 }
-                grid1.apply { grid1.addView(cell) }
+                layout.addView(cell)
+                grid.addView(layout)
             }
         }
 
-        val grid2: GridLayout = view.findViewById(R.id.gridLayout2)
-        grid2.columnCount = 2
-        for (i in 0..1) {
-            val button = Button(context)
-            button.id = i
-            button.height = 190
-            button.width = 190
-            if (i == 1) {
-                button.setBackgroundResource(R.drawable.cell_black)
-                button.setOnClickListener {
-                    grid1.forEach { it.setBackgroundResource(R.drawable.cell_black) }
-                }
+        val button1: Button = view.findViewById(R.id.button1)
+        button1.setBackgroundColor(Color.WHITE)
+        button1.setOnClickListener {
+            grid.forEach {
+                (it as ConstraintLayout)[0].setBackgroundColor(Color.WHITE)
+                val check = it[0] as ToggleButton
+                if (check.isChecked) check.isChecked = !check.isChecked
             }
-            else {
-                button.setBackgroundResource(R.drawable.cell_white)
-                button.setOnClickListener {
-                    grid1.forEach { it.setBackgroundResource(R.drawable.cell_white) }
-                }
-            }
-            grid2.apply { grid2.addView(button) }
         }
 
-        val toastShort = Observer<String> {
-                message -> Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
+        val button2: Button = view.findViewById(R.id.button2)
+        button2.setBackgroundColor(Color.BLACK)
+        button2.setOnClickListener {
+            grid.forEach {
+                (it as ConstraintLayout)[0].setBackgroundColor(Color.BLACK)
+                val check = it[0] as ToggleButton
+                if (!check.isChecked) check.isChecked = !check.isChecked
+            }
         }
-        viewModel.toastShort.observe(viewLifecycleOwner, toastShort)
+
+//        val toastShort = Observer<String> {
+//                message -> Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
+//        }
+//        viewModel.toastShort.observe(viewLifecycleOwner, toastShort)
 
         return view
     }
