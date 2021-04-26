@@ -27,6 +27,7 @@ class PictureView : Fragment()  {
 
         val view = inflater.inflate(R.layout.picture_fragment, container, false)
 
+
         val grid: GridLayout = view.findViewById(R.id.gridLayout)
         grid.rowCount = 8
         grid.columnCount = 8
