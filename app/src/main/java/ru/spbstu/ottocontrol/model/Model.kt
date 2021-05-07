@@ -28,7 +28,7 @@ object Model : ModelInterface {
         override fun onReceive(context: Context, intent: Intent) {
             if (intent.action == BluetoothDevice.ACTION_FOUND) {
                 val device = intent.getParcelableExtra<Parcelable>(BluetoothDevice.EXTRA_DEVICE) as BluetoothDevice
-                if (!pairedDevices.contains(device)) {
+                if (!pairedDevices.contains(device) && device.name != null) {
                     pairedDevices.add(device)
                     viewModel.changeListOfPairedDevices()
                 }
