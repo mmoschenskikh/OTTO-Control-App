@@ -1,6 +1,7 @@
 plugins {
     id(BuildPlugins.androidApplication)
     id(BuildPlugins.kotlinAndroid)
+    id("kotlin-kapt")
 }
 
 android {
@@ -56,4 +57,9 @@ dependencies {
     implementation("com.android.support:appcompat-v7:28.0.0")
 
     implementation("androidx.localbroadcastmanager:localbroadcastmanager:1.0.0")
+
+    implementation("com.github.duanhong169:colorpicker:1.1.6")
+    implementation("com.github.duanhong169:text-button:1.0.5")
+    implementation("com.jakewharton:butterknife:10.2.3")
+    kapt("com.jakewharton:butterknife-compiler:10.2.3")
 }

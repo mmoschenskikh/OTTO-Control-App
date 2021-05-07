@@ -13,4 +13,5 @@
     <string name="choose_text">Текст</string>
     <string name="choose_picture">Рисунок</string>
     <string name="example">Example</string>
+    <string name="choose_color">Выбрать цвет</string>
 </resources>
