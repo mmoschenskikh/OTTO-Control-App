@@ -11,10 +11,7 @@ class LedViewModel : ViewModel() {
 
     init { ViewModels.ledViewModel = this }
 
-    fun onClickLedColor(data: String) {
-        val color = data
-        model.sendDataToDevice("led #FF0000")
-    }
+    fun onClickLedColor(color: String) = model.sendDataToDevice("led $color")
 
     fun showCommandExecutedByRobot(command: String) { toastShort.value = command }
 }
