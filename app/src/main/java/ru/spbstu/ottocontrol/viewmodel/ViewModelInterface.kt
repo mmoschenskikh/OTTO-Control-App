@@ -6,6 +6,7 @@ import android.content.IntentFilter
 interface ViewModelInterface {
     fun askForPermissionToUseBluetoothModule()
     fun notifyThatBluetoothIsNotSupported()
+    fun notifyThatChosenDeviceIsNotAvailable()
     fun askForTurnBluetoothOn()
     fun registerDeviceDetectionReceiver(broadcastReceiver: BroadcastReceiver, intentFilter: IntentFilter)
     fun changeListOfAvailableDevices()

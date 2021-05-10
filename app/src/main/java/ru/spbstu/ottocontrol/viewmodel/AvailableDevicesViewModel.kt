@@ -18,8 +18,15 @@ class AvailableDevicesViewModel : ViewModel() {
 
     init { ViewModels.availableDevicesViewModel = this }
 
-    fun connectToDevice(index: Int) {
-        model.connectToDevice(index)
+    fun connectToPairedDevice(index: Int) {
+        model.connectToPairedDevice(index)
+    }
+    fun connectToAvailableDevice(index: Int) {
+        model.connectToAvailableDevice(index)
+    }
+    fun notifyThatChosenDeviceIsNotAvailable() {
+        showToast = true
+        toastShort.value = "Выбранное сопряжённое устройство не обнаружено"
     }
     fun askForTurnBluetoothOn() {
         showToast = true

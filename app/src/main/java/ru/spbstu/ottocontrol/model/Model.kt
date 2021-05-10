@@ -19,6 +19,7 @@ object Model : ModelInterface {
     private val viewModel: ViewModelInterface = ViewModels
 
     private val CODE_RECEIVED_DATA_FROM_DEVICE = 1
+    private lateinit var pairedDevices: List<BluetoothDevice>
     private val availableDevices = mutableListOf<BluetoothDevice>()
     private val bluetoothSearcher = BluetoothSearcher()
     private val bluetoothDeviceConnector = BluetoothDeviceConnector(CODE_RECEIVED_DATA_FROM_DEVICE)
@@ -65,8 +66,17 @@ object Model : ModelInterface {
     }
 
     override fun getListOfAvailableDevices(): List<BluetoothDevice> = availableDevices
-    override fun getListOfPairedDevices(): List<BluetoothDevice> = bluetoothSearcher.getBondedDevices().toList()
-    override fun connectToDevice(index: Int) = bluetoothDeviceConnector.openDeviceConnection(availableDevices[index], handler)
+    override fun getListOfPairedDevices(): List<BluetoothDevice> {
+        pairedDevices = bluetoothSearcher.getBondedDevices().toList()
+        return pairedDevices
+    }
+    override fun connectToPairedDevice(index: Int) {
+        if (!availableDevices.contains(pairedDevices[index]))
+            viewModel.notifyThatChosenDeviceIsNotAvailable()
+        else
+            bluetoothDeviceConnector.openDeviceConnection(pairedDevices[index], handler)
+    }
+    override fun connectToAvailableDevice(index: Int) = bluetoothDeviceConnector.openDeviceConnection(availableDevices[index], handler)
     override fun sendDataToDevice(data: String) = bluetoothDeviceConnector.sendDataToDevice(interpreter.getDataToDevice(data))
     override fun closeDeviceConnection() = bluetoothDeviceConnector.closeDeviceConnection()
 }
