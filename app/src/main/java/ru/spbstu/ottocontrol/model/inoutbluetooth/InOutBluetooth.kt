@@ -29,9 +29,9 @@ class InOutBluetooth(val CODE_RECEIVED_DATA_FROM_DEVICE: Int) {
             while (true) {
                 try {
                     // EXAMPLE: instead of this:
-                    //val bytes = inputStream!!.read(buffer)
+                    val bytes = inputStream!!.read(buffer)
                     // we use:
-                    val bytes = BluetoothSocketExample.inputStream.read(buffer)
+                    // val bytes = BluetoothSocketExample.inputStream.read(buffer)
 
                     handler.sendMessage(handler.obtainMessage(CODE_RECEIVED_DATA_FROM_DEVICE, bytes, -1, buffer))
                     buffer = ByteArray(bufferSize)
@@ -55,9 +55,9 @@ class InOutBluetooth(val CODE_RECEIVED_DATA_FROM_DEVICE: Int) {
     fun sendDataToDevice(bytes: ByteArray) {
         try {
             // EXAMPLE: instead of this:
-            //outputStream!!.write(bytes)
+            outputStream!!.write(bytes)
             // we use:
-            BluetoothSocketExample.outputStream.write(bytes)
+            // BluetoothSocketExample.outputStream.write(bytes)
         } catch (e: IOException) { e.printStackTrace() }
     }
 }
