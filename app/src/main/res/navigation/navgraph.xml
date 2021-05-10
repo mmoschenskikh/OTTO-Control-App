@@ -42,7 +42,7 @@
         android:label="PianoView" />
     <fragment
         android:id="@+id/ledView"
-        android:name="ru.spbstu.ottocontrol.view.LedView"
+        android:name="ru.spbstu.ottocontrol.view.ColorPickerFragment"
         android:label="LedView" />
     <fragment
         android:id="@+id/textViewFragment"

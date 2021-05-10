@@ -1,4 +1,4 @@
-package ru.spbstu.ottocontrol.ui.base
+package ru.spbstu.ottocontrol.view.base
 
 import android.os.Bundle
 import android.view.LayoutInflater
