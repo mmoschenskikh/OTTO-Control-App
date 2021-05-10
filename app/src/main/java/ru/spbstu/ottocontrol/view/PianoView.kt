@@ -2,6 +2,7 @@ package ru.spbstu.ottocontrol.view
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.pm.ActivityInfo
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
@@ -136,6 +137,7 @@ class PianoView: Fragment() {
     private val viewModel: PianoViewModel by viewModels()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
 
         val view = inflater.inflate(R.layout.piano_fragment, container, false)
 

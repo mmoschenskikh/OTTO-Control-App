@@ -2,6 +2,7 @@ package ru.spbstu.ottocontrol.view
 
 
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -19,6 +20,8 @@ class InitView : Fragment() {
     private val viewModel: InitViewModel by viewModels()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+
         val view = inflater.inflate(R.layout.init_fragment, container, false)
 
         viewModel.initBluetooth()

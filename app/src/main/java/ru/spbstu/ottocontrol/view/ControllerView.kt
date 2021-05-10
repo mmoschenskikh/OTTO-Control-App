@@ -1,5 +1,6 @@
 package ru.spbstu.ottocontrol.view
 
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -18,6 +19,8 @@ class ControllerView : Fragment() {
     private val viewModel: ControllerViewModel by viewModels()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+
         val view = inflater.inflate(R.layout.controller_fragment, container, false)
 
         val buttonPiano: Button = view.findViewById(R.id.buttonChoosePiano)
