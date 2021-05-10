@@ -1,7 +1,7 @@
 plugins {
     id(BuildPlugins.androidApplication)
     id(BuildPlugins.kotlinAndroid)
-    id("kotlin-kapt")
+    id(BuildPlugins.kapt)
 }
 
 android {
@@ -37,34 +37,25 @@ android {
 
 dependencies {
     implementation(Dependencies.kotlin)
+
+    implementation(Android.activityKtx)
+    implementation(Android.appcompat)
+    implementation(Android.constraintLayout)
     implementation(Android.coreKtx)
     implementation(Android.fragmentKtx)
-    implementation(Android.appcompat)
+    implementation(Android.gridLayout)
+
+    implementation(Android.localBroadcastManager)
 
     implementation(Navigation.navigationUiKtx)
     implementation(Navigation.navigationFragmentKtx)
 
+    implementation(Dependencies.colorPicker)
     implementation(Dependencies.materialDesign)
-    implementation(Android.constraintLayout)
+
     testImplementation(Testing.jUnit)
     androidTestImplementation(Testing.extJUnit)
     androidTestImplementation(Testing.espresso)
 
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1")
-    implementation("androidx.activity:activity-ktx:1.2.2")
-
-    implementation("androidx.navigation:navigation-fragment-ktx:2.3.5")
-    implementation("androidx.navigation:navigation-ui-ktx:2.3.5")
-
-    implementation("androidx.fragment:fragment-ktx:1.3.2")
-
-    implementation("com.android.support:gridlayout-v7:28.0.0")
-    implementation("com.android.support:appcompat-v7:28.0.0")
-
-    implementation("androidx.localbroadcastmanager:localbroadcastmanager:1.0.0")
-
-    implementation("com.github.duanhong169:colorpicker:1.1.6")
-    implementation("com.github.duanhong169:text-button:1.0.5")
-    implementation("com.jakewharton:butterknife:10.2.3")
-    kapt("com.jakewharton:butterknife-compiler:10.2.3")
+    implementation(Android.gridLayout)
 }

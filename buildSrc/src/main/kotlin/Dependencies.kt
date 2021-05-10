@@ -15,12 +15,18 @@ object Versions {
     const val kotlin = "1.4.32"
     const val androidGradlePlugin = "4.1.3"
 
+    const val activityKtx = "1.2.3"
     const val appCompat = "1.2.0"
     const val constraintLayout = "2.0.4"
     const val coreKtx = "1.3.2"
     const val fragmentKtx = "1.3.3"
+    const val gridLayout = "1.0.0"
     const val material = "1.3.0"
     const val navigation = "2.3.5"
+
+    const val localBroadcastManager = "1.0.0"
+
+    const val colorPicker = "1.1.6"
 
     const val jUnit = "4.13.2"
     const val extJUnit = "1.1.1"
@@ -33,19 +39,28 @@ object BuildPlugins {
 
     const val androidApplication = "com.android.application"
     const val kotlinAndroid = "kotlin-android"
+    const val kapt = "kotlin-kapt"
 }
 
 object Android {
+    const val activityKtx = "androidx.activity:activity-ktx:${Versions.activityKtx}"
     const val appcompat = "androidx.appcompat:appcompat:${Versions.appCompat}"
     const val coreKtx = "androidx.core:core-ktx:${Versions.coreKtx}"
     const val constraintLayout =
         "androidx.constraintlayout:constraintlayout:${Versions.constraintLayout}"
     const val fragmentKtx = "androidx.fragment:fragment-ktx:${Versions.fragmentKtx}"
+    const val gridLayout = "androidx.gridlayout:gridlayout:${Versions.gridLayout}"
+
+    // FIXME: Seems like deprecated
+    const val localBroadcastManager =
+        "androidx.localbroadcastmanager:localbroadcastmanager:${Versions.localBroadcastManager}"
 }
 
 object Dependencies {
     const val kotlin = "org.jetbrains.kotlin:kotlin-stdlib:${Versions.kotlin}"
     const val materialDesign = "com.google.android.material:material:${Versions.material}"
+
+    const val colorPicker = "com.github.duanhong169:colorpicker:${Versions.colorPicker}"
 }
 
 object Navigation {
