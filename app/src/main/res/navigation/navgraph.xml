@@ -50,6 +50,6 @@
         android:label="TextView" />
     <fragment
         android:id="@+id/pictureView"
-        android:name="ru.spbstu.ottocontrol.view.controlpanel.options.PictureView"
+        android:name="ru.spbstu.ottocontrol.view.controlpanel.options.PictureFragment"
         android:label="PictureView" />
 </navigation>
