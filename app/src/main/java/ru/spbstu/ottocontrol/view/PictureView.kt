@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
 import androidx.gridlayout.widget.GridLayout
 import android.widget.ToggleButton
 import androidx.annotation.RequiresApi
@@ -14,6 +15,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import ru.spbstu.ottocontrol.R
 import ru.spbstu.ottocontrol.viewmodel.PictureViewModel
 
@@ -48,10 +50,14 @@ class PictureView : Fragment()  {
                 cell.setBackgroundColor(Color.BLACK)
                 cell.setOnClickListener {
                     if (!cell.isChecked) {
+                        viewModel.onClickSetWhite(i, j)
+
                         cell.setBackgroundColor(Color.WHITE)
                         cell.isChecked = false
                     }
                     else {
+                        viewModel.onClickSetBlack(i, j)
+
                         cell.setBackgroundColor(Color.BLACK)
                         cell.isChecked = true
                     }
@@ -64,6 +70,8 @@ class PictureView : Fragment()  {
         val button1: Button = view.findViewById(R.id.button1)
         button1.setBackgroundColor(Color.WHITE)
         button1.setOnClickListener {
+            viewModel.onClickSetWhite()
+
             grid.forEach {
                 (it as ConstraintLayout)[0].setBackgroundColor(Color.WHITE)
                 val check = it[0] as ToggleButton
@@ -74,6 +82,8 @@ class PictureView : Fragment()  {
         val button2: Button = view.findViewById(R.id.button2)
         button2.setBackgroundColor(Color.BLACK)
         button2.setOnClickListener {
+            viewModel.onClickSetBlack()
+
             grid.forEach {
                 (it as ConstraintLayout)[0].setBackgroundColor(Color.BLACK)
                 val check = it[0] as ToggleButton
@@ -81,12 +91,11 @@ class PictureView : Fragment()  {
             }
         }
 
-//        val toastShort = Observer<String> {
-//                message -> Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
-//        }
-//        viewModel.toastShort.observe(viewLifecycleOwner, toastShort)
+        val toastShort = Observer<String> {
+                message -> Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
+        }
+        viewModel.toastShort.observe(viewLifecycleOwner, toastShort)
 
         return view
     }
-
 }

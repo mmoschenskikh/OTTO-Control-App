@@ -11,7 +11,10 @@ class PictureViewModel : ViewModel() {
 
     init { ViewModels.pictureViewModel = this }
 
-    fun onClickMatrixDiag() = model.sendDataToDevice("matrix 0:0 1:1 2:2 3:3")
+    fun onClickSetBlack() = model.sendDataToDevice("matrix all to black")
+    fun onClickSetWhite() = model.sendDataToDevice("matrix all to white")
+    fun onClickSetBlack(i: Int, j: Int) = model.sendDataToDevice("matrix [$i; $j] from white to black" )
+    fun onClickSetWhite(i: Int, j: Int) = model.sendDataToDevice("matrix [$i; $j] from black to white" )
 
     fun showCommandExecutedByRobot(command: String) { toastShort.value = command }
 }
