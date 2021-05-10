@@ -48,7 +48,7 @@ class ControllerView : Fragment() {
         val buttonBack: Button = view.findViewById(R.id.stepBack)
         buttonBack.setOnClickListener() { viewModel.onClickBack() }
 
-        viewModel.showToast = false
+        viewModel.showToast = false // it's a crutch, but otherwise the toast appear after we return to this fragment
         val toastShort = Observer<String> { message -> if (viewModel.showToast) Toast.makeText(activity, message, Toast.LENGTH_SHORT).show() }
         viewModel.toastShort.observe(viewLifecycleOwner, toastShort)
 

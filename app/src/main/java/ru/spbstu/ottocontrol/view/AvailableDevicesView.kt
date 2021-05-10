@@ -32,7 +32,8 @@ class AvailableDevicesView : Fragment() {
                 device?.bondState == BluetoothDevice.BOND_BONDED && action == BluetoothDevice.ACTION_ACL_CONNECTED) {
                 activity?.let {
                     if (Navigation.findNavController(it, R.id.nav_host_fragment).currentDestination?.id == R.id.availableDevicesView)
-                        Navigation.findNavController(it, R.id.nav_host_fragment).navigate(R.id.action_availableDevicesView_to_controllerView) }
+                        Navigation.findNavController(it, R.id.nav_host_fragment).navigate(R.id.action_availableDevicesView_to_controllerView)
+                }
             }
         }
     }
@@ -52,7 +53,7 @@ class AvailableDevicesView : Fragment() {
             viewModel.onClickButtonUpdateList()
         }
 
-        viewModel.showToast = false
+        viewModel.showToast = false // it's a crutch, but otherwise the toast appear after we return to this fragment
         val toastShort = Observer<String> { message -> if (viewModel.showToast) Toast.makeText(activity, message, Toast.LENGTH_SHORT).show() }
         viewModel.toastShort.observe(viewLifecycleOwner, toastShort)
 

@@ -11,7 +11,7 @@ import ru.spbstu.ottocontrol.model.ModelInterface
 class AvailableDevicesViewModel : ViewModel() {
     private val model: ModelInterface = Model
     val toastShort: MutableLiveData<String> = MutableLiveData()
-    var showToast = false
+    var showToast = false // crutch!
     val receiverRegistrar: MutableLiveData<Pair<BroadcastReceiver, IntentFilter>> = MutableLiveData()
     val availableDevicesText: MutableLiveData<MutableList<String>> = MutableLiveData()
     val pairedDevicesText: MutableLiveData<MutableList<String>> = MutableLiveData()
@@ -25,11 +25,11 @@ class AvailableDevicesViewModel : ViewModel() {
         model.connectToAvailableDevice(index)
     }
     fun notifyThatChosenDeviceIsNotAvailable() {
-        showToast = true
+        showToast = true // crutch!
         toastShort.value = "Выбранное сопряжённое устройство не обнаружено"
     }
     fun askForTurnBluetoothOn() {
-        showToast = true
+        showToast = true // crutch!
         toastShort.value = "Включите Bluetooth"
     }
     fun registerDeviceDetectionReceiver(broadcastReceiver: BroadcastReceiver, intentFilter: IntentFilter) {
