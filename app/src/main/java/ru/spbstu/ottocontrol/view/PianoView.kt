@@ -45,93 +45,86 @@ class PianoView: Fragment() {
             green.style = Paint.Style.FILL
         }
 
-    override fun onSizeChanged(currentWidth: Int, currentHeight: Int, oldWidth: Int, oldHeight: Int) {
-        super.onSizeChanged(currentWidth, currentHeight, oldWidth, oldHeight)
+        override fun onSizeChanged(currentWidth: Int, currentHeight: Int, oldWidth: Int, oldHeight: Int) {
+            super.onSizeChanged(currentWidth, currentHeight, oldWidth, oldHeight)
 
-        keyWidth = currentWidth / numOfKeys
-        keyHeight = currentHeight
-        var count = 15
+            keyWidth = currentWidth / numOfKeys
+            keyHeight = currentHeight
+            var count = 15
 
-        for (i in 0 until numOfKeys) {
+            for (i in 0 until numOfKeys) {
 
-            val left = i * keyWidth
-            var right = left + keyWidth
+                val left = i * keyWidth
+                var right = left + keyWidth
 
-            if (i == numOfKeys - 1) right = currentWidth
+                if (i == numOfKeys - 1) right = currentWidth
 
-            var rect = RectF(left.toFloat(), 0f, right.toFloat(), currentHeight.toFloat())
-            whiteKeys.add(Key(rect, i + 1))
+                var rect = RectF(left.toFloat(), 0f, right.toFloat(), currentHeight.toFloat())
+                whiteKeys.add(Key(rect, i + 1))
 
-            if (i != 0 && i != 3 && i != 7 && i != 10) {
-                rect = RectF(
-                    (i - 1).toFloat() * keyWidth + 0.5f * keyWidth + 0.25f * keyWidth,
-                    0f,
-                    i.toFloat() * keyWidth + 0.25f * keyWidth,
-                    0.67f * height
-                )
-                blackKeys.add(Key(rect, count))
-                count++
+                if (i != 0 && i != 3 && i != 7 && i != 10) {
+                    rect = RectF(
+                        (i - 1).toFloat() * keyWidth + 0.5f * keyWidth + 0.25f * keyWidth,
+                        0f,
+                        i.toFloat() * keyWidth + 0.25f * keyWidth,
+                        0.67f * height
+                    )
+                    blackKeys.add(Key(rect, count))
+                    count++
+                }
             }
 
-        }
-    }
-
-    override fun onDraw(canvas: Canvas) {
-
-        whiteKeys.forEach { canvas.drawRect(it.rect, if (it.isPress) green else white) }
-
-        for (i in 1 until numOfKeys) {
-            val xStartStop = i * keyWidth.toFloat()
-            canvas.drawLine(xStartStop, 0f, xStartStop, height.toFloat(), black)
+            val test = 0
         }
 
-        blackKeys.forEach { canvas.drawRect(it.rect, if (it.isPress) green else black) }
+        override fun onDraw(canvas: Canvas) {
 
-    }
+            whiteKeys.forEach { canvas.drawRect(it.rect, if (it.isPress) green else white) }
 
-    @SuppressLint("ClickableViewAccessibility")
-    override fun onTouchEvent(event: MotionEvent): Boolean {
-
-        val isDownAction =
-            event.action == MotionEvent.ACTION_DOWN || event.action == MotionEvent.ACTION_MOVE
-
-        for (touchIndex in 0 until event.pointerCount) {
-            val x = event.getX(touchIndex)
-            val y = event.getY(touchIndex)
-            val key = keyCoordinates(x, y)
-            if (key != null) key.isPress = isDownAction
-        }
-
-        val keys = whiteKeys + blackKeys
-        keys.forEach { releaseKey(it) }
-
-        return true
-
-    }
-
-    private fun keyCoordinates(x: Float, y: Float): Key? {
-
-        blackKeys.forEach { if (it.rect.contains(x, y)) return it }
-
-        whiteKeys.forEach { if (it.rect.contains(x, y)) return it }
-
-        return null
-    }
-
-    private fun releaseKey(k: Key) {
-        handler.postDelayed({
-            k.isPress = false
-            handler.sendEmptyMessage(0)
-        }, 100)
-    }
-
-        private val handler = @SuppressLint("HandlerLeak")
-        object : Handler() {
-            override fun handleMessage(msg: Message) {
-                invalidate()
+            for (i in 1 until numOfKeys) {
+                val xStartStop = i * keyWidth.toFloat()
+                canvas.drawLine(xStartStop, 0f, xStartStop, height.toFloat(), black)
             }
+
+            blackKeys.forEach { canvas.drawRect(it.rect, if (it.isPress) green else black) }
+
         }
 
+        @SuppressLint("ClickableViewAccessibility")
+        override fun onTouchEvent(event: MotionEvent): Boolean {
+            super.onTouchEvent(event)
+
+            if (event.action == MotionEvent.ACTION_DOWN) {
+                for (touchIndex in 0 until event.pointerCount) {
+                    val x = event.getX(touchIndex)
+                    val y = event.getY(touchIndex)
+                    val key = keyCoordinates(x, y)
+                    if (key != null) key.isPress = true
+                }
+
+                postInvalidate()
+
+                (blackKeys + whiteKeys).forEach {
+                    handler.postDelayed({
+                        it.isPress = false
+                        handler.sendEmptyMessage(0)
+                    }, 100)
+                }
+            }
+
+            return true
+        }
+
+        private fun keyCoordinates(x: Float, y: Float): Key? {
+
+            blackKeys.forEach { if (it.rect.contains(x, y)) return it }
+
+            whiteKeys.forEach { if (it.rect.contains(x, y)) return it }
+
+            return null
+        }
+
+        private val handler = @SuppressLint("HandlerLeak") object : Handler() { override fun handleMessage(msg: Message) { invalidate() } }
     }
 
     private val viewModel: PianoViewModel by viewModels()
