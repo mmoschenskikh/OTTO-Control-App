@@ -11,7 +11,7 @@ class PianoViewModel : ViewModel() {
 
     init { ViewModels.pianoViewModel = this }
 
-    fun onClickPianoA() = model.sendDataToDevice("piano a")
+    fun playSound(sound: Int) = model.sendDataToDevice("sound $sound")
 
     fun showCommandExecutedByRobot(command: String) { toastShort.value = command }
 }

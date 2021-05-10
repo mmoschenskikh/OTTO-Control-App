@@ -19,6 +19,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import ru.spbstu.ottocontrol.BluetoothSocketExample
 import ru.spbstu.ottocontrol.R
 import ru.spbstu.ottocontrol.viewmodel.PianoViewModel
 
@@ -26,7 +27,6 @@ import ru.spbstu.ottocontrol.viewmodel.PianoViewModel
 class PianoView: Fragment() {
 
     class DrawPiano(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
-
         private val black = Paint()
         private val white = Paint()
         private val green = Paint()
@@ -94,17 +94,25 @@ class PianoView: Fragment() {
         override fun onTouchEvent(event: MotionEvent): Boolean {
             super.onTouchEvent(event)
 
+            val pressedKeys = mutableListOf<Key>()
             if (event.action == MotionEvent.ACTION_DOWN) {
                 for (touchIndex in 0 until event.pointerCount) {
                     val x = event.getX(touchIndex)
                     val y = event.getY(touchIndex)
                     val key = keyCoordinates(x, y)
-                    if (key != null) key.isPress = true
+                    if (key != null) {
+                        pressedKeys.add(key)
+                    }
+                }
+
+                pressedKeys.forEach {
+                    it.isPress = true
+                    handlerPlaySound.playSound(it.sound)
                 }
 
                 postInvalidate()
 
-                (blackKeys + whiteKeys).forEach {
+                pressedKeys.forEach {
                     handler.postDelayed({
                         it.isPress = false
                         handler.sendEmptyMessage(0)
@@ -131,6 +139,7 @@ class PianoView: Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+        handlerPlaySound.viewModel = viewModel
 
         val view = inflater.inflate(R.layout.piano_fragment, container, false)
 
@@ -145,3 +154,10 @@ class PianoView: Fragment() {
 }
 
 class Key(var rect: RectF, var sound: Int) { var isPress = false }
+
+object handlerPlaySound {
+    lateinit var viewModel: PianoViewModel
+    fun playSound(sound: Int) {
+        viewModel.playSound(sound)
+    }
+}
