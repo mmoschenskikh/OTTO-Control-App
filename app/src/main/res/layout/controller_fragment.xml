@@ -1,109 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:baselineAligned="false"
-        android:gravity="bottom"
-        android:orientation="vertical"
-        android:paddingStart="75dp"
-        android:paddingEnd="75dp"
-        android:paddingBottom="50dp"
+    <ImageButton
+        android:id="@+id/soundButton"
+        style="@style/ActionButtonRound"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_music"
+        app:layout_constraintBottom_toTopOf="@+id/textButton"
+        app:layout_constraintEnd_toStartOf="@+id/ledButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/ledButton"
+        style="@style/ActionButtonRound"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_led"
+        app:layout_constraintBottom_toTopOf="@+id/matrixButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/soundButton"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/matrixButton"
+        style="@style/ActionButtonRound"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_image"
+        app:layout_constraintBottom_toTopOf="@+id/forwardButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textButton"
+        app:layout_constraintTop_toBottomOf="@+id/ledButton" />
+
+    <ImageButton
+        android:id="@+id/textButton"
+        style="@style/ActionButtonRound"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_text"
+        app:layout_constraintBottom_toTopOf="@+id/forwardButton"
+        app:layout_constraintEnd_toStartOf="@+id/matrixButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/soundButton" />
+
+    <ImageButton
+        android:id="@+id/forwardButton"
+        style="@style/ActionButtonRound"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/control_panel_margin"
+        android:src="@drawable/ic_direction"
+        app:layout_constraintBottom_toTopOf="@+id/backButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textButton" />
+
+    <ImageButton
+        android:id="@+id/leftButton"
+        style="@style/ActionButtonRound"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/control_panel_margin"
+        android:layout_marginTop="@dimen/control_panel_margin"
+        android:layout_marginEnd="@dimen/control_panel_margin"
+        android:layout_marginBottom="@dimen/control_panel_margin"
+        android:rotation="270"
+        android:src="@drawable/ic_direction"
+        app:layout_constraintBottom_toTopOf="@+id/backButton"
+        app:layout_constraintEnd_toStartOf="@+id/rightButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/forwardButton" />
+
+    <ImageButton
+        android:id="@+id/rightButton"
+        style="@style/ActionButtonRound"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/control_panel_margin"
+        android:layout_marginTop="@dimen/control_panel_margin"
+        android:layout_marginEnd="@dimen/control_panel_margin"
+        android:layout_marginBottom="@dimen/control_panel_margin"
+        android:rotation="90"
+        android:src="@drawable/ic_direction"
+        app:layout_constraintBottom_toTopOf="@+id/backButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/leftButton"
+        app:layout_constraintTop_toBottomOf="@+id/forwardButton" />
+
+    <ImageButton
+        android:id="@+id/backButton"
+        style="@style/ActionButtonRound"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/control_panel_margin"
+        android:rotation="180"
+        android:src="@drawable/ic_direction"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-        <Button
-            android:id="@+id/buttonChoosePiano"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="15dp"
-            android:layout_marginBottom="5dp"
-            android:paddingTop="4dp"
-            android:paddingBottom="4dp"
-            android:text="@string/choose_piano" />
-
-        <Button
-            android:id="@+id/buttonChooseLed"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="15dp"
-            android:layout_marginBottom="5dp"
-            android:paddingTop="4dp"
-            android:paddingBottom="4dp"
-            android:text="@string/choose_led" />
-
-        <Button
-            android:id="@+id/buttonChooseText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="15dp"
-            android:layout_marginBottom="5dp"
-            android:paddingTop="4dp"
-            android:paddingBottom="4dp"
-            android:text="@string/choose_text" />
-
-        <Button
-            android:id="@+id/buttonChoosePicture"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="15dp"
-            android:layout_marginBottom="50dp"
-            android:paddingTop="4dp"
-            android:paddingBottom="4dp"
-            android:text="@string/choose_picture" />
-
-        <Button
-            android:id="@+id/stepLeft"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:paddingTop="4dp"
-            android:paddingBottom="4dp"
-            android:text="@string/button_left" />
-
-        <Button
-            android:id="@+id/stepRight"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:paddingTop="4dp"
-            android:paddingBottom="4dp"
-            android:text="@string/button_right" />
-
-        <Button
-            android:id="@+id/stepForward"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:paddingTop="4dp"
-            android:paddingBottom="4dp"
-            android:text="@string/button_forward" />
-
-        <Button
-            android:id="@+id/stepBack"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:paddingTop="4dp"
-            android:paddingBottom="4dp"
-            android:text="@string/button_back" />
-    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
