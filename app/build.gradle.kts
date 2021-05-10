@@ -38,7 +38,12 @@ android {
 dependencies {
     implementation(Dependencies.kotlin)
     implementation(Android.coreKtx)
+    implementation(Android.fragmentKtx)
     implementation(Android.appcompat)
+
+    implementation(Navigation.navigationUiKtx)
+    implementation(Navigation.navigationFragmentKtx)
+
     implementation(Dependencies.materialDesign)
     implementation(Android.constraintLayout)
     testImplementation(Testing.jUnit)
