@@ -1,4 +1,4 @@
-package ru.spbstu.ottocontrol.view
+package ru.spbstu.ottocontrol.view.controlpanel.options
 
 import android.graphics.Color
 import android.os.Build
@@ -7,13 +7,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import androidx.gridlayout.widget.GridLayout
 import android.widget.ToggleButton
 import androidx.annotation.RequiresApi
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.view.*
+import androidx.core.view.forEach
+import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.gridlayout.widget.GridLayout
 import ru.spbstu.ottocontrol.R
 import ru.spbstu.ottocontrol.viewmodel.PictureViewModel
 

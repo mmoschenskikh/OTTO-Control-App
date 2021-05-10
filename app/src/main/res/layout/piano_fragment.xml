@@ -9,9 +9,10 @@
         android:layout_height="match_parent"
         android:orientation="horizontal">
 
-        <view class="ru.spbstu.ottocontrol.view.PianoView$DrawPiano"
+        <view
+            class="ru.spbstu.ottocontrol.view.controlpanel.options.PianoView$DrawPiano"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

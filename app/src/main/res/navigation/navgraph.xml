@@ -21,7 +21,7 @@
     </fragment>
     <fragment
         android:id="@+id/controllerView"
-        android:name="ru.spbstu.ottocontrol.view.OttoControllerFragment"
+        android:name="ru.spbstu.ottocontrol.view.controlpanel.OttoControllerFragment"
         android:label="ControllerView" >
         <action
             android:id="@+id/action_controllerView_to_pianoView"
@@ -38,18 +38,18 @@
     </fragment>
     <fragment
         android:id="@+id/pianoView"
-        android:name="ru.spbstu.ottocontrol.view.PianoView"
+        android:name="ru.spbstu.ottocontrol.view.controlpanel.options.PianoView"
         android:label="PianoView" />
     <fragment
         android:id="@+id/ledView"
-        android:name="ru.spbstu.ottocontrol.view.ColorPickerFragment"
+        android:name="ru.spbstu.ottocontrol.view.controlpanel.options.ColorPickerFragment"
         android:label="LedView" />
     <fragment
         android:id="@+id/textViewFragment"
-        android:name="ru.spbstu.ottocontrol.view.TextView"
+        android:name="ru.spbstu.ottocontrol.view.controlpanel.options.TextView"
         android:label="TextView" />
     <fragment
         android:id="@+id/pictureView"
-        android:name="ru.spbstu.ottocontrol.view.PictureView"
+        android:name="ru.spbstu.ottocontrol.view.controlpanel.options.PictureView"
         android:label="PictureView" />
 </navigation>
