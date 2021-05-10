@@ -13,7 +13,7 @@ class InOutBluetooth(val CODE_RECEIVED_DATA_FROM_DEVICE: Int) {
     private var outputStream: OutputStream? = null
     private lateinit var socket: BluetoothSocket
     private lateinit var thread: Thread
-    private val bufferSize = 32
+    private val bufferSize = 64
 
     fun openCommunication(socket: BluetoothSocket, handler: Handler) {
         this.socket = socket
