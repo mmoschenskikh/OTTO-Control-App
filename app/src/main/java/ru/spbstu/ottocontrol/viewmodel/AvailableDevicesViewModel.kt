@@ -42,6 +42,9 @@ class AvailableDevicesViewModel : ViewModel() {
             devices.add("${device.name}; ${device.address}")
         pairedDevicesText.value = devices
     }
+    fun closeDeviceConnection() {
+        model.closeDeviceConnection()
+    }
 
     fun changeListOfAvailableDevices() {
         val devices = mutableListOf<String>()

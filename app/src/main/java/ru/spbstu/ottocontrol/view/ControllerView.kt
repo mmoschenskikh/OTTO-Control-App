@@ -54,9 +54,4 @@ class ControllerView : Fragment() {
 
         return view
     }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        viewModel.closeDeviceConnection()
-    }
 }

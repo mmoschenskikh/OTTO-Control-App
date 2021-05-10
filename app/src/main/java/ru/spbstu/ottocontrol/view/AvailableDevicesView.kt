@@ -1,5 +1,6 @@
 package ru.spbstu.ottocontrol.view
 
+import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -15,9 +16,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.navigation.NavDestination
 import androidx.navigation.Navigation
-import androidx.navigation.Navigator
 import ru.spbstu.ottocontrol.R
 import ru.spbstu.ottocontrol.viewmodel.AvailableDevicesViewModel
 
@@ -28,7 +27,9 @@ class AvailableDevicesView : Fragment() {
     val broadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
             val action = intent.action
-            if (BluetoothDevice.ACTION_ACL_CONNECTED == action) {
+            val device: BluetoothDevice? = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE)
+            if (action == BluetoothAdapter.ACTION_CONNECTION_STATE_CHANGED ||
+                device?.bondState == BluetoothDevice.BOND_BONDED && action == BluetoothDevice.ACTION_ACL_CONNECTED) {
                 activity?.let {
                     if (Navigation.findNavController(it, R.id.nav_host_fragment).currentDestination?.id == R.id.availableDevicesView)
                         Navigation.findNavController(it, R.id.nav_host_fragment).navigate(R.id.action_availableDevicesView_to_controllerView) }
@@ -39,7 +40,12 @@ class AvailableDevicesView : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val view = inflater.inflate(R.layout.availabledevices_fragment, container, false)
 
-        activity?.registerReceiver(broadcastReceiver, IntentFilter(BluetoothDevice.ACTION_ACL_CONNECTED))
+        viewModel.closeDeviceConnection()
+
+        val intentFilter = IntentFilter()
+        intentFilter.addAction(BluetoothAdapter.ACTION_CONNECTION_STATE_CHANGED)
+        intentFilter.addAction(BluetoothDevice.ACTION_ACL_CONNECTED)
+        activity?.registerReceiver(broadcastReceiver, intentFilter)
 
         val buttonUpdateList: Button = view.findViewById(R.id.updateList)
         buttonUpdateList.setOnClickListener {
@@ -83,6 +89,7 @@ class AvailableDevicesView : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        activity?.unregisterReceiver(broadcastReceiver)
+        if (broadcastReceiver.isOrderedBroadcast)
+            activity?.unregisterReceiver(broadcastReceiver)
     }
 }

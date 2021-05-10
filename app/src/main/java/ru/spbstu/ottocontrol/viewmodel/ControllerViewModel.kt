@@ -17,7 +17,6 @@ class ControllerViewModel : ViewModel() {
     fun onClickRight() = model.sendDataToDevice("step right")
     fun onClickForward() = model.sendDataToDevice("step forward")
     fun onClickBack() = model.sendDataToDevice("step back")
-    fun closeDeviceConnection() = model.closeDeviceConnection()
 
     fun showCommandExecutedByRobot(command: String) {
         showToast = true
