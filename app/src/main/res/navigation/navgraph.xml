@@ -21,7 +21,7 @@
     </fragment>
     <fragment
         android:id="@+id/controllerView"
-        android:name="ru.spbstu.ottocontrol.view.ControllerView"
+        android:name="ru.spbstu.ottocontrol.view.OttoControllerFragment"
         android:label="ControllerView" >
         <action
             android:id="@+id/action_controllerView_to_pianoView"
