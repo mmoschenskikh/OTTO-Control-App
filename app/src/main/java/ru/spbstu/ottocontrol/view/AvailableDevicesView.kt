@@ -31,9 +31,9 @@ class AvailableDevicesView : Fragment() {
         val toastShort = Observer<String> { message -> if (viewModel.showToast) Toast.makeText(activity, message, Toast.LENGTH_SHORT).show() }
         viewModel.toastShort.observe(viewLifecycleOwner, toastShort)
 
-        val listOfDevices: LinearLayout = view.findViewById(R.id.listOfDevices)
+        val listOfPairedDevices: LinearLayout = view.findViewById(R.id.listOfPairedDevices)
         val pairedDevicesObserver = Observer<MutableList<String>> { pairedDevices ->
-            listOfDevices.removeAllViews()
+            listOfPairedDevices.removeAllViews()
             for (i in pairedDevices.indices) {
                 val button = Button(activity)
                 button.text = pairedDevices[i]
@@ -41,10 +41,25 @@ class AvailableDevicesView : Fragment() {
                     viewModel.connectToDevice(i)
                     Navigation.findNavController(view).navigate(R.id.action_availableDevicesView_to_controllerView)
                 }
-                listOfDevices.addView(button)
+                listOfPairedDevices.addView(button)
             }
         }
         viewModel.pairedDevicesText.observe(viewLifecycleOwner, pairedDevicesObserver)
+
+        val listOfAvailableDevices: LinearLayout = view.findViewById(R.id.listOfAvailableDevices)
+        val availableDevicesObserver = Observer<MutableList<String>> { availableDevices ->
+            listOfAvailableDevices.removeAllViews()
+            for (i in availableDevices.indices) {
+                val button = Button(activity)
+                button.text = availableDevices[i]
+                button.setOnClickListener {
+                    viewModel.connectToDevice(i)
+                    Navigation.findNavController(view).navigate(R.id.action_availableDevicesView_to_controllerView)
+                }
+                listOfAvailableDevices.addView(button)
+            }
+        }
+        viewModel.availableDevicesText.observe(viewLifecycleOwner, availableDevicesObserver)
 
         val registerReceiverObserver = Observer<Pair<BroadcastReceiver, IntentFilter>> { registerReceiver -> context?.registerReceiver(registerReceiver.first, registerReceiver.second) }
         viewModel.receiverRegistrar.observe(viewLifecycleOwner, registerReceiverObserver)
