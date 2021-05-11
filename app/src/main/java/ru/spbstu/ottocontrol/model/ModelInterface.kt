@@ -7,6 +7,6 @@ interface ModelInterface {
     fun searchPairedDevices()
     fun getPairedDevices(): MutableList<BluetoothDevice>
     fun connectToDevice(index: Int)
-    fun sendDataToDevice(data: String)
+    fun sendDataToDevice(data: ByteArray)
     fun closeDeviceConnection()
 }

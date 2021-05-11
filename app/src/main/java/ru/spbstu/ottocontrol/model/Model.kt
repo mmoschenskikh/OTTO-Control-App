@@ -12,13 +12,13 @@ import android.os.Parcelable
 import ru.spbstu.ottocontrol.model.bluetoothdeviceconnector.BluetoothDeviceConnector
 import ru.spbstu.ottocontrol.model.bluetoothsearcher.BluetoothSearcher
 import ru.spbstu.ottocontrol.model.interpreter.Interpreter
-import ru.spbstu.ottocontrol.viewmodel.ViewModels
 import ru.spbstu.ottocontrol.viewmodel.ViewModelInterface
+import ru.spbstu.ottocontrol.viewmodel.ViewModels
 
 object Model : ModelInterface {
     private val viewModel: ViewModelInterface = ViewModels
 
-    private val CODE_RECEIVED_DATA_FROM_DEVICE = 1
+    private const val CODE_RECEIVED_DATA_FROM_DEVICE = 1
     private val pairedDevices = mutableListOf<BluetoothDevice>()
     private val bluetoothSearcher = BluetoothSearcher()
     private val bluetoothDeviceConnector = BluetoothDeviceConnector(CODE_RECEIVED_DATA_FROM_DEVICE)
@@ -66,7 +66,9 @@ object Model : ModelInterface {
     }
 
     override fun getPairedDevices(): MutableList<BluetoothDevice> = pairedDevices
-    override fun connectToDevice(index: Int) = bluetoothDeviceConnector.openDeviceConnection(pairedDevices[index], handler)
-    override fun sendDataToDevice(data: String) = bluetoothDeviceConnector.sendDataToDevice(interpreter.getDataToDevice(data))
+    override fun connectToDevice(index: Int) =
+        bluetoothDeviceConnector.openDeviceConnection(pairedDevices[index], handler)
+
+    override fun sendDataToDevice(data: ByteArray) = bluetoothDeviceConnector.sendDataToDevice(data)
     override fun closeDeviceConnection() = bluetoothDeviceConnector.closeDeviceConnection()
 }
