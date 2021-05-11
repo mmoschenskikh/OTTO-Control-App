@@ -1,7 +1,6 @@
 plugins {
     id(BuildPlugins.androidApplication)
     id(BuildPlugins.kotlinAndroid)
-    id(BuildPlugins.kapt)
 }
 
 android {
@@ -38,14 +37,11 @@ android {
 dependencies {
     implementation(Dependencies.kotlin)
 
-    implementation(Android.activityKtx)
     implementation(Android.appcompat)
     implementation(Android.constraintLayout)
     implementation(Android.coreKtx)
     implementation(Android.fragmentKtx)
     implementation(Android.gridLayout)
-
-    implementation(Android.localBroadcastManager)
 
     implementation(Navigation.navigationUiKtx)
     implementation(Navigation.navigationFragmentKtx)
@@ -56,6 +52,4 @@ dependencies {
     testImplementation(Testing.jUnit)
     androidTestImplementation(Testing.extJUnit)
     androidTestImplementation(Testing.espresso)
-
-    implementation(Android.gridLayout)
 }
