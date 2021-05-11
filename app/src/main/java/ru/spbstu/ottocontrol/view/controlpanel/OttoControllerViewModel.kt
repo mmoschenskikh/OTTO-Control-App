@@ -3,9 +3,7 @@ package ru.spbstu.ottocontrol.view.controlpanel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import ru.spbstu.ottocontrol.data.Action
-import ru.spbstu.ottocontrol.data.ActionRepository
-import ru.spbstu.ottocontrol.data.FireMatrix
+import ru.spbstu.ottocontrol.data.*
 import ru.spbstu.ottocontrol.data.util.Matrix
 
 class OttoControllerViewModel : ViewModel() {
@@ -27,7 +25,9 @@ class OttoControllerViewModel : ViewModel() {
     }
 
     fun onColorPicked() {
-        // TODO
+        _ledColor.value?.let { color ->
+            ActionRepository.sendAction(FireLed(color))
+        }
     }
 
     fun onTextChanged(text: String?) {
@@ -35,7 +35,9 @@ class OttoControllerViewModel : ViewModel() {
     }
 
     fun onTextEditFinished() {
-        // TODO
+        _text.value?.let { string ->
+            ActionRepository.sendAction(ShowText(string))
+        }
     }
 
     fun onCellChanged(m: Int, n: Int) {
