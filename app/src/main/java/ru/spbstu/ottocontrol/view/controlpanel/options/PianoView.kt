@@ -13,12 +13,12 @@ import androidx.core.content.ContextCompat
 import ru.spbstu.ottocontrol.R
 import kotlin.math.min
 
-class PianoView(context: Context?, attrs: AttributeSet?) : View(context, attrs),
-    KeyIndexObservable {
+class PianoView(context: Context?, attrs: AttributeSet?) :
+    View(context, attrs), KeyIndexObservable {
 
-    class Key(var rect: RectF, var sound: Int)
+    private class Key(var rect: RectF, var sound: Int)
 
-    var keyPressedIndex: Int? = null
+    private var keyPressedIndex: Int? = null
         set(value) {
             if (value == null || value in 0 until KEYS_COUNT) {
                 field = value
