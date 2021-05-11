@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string-array name="note_lengths_array" tools:ignore="TypographyFractions">
+        <item>1/16</item>
+        <item>1/8</item>
+        <item>1/4</item>
+        <item>1/3</item>
+        <item>1/2</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+</resources>

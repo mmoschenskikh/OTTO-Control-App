@@ -34,6 +34,11 @@ class PianoView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
             context?.let { ContextCompat.getColor(it, R.color.green_otto_1) } ?: Color.GREEN
         paint.style = Paint.Style.FILL
     }
+    private val border = Paint().also {
+        it.color = Color.BLACK
+        it.strokeWidth = BORDER_WIDTH
+        it.style = Paint.Style.STROKE
+    }
 
     private val whiteKeys = mutableListOf<Key>()
     private val blackKeys = mutableListOf<Key>()
@@ -85,14 +90,13 @@ class PianoView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
     }
 
     override fun onDraw(canvas: Canvas) {
-
         whiteKeys.forEach { canvas.drawRect(it.rect, if (it.isPress) green else white) }
-
         for (i in 1 until numOfKeys) {
             val xStartStop = i * keyWidth.toFloat()
             canvas.drawLine(xStartStop, 0f, xStartStop, height.toFloat(), black)
         }
         blackKeys.forEach { canvas.drawRect(it.rect, if (it.isPress) green else black) }
+        canvas.drawRect(0f, 0f, width.toFloat(), height.toFloat(), border)
 
     }
 
@@ -134,6 +138,10 @@ class PianoView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
         override fun handleMessage(msg: Message) {
             invalidate()
         }
+    }
+
+    companion object {
+        private const val BORDER_WIDTH = 8f
     }
 }
 

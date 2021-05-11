@@ -17,4 +17,7 @@
     <string name="show_picture">Показать на роботе</string>
     <string name="enter_text_hint">Введите текст, который отобразит робот</string>
     <string name="text_done">Отправить текст роботу</string>
+    <string name="play_note">Сыграть ноту</string>
+    <string name="note_length">Длительность:</string>
+    <string name="seconds">сек.</string>
 </resources>
