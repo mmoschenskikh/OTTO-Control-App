@@ -13,10 +13,6 @@ class ControllerViewModel : ViewModel() {
 
     init { ViewModels.controllerViewModel = this }
 
-    fun onClickLeft() = model.sendDataToDevice("step left")
-    fun onClickRight() = model.sendDataToDevice("step right")
-    fun onClickForward() = model.sendDataToDevice("step forward")
-    fun onClickBack() = model.sendDataToDevice("step back")
 
     fun showCommandExecutedByRobot(command: String) {
         showToast = true

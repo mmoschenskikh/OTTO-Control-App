@@ -11,7 +11,6 @@ class TextViewModel : ViewModel() {
 
     init { ViewModels.textViewModel = this }
 
-    fun onClickTextABC() = model.sendDataToDevice("text abc")
 
     fun showCommandExecutedByRobot(command: String) { toastShort.value = command }
 }

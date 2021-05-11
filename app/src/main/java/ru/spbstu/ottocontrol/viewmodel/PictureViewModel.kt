@@ -11,7 +11,6 @@ class PictureViewModel : ViewModel() {
 
     init { ViewModels.pictureViewModel = this }
 
-    fun onClickMatrixDiag() = model.sendDataToDevice("matrix 0:0 1:1 2:2 3:3")
 
     fun showCommandExecutedByRobot(command: String) { toastShort.value = command }
 }
