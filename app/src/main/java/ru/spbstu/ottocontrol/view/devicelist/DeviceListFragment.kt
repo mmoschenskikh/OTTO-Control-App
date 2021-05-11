@@ -1,4 +1,4 @@
-package ru.spbstu.ottocontrol.view
+package ru.spbstu.ottocontrol.view.devicelist
 
 import android.bluetooth.BluetoothDevice
 import android.content.BroadcastReceiver
@@ -18,11 +18,12 @@ import androidx.navigation.Navigation
 import ru.spbstu.ottocontrol.R
 import ru.spbstu.ottocontrol.databinding.FragmentDeviceListBinding
 import ru.spbstu.ottocontrol.view.base.BaseFragment
-import ru.spbstu.ottocontrol.viewmodel.DeviceListViewModel
 
 
 class DeviceListFragment :
     BaseFragment<FragmentDeviceListBinding>(FragmentDeviceListBinding::inflate) {
+
+    // FIXME: Cleanup, extract strings to string resources, use RecyclerView (with TabLayout and ViewPager probably)
 
     private val viewModel by activityViewModels<DeviceListViewModel>()
 

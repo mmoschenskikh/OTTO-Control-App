@@ -16,6 +16,7 @@ import ru.spbstu.ottocontrol.R
 import ru.spbstu.ottocontrol.viewmodel.InitViewModel
 
 class InitView : Fragment() {
+    // FIXME: Useless Fragment, everything should be moved to the device list
     private val viewModel: InitViewModel by viewModels()
 
     override fun onCreateView(

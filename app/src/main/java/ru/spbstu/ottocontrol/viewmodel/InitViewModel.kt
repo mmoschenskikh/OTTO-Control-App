@@ -12,10 +12,18 @@ class InitViewModel : ViewModel() {
     val toastShort: MutableLiveData<String> = MutableLiveData()
     val intentPermissionToUseBluetooth: MutableLiveData<Pair<Intent, Int>> = MutableLiveData()
 
-    init { ViewModels.initViewModel = this }
+    init {
+        ViewModels.initViewModel = this
+    }
 
     fun initBluetooth() = model.initBluetooth()
 
-    fun askForPermissionToUseBluetoothModule() { intentPermissionToUseBluetooth.value = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE) to 1 }
-    fun notifyThatBluetoothIsNotSupported() { toastShort.value = "Bluetooth не поддерживается" }
+    fun askForPermissionToUseBluetoothModule() {
+        intentPermissionToUseBluetooth.value = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE) to 1
+    }
+
+    // FIXME: Extract string to string resources
+    fun notifyThatBluetoothIsNotSupported() {
+        toastShort.value = "Bluetooth не поддерживается"
+    }
 }

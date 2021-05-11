@@ -1,4 +1,4 @@
-package ru.spbstu.ottocontrol.ui.devicelist
+package ru.spbstu.ottocontrol.view.devicelist
 
 import android.bluetooth.BluetoothDevice
 import android.view.LayoutInflater
@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import ru.spbstu.ottocontrol.databinding.ItemBtDeviceBinding
 
+// TODO: Should be used with DeviceListFragment
 class DeviceListAdapter(
     private val onItemClicked: (BluetoothDevice) -> Unit
 ) : ListAdapter<BluetoothDevice, DeviceViewHolder>(DIFF_CALLBACK) {

@@ -1,4 +1,4 @@
-package ru.spbstu.ottocontrol.viewmodel
+package ru.spbstu.ottocontrol.view.devicelist
 
 import android.content.BroadcastReceiver
 import android.content.IntentFilter
@@ -6,9 +6,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import ru.spbstu.ottocontrol.data.model.Model
 import ru.spbstu.ottocontrol.data.model.ModelInterface
+import ru.spbstu.ottocontrol.viewmodel.ViewModels
 
 
 class DeviceListViewModel : ViewModel() {
+    // FIXME: Cleanup, interaction with repository (see ru.spbstu.ottocontrol.viewmodel.ViewModels), extract strings to string resources
+
     private val model: ModelInterface = Model
     val toastShort = MutableLiveData<String>()
     var showToast = false // crutch!

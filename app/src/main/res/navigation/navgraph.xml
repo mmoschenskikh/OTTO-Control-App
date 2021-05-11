@@ -3,18 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/navgraph"
     app:startDestination="@id/initView">
+    <!-- FIXME: "Pop up to" should be used to avoid returning at device list screen (also see OttoControllerFragment)  -->
     <fragment
         android:id="@+id/initView"
         android:name="ru.spbstu.ottocontrol.view.InitView"
-        android:label="InitView" >
+        android:label="InitView">
         <action
             android:id="@+id/action_initView_to_availableDevicesView"
             app:destination="@id/availableDevicesView" />
     </fragment>
     <fragment
         android:id="@+id/availableDevicesView"
-        android:name="ru.spbstu.ottocontrol.view.DeviceListFragment"
-        android:label="AvailableDevicesView" >
+        android:name="ru.spbstu.ottocontrol.view.devicelist.DeviceListFragment"
+        android:label="AvailableDevicesView">
         <action
             android:id="@+id/action_availableDevicesView_to_controllerView"
             app:destination="@id/controllerView" />
@@ -22,7 +23,7 @@
     <fragment
         android:id="@+id/controllerView"
         android:name="ru.spbstu.ottocontrol.view.controlpanel.OttoControllerFragment"
-        android:label="ControllerView" >
+        android:label="ControllerView">
         <action
             android:id="@+id/action_controllerView_to_pianoView"
             app:destination="@id/pianoView" />

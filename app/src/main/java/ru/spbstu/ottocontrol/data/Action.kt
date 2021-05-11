@@ -7,6 +7,7 @@ sealed class Action {
     abstract fun toBytes(): ByteArray
 }
 
+// FIXME: Replace stubs with actual data
 class ShowText(private val text: String) : Action() {
     override fun toBytes(): ByteArray {
         return "The text is: \"${text}\"".toByteArray()

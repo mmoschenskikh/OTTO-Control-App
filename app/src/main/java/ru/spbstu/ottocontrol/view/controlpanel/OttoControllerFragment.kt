@@ -14,7 +14,7 @@ import ru.spbstu.ottocontrol.view.base.BaseFragment
 
 class OttoControllerFragment :
     BaseFragment<FragmentOttoControllerBinding>(FragmentOttoControllerBinding::inflate) {
-
+    // FIXME: Back button should be locked to prevent the user from leaving the app. Toolbar menu should be used both to disconnect and leave.
     private val viewModel by activityViewModels<OttoControllerViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

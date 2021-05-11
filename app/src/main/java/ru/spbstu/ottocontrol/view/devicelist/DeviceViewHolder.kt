@@ -1,4 +1,4 @@
-package ru.spbstu.ottocontrol.ui.devicelist
+package ru.spbstu.ottocontrol.view.devicelist
 
 import android.bluetooth.BluetoothDevice
 import androidx.recyclerview.widget.RecyclerView

@@ -4,8 +4,11 @@ import android.content.BroadcastReceiver
 import android.content.IntentFilter
 import ru.spbstu.ottocontrol.util.Observable
 import ru.spbstu.ottocontrol.util.Observer
+import ru.spbstu.ottocontrol.view.devicelist.DeviceListViewModel
 
 object ViewModels : ViewModelInterface, Observable<ByteArray> {
+    // FIXME: Actually this should be a repository
+
     lateinit var initViewModel: InitViewModel
     lateinit var deviceListViewModel: DeviceListViewModel
 
