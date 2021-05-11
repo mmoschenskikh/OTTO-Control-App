@@ -1,32 +1,49 @@
 package ru.spbstu.ottocontrol.data
 
 import ru.spbstu.ottocontrol.data.util.Matrix
+import ru.spbstu.ottocontrol.data.util.Sound
 
 sealed class Action {
     abstract fun toBytes(): ByteArray
 }
 
-class ShowText(val text: String) : Action() {
+class ShowText(private val text: String) : Action() {
     override fun toBytes(): ByteArray {
         TODO("Return the byte sequence that makes the robot show the text")
     }
+
+    override fun toString(): String { // FIXME: Only for testing
+        return "ShowText(\"${text}\")"
+    }
 }
 
-class FireLed(val color: Int) : Action() {
+class FireLed(private val color: Int) : Action() {
     override fun toBytes(): ByteArray {
         TODO("Return the byte sequence that makes the robot fire the LED")
     }
-}
 
-class PlaySound(val pitch: Int) : Action() {
-    override fun toBytes(): ByteArray {
-        TODO("Return the byte sequence that makes the robot play the sound")
+    override fun toString(): String { // FIXME: Only for testing
+        return "FireLed(${color})"
     }
 }
 
-class FireMatrix(val matrix: Matrix) : Action() {
+class PlaySound(private val sound: Sound) : Action() {
+    override fun toBytes(): ByteArray {
+        TODO("Return the byte sequence that makes the robot play the sound")
+    }
+
+    override fun toString(): String { // FIXME: Only for testing
+        return "PlaySound(${sound})"
+    }
+}
+
+class FireMatrix(private val matrix: Matrix) : Action() {
     override fun toBytes(): ByteArray {
         TODO("Return the byte sequence that makes the robot show the picture")
+    }
+
+    override fun toString(): String { // FIXME: Only for testing
+        return "FireMatrix($matrix)"
     }
 }
 
