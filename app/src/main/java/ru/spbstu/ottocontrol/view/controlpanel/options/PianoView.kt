@@ -13,7 +13,8 @@ import androidx.core.content.ContextCompat
 import ru.spbstu.ottocontrol.R
 import kotlin.math.min
 
-class PianoView(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
+class PianoView(context: Context?, attrs: AttributeSet?) : View(context, attrs),
+    KeyIndexObservable {
 
     class Key(var rect: RectF, var sound: Int)
 
@@ -25,6 +26,8 @@ class PianoView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
                 throw IndexOutOfBoundsException("Wrong key index $value when the piano contains ${KEYS_COUNT + 1} keys")
             }
         }
+
+    private val observers = mutableSetOf<KeyIndexObserver>()
 
     private val black = Paint().also {
         it.color = Color.BLACK
@@ -122,6 +125,7 @@ class PianoView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
                 val key = keyCoordinates(x, y)
                 if (key != null) {
                     keyPressedIndex = if (keyPressedIndex == key.sound) null else key.sound
+                    observers.forEach { it.onChange(keyPressedIndex) }
                 }
             }
 
@@ -143,5 +147,21 @@ class PianoView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
         const val KEYS_COUNT = 12 * OCTAVES
         private const val BORDER_WIDTH = 8f
     }
+
+    override fun subscribe(observer: KeyIndexObserver) {
+        observers.add(observer)
+    }
+
+    override fun unsubscribe(observer: KeyIndexObserver) {
+        observers.remove(observer)
+    }
 }
 
+interface KeyIndexObservable {
+    fun subscribe(observer: KeyIndexObserver)
+    fun unsubscribe(observer: KeyIndexObserver)
+}
+
+interface KeyIndexObserver {
+    fun onChange(newKeyIndex: Int?)
+}
