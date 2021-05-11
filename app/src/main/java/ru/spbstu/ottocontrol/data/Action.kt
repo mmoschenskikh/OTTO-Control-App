@@ -9,64 +9,48 @@ sealed class Action {
 
 class ShowText(private val text: String) : Action() {
     override fun toBytes(): ByteArray {
-        TODO("Return the byte sequence that makes the robot show the text")
-    }
-
-    override fun toString(): String { // FIXME: Only for testing
-        return "ShowText(\"${text}\")"
+        return "The text is: \"${text}\"".toByteArray()
     }
 }
 
 class FireLed(private val color: Int) : Action() {
     override fun toBytes(): ByteArray {
-        TODO("Return the byte sequence that makes the robot fire the LED")
-    }
-
-    override fun toString(): String { // FIXME: Only for testing
-        return "FireLed(${color})"
+        return "Firing LED with $color".toByteArray()
     }
 }
 
 class PlaySound(private val sound: Sound) : Action() {
     override fun toBytes(): ByteArray {
-        TODO("Return the byte sequence that makes the robot play the sound")
-    }
-
-    override fun toString(): String { // FIXME: Only for testing
-        return "PlaySound(${sound})"
+        return "Playing sound of pitch ${sound.pitch} and duration ${sound.length} seconds".toByteArray()
     }
 }
 
 class FireMatrix(private val matrix: Matrix) : Action() {
     override fun toBytes(): ByteArray {
-        TODO("Return the byte sequence that makes the robot show the picture")
-    }
-
-    override fun toString(): String { // FIXME: Only for testing
-        return "FireMatrix($matrix)"
+        return "Firing the following cells: ${matrix.content}".toByteArray()
     }
 }
 
 object GoForward : Action() {
     override fun toBytes(): ByteArray {
-        TODO("Return the byte sequence that makes the robot go forward")
+        return "Going forward...".toByteArray()
     }
 }
 
 object GoBack : Action() {
     override fun toBytes(): ByteArray {
-        TODO("Return the byte sequence that makes the robot go back")
+        return "Going backward...".toByteArray()
     }
 }
 
 object GoLeft : Action() {
     override fun toBytes(): ByteArray {
-        TODO("Return the byte sequence that makes the robot turn left")
+        return "Turning left...".toByteArray()
     }
 }
 
 object GoRight : Action() {
     override fun toBytes(): ByteArray {
-        TODO("Return the byte sequence that makes the robot turn right")
+        return "Turning right...".toByteArray()
     }
 }

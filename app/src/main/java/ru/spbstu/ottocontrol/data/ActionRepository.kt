@@ -1,10 +1,9 @@
 package ru.spbstu.ottocontrol.data
 
-import android.util.Log
+import ru.spbstu.ottocontrol.data.model.Model
 
 object ActionRepository {
     fun sendAction(action: Action) {
-        Log.d("ActionRepository", "Action sent to the robot: $action")
-//        Model.sendDataToDevice(action.toBytes())
+        Model.sendDataToDevice(action.toBytes())
     }
 }
