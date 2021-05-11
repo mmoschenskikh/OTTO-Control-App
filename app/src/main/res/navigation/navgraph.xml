@@ -46,7 +46,7 @@
         android:label="LedView" />
     <fragment
         android:id="@+id/textViewFragment"
-        android:name="ru.spbstu.ottocontrol.view.controlpanel.options.TextView"
+        android:name="ru.spbstu.ottocontrol.view.controlpanel.options.TextFragment"
         android:label="TextView" />
     <fragment
         android:id="@+id/pictureView"

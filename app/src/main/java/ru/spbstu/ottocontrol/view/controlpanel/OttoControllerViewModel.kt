@@ -11,6 +11,9 @@ class OttoControllerViewModel : ViewModel() {
     private val _ledColor = MutableLiveData(0xFFFFFF)
     val ledColor: LiveData<Int> = _ledColor
 
+    private val _text = MutableLiveData("")
+    val text: LiveData<String> = _text
+
     fun onAction(action: Action) {
         ActionRepository.sendAction(action)
     }
@@ -20,6 +23,14 @@ class OttoControllerViewModel : ViewModel() {
     }
 
     fun onColorPicked() {
+        // TODO
+    }
+
+    fun onTextChanged(text: String?) {
+        _text.value = text ?: ""
+    }
+
+    fun onTextEditFinished() {
         // TODO
     }
 }
