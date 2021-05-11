@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
     <TextView
         android:id="@+id/lengthTextView"
         android:layout_width="wrap_content"
@@ -17,7 +16,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pianoView" />
 
-    <ru.spbstu.ottocontrol.view.controlpanel.options.PianoView
+    <ru.spbstu.ottocontrol.view.options.piano.PianoView
         android:id="@+id/pianoView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

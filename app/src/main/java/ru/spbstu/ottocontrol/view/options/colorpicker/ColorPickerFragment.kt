@@ -1,15 +1,14 @@
-package ru.spbstu.ottocontrol.view.controlpanel.options
+package ru.spbstu.ottocontrol.view.options.colorpicker
 
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.activityViewModels
 import ru.spbstu.ottocontrol.databinding.FragmentLedBinding
 import ru.spbstu.ottocontrol.view.base.BaseFragment
-import ru.spbstu.ottocontrol.view.controlpanel.OttoControllerViewModel
 
 class ColorPickerFragment : BaseFragment<FragmentLedBinding>(FragmentLedBinding::inflate) {
 
-    private val viewModel by activityViewModels<OttoControllerViewModel>()
+    private val viewModel by activityViewModels<ColorPickerViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

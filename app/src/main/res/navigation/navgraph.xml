@@ -38,18 +38,18 @@
     </fragment>
     <fragment
         android:id="@+id/pianoView"
-        android:name="ru.spbstu.ottocontrol.view.controlpanel.options.PianoFragment"
+        android:name="ru.spbstu.ottocontrol.view.options.piano.PianoFragment"
         android:label="PianoView" />
     <fragment
         android:id="@+id/ledView"
-        android:name="ru.spbstu.ottocontrol.view.controlpanel.options.ColorPickerFragment"
+        android:name="ru.spbstu.ottocontrol.view.options.colorpicker.ColorPickerFragment"
         android:label="LedView" />
     <fragment
         android:id="@+id/textViewFragment"
-        android:name="ru.spbstu.ottocontrol.view.controlpanel.options.TextFragment"
+        android:name="ru.spbstu.ottocontrol.view.options.text.TextFragment"
         android:label="TextView" />
     <fragment
         android:id="@+id/pictureView"
-        android:name="ru.spbstu.ottocontrol.view.controlpanel.options.PictureFragment"
+        android:name="ru.spbstu.ottocontrol.view.options.matrix.PictureFragment"
         android:label="PictureView" />
 </navigation>

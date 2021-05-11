@@ -1,4 +1,4 @@
-package ru.spbstu.ottocontrol.model
+package ru.spbstu.ottocontrol.data.model
 
 import android.bluetooth.BluetoothDevice
 

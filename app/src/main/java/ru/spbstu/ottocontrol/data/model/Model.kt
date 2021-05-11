@@ -1,4 +1,4 @@
-package ru.spbstu.ottocontrol.model
+package ru.spbstu.ottocontrol.data.model
 
 import android.bluetooth.BluetoothDevice
 import android.content.BroadcastReceiver
@@ -9,11 +9,11 @@ import android.os.Handler
 import android.os.Looper
 import android.os.Message
 import android.os.Parcelable
-import ru.spbstu.ottocontrol.model.bluetoothdeviceconnector.BluetoothDeviceConnector
-import ru.spbstu.ottocontrol.model.bluetoothsearcher.BluetoothSearcher
-import ru.spbstu.ottocontrol.model.interpreter.Interpreter
-import ru.spbstu.ottocontrol.viewmodel.ViewModels
+import ru.spbstu.ottocontrol.data.bluetooth.BluetoothDeviceConnector
+import ru.spbstu.ottocontrol.data.bluetooth.BluetoothSearcher
+import ru.spbstu.ottocontrol.data.bluetooth.Interpreter
 import ru.spbstu.ottocontrol.viewmodel.ViewModelInterface
+import ru.spbstu.ottocontrol.viewmodel.ViewModels
 
 object Model : ModelInterface {
     private val viewModel: ViewModelInterface = ViewModels

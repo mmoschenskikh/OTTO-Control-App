@@ -30,11 +30,5 @@ class OttoControllerFragment :
             leftButton.setOnClickListener { viewModel.onAction(GoLeft) }
             rightButton.setOnClickListener { viewModel.onAction(GoRight) }
         }
-
-/*        viewModel.showToast = false
-        viewModel.toastShort.observe(viewLifecycleOwner, { message ->
-            if (viewModel.showToast)
-                Toast.makeText(requireActivity(), message, Toast.LENGTH_SHORT).show()
-        })*/
     }
 }

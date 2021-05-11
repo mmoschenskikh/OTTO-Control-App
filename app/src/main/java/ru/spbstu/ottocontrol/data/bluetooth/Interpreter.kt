@@ -1,4 +1,4 @@
-package ru.spbstu.ottocontrol.model.interpreter
+package ru.spbstu.ottocontrol.data.bluetooth
 
 class Interpreter {
     fun getDataToDevice(data: String): ByteArray = data.toByteArray()

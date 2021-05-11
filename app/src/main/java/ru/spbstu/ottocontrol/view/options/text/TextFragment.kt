@@ -1,4 +1,4 @@
-package ru.spbstu.ottocontrol.view.controlpanel.options
+package ru.spbstu.ottocontrol.view.options.text
 
 import android.os.Bundle
 import android.text.Editable
@@ -7,10 +7,10 @@ import android.view.View
 import androidx.fragment.app.activityViewModels
 import ru.spbstu.ottocontrol.databinding.FragmentTextBinding
 import ru.spbstu.ottocontrol.view.base.BaseFragment
-import ru.spbstu.ottocontrol.view.controlpanel.OttoControllerViewModel
 
 class TextFragment : BaseFragment<FragmentTextBinding>(FragmentTextBinding::inflate) {
-    private val viewModel by activityViewModels<OttoControllerViewModel>()
+
+    private val viewModel by activityViewModels<TextViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

@@ -1,9 +1,8 @@
-package ru.spbstu.ottocontrol.model.bluetoothdeviceconnector
+package ru.spbstu.ottocontrol.data.bluetooth
 
 import android.bluetooth.BluetoothDevice
 import android.bluetooth.BluetoothSocket
 import android.os.Handler
-import ru.spbstu.ottocontrol.model.inoutbluetooth.InOutBluetooth
 import java.io.IOException
 import java.lang.reflect.InvocationTargetException
 import kotlin.concurrent.thread

@@ -1,4 +1,4 @@
-package ru.spbstu.ottocontrol.view.controlpanel.options
+package ru.spbstu.ottocontrol.view.options.piano
 
 import android.os.Bundle
 import android.view.View
@@ -9,12 +9,10 @@ import ru.spbstu.ottocontrol.R
 import ru.spbstu.ottocontrol.data.util.isNotNull
 import ru.spbstu.ottocontrol.databinding.FragmentPianoBinding
 import ru.spbstu.ottocontrol.view.base.BaseFragment
-import ru.spbstu.ottocontrol.view.controlpanel.OttoControllerViewModel
-
 
 class PianoFragment : BaseFragment<FragmentPianoBinding>(FragmentPianoBinding::inflate) {
 
-    private val viewModel by activityViewModels<OttoControllerViewModel>()
+    private val viewModel by activityViewModels<PianoViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

@@ -1,4 +1,4 @@
-package ru.spbstu.ottocontrol.view.controlpanel.options
+package ru.spbstu.ottocontrol.view.options.piano
 
 import android.annotation.SuppressLint
 import android.content.Context

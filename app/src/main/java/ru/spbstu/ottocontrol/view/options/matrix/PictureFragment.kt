@@ -1,4 +1,4 @@
-package ru.spbstu.ottocontrol.view.controlpanel.options
+package ru.spbstu.ottocontrol.view.options.matrix
 
 import android.graphics.Color
 import android.os.Bundle
@@ -10,12 +10,11 @@ import androidx.core.view.get
 import androidx.fragment.app.activityViewModels
 import ru.spbstu.ottocontrol.databinding.FragmentPictureBinding
 import ru.spbstu.ottocontrol.view.base.BaseFragment
-import ru.spbstu.ottocontrol.view.controlpanel.OttoControllerViewModel
-import ru.spbstu.ottocontrol.view.controlpanel.OttoControllerViewModel.Companion.MATRIX_SIZE
+import ru.spbstu.ottocontrol.view.options.matrix.PictureViewModel.Companion.MATRIX_SIZE
 
 class PictureFragment : BaseFragment<FragmentPictureBinding>(FragmentPictureBinding::inflate) {
 
-    private val viewModel by activityViewModels<OttoControllerViewModel>()
+    private val viewModel by activityViewModels<PictureViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
