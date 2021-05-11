@@ -1,5 +1,7 @@
 package ru.spbstu.ottocontrol.data
 
+import ru.spbstu.ottocontrol.data.util.Matrix
+
 sealed class Action {
     abstract fun toBytes(): ByteArray
 }
@@ -21,8 +23,6 @@ class PlaySound(val pitch: Int) : Action() {
         TODO("Return the byte sequence that makes the robot play the sound")
     }
 }
-
-typealias Matrix = List<List<Boolean>> // Should be represented by a class
 
 class FireMatrix(val matrix: Matrix) : Action() {
     override fun toBytes(): ByteArray {

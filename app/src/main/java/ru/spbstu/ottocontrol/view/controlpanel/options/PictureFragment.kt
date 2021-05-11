@@ -11,6 +11,7 @@ import androidx.fragment.app.activityViewModels
 import ru.spbstu.ottocontrol.databinding.FragmentPictureBinding
 import ru.spbstu.ottocontrol.view.base.BaseFragment
 import ru.spbstu.ottocontrol.view.controlpanel.OttoControllerViewModel
+import ru.spbstu.ottocontrol.view.controlpanel.OttoControllerViewModel.Companion.MATRIX_SIZE
 
 class PictureFragment : BaseFragment<FragmentPictureBinding>(FragmentPictureBinding::inflate) {
 
@@ -33,21 +34,21 @@ class PictureFragment : BaseFragment<FragmentPictureBinding>(FragmentPictureBind
                 layout.maxHeight = cellSize
                 layout.maxWidth = cellSize
 
-                val cell = ToggleButton(context)
+                val cell = ToggleButton(requireContext())
                 cell.textOff = ""
-                cell.id = i
+                cell.id = i * MATRIX_SIZE + j
                 cell.isChecked = false
                 cell.setBackgroundColor(Color.BLACK)
                 cell.setOnCheckedChangeListener { buttonView, isChecked ->
                     buttonView.setBackgroundColor(
                         if (isChecked) Color.WHITE else Color.BLACK
                     )
+                    viewModel.onCellChanged(i, j)
                 }
                 layout.addView(cell)
                 grid.addView(layout)
             }
         }
-
 
         binding.makeWhiteButton.setOnClickListener {
             grid.forEach {
@@ -64,9 +65,7 @@ class PictureFragment : BaseFragment<FragmentPictureBinding>(FragmentPictureBind
                 check.isChecked = false
             }
         }
-    }
 
-    companion object {
-        private const val MATRIX_SIZE = 8
+        binding.doneButton.setOnClickListener { viewModel.onPictureDone() }
     }
 }
