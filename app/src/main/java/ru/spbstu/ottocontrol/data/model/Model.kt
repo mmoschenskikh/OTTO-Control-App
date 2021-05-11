@@ -11,7 +11,6 @@ import android.os.Message
 import android.os.Parcelable
 import ru.spbstu.ottocontrol.data.bluetooth.BluetoothDeviceConnector
 import ru.spbstu.ottocontrol.data.bluetooth.BluetoothSearcher
-import ru.spbstu.ottocontrol.data.bluetooth.Interpreter
 import ru.spbstu.ottocontrol.viewmodel.ViewModelInterface
 import ru.spbstu.ottocontrol.viewmodel.ViewModels
 
@@ -23,12 +22,12 @@ object Model : ModelInterface {
     private val availableDevices = mutableListOf<BluetoothDevice>()
     private val bluetoothSearcher = BluetoothSearcher()
     private val bluetoothDeviceConnector = BluetoothDeviceConnector(CODE_RECEIVED_DATA_FROM_DEVICE)
-    private val interpreter = Interpreter()
 
     private val broadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
             if (intent.action == BluetoothDevice.ACTION_FOUND) {
-                val device = intent.getParcelableExtra<Parcelable>(BluetoothDevice.EXTRA_DEVICE) as BluetoothDevice
+                val device =
+                    intent.getParcelableExtra<Parcelable>(BluetoothDevice.EXTRA_DEVICE) as BluetoothDevice
                 if (!availableDevices.contains(device) && device.name != null) {
                     availableDevices.add(device)
                     viewModel.changeListOfAvailableDevices()
@@ -43,7 +42,8 @@ object Model : ModelInterface {
                 handleDataFromDevice(msg.obj as ByteArray)
         }
     }
-    private fun handleDataFromDevice(bytes: ByteArray) = viewModel.getDataFromDevice(interpreter.getDataFromDevice(bytes))
+
+    private fun handleDataFromDevice(bytes: ByteArray) = viewModel.getDataFromDevice(bytes)
 
 
     override fun initBluetooth() {
@@ -62,7 +62,10 @@ object Model : ModelInterface {
             return
         }
         viewModel.changeListOfAvailableDevices()
-        viewModel.registerDeviceDetectionReceiver(broadcastReceiver, IntentFilter(BluetoothDevice.ACTION_FOUND))
+        viewModel.registerDeviceDetectionReceiver(
+            broadcastReceiver,
+            IntentFilter(BluetoothDevice.ACTION_FOUND)
+        )
     }
 
     override fun getListOfAvailableDevices(): List<BluetoothDevice> = availableDevices
@@ -70,8 +73,13 @@ object Model : ModelInterface {
         pairedDevices = bluetoothSearcher.getBondedDevices().toList()
         return pairedDevices
     }
-    override fun connectToPairedDevice(index: Int) = bluetoothDeviceConnector.openDeviceConnection(pairedDevices[index], handler)
-    override fun connectToAvailableDevice(index: Int) = bluetoothDeviceConnector.openDeviceConnection(availableDevices[index], handler)
+
+    override fun connectToPairedDevice(index: Int) =
+        bluetoothDeviceConnector.openDeviceConnection(pairedDevices[index], handler)
+
+    override fun connectToAvailableDevice(index: Int) =
+        bluetoothDeviceConnector.openDeviceConnection(availableDevices[index], handler)
+
     override fun sendDataToDevice(data: ByteArray) = bluetoothDeviceConnector.sendDataToDevice(data)
     override fun closeDeviceConnection() = bluetoothDeviceConnector.closeDeviceConnection()
 }

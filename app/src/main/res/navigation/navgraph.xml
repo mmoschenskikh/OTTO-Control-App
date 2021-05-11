@@ -13,7 +13,7 @@
     </fragment>
     <fragment
         android:id="@+id/availableDevicesView"
-        android:name="ru.spbstu.ottocontrol.view.AvailableDevicesView"
+        android:name="ru.spbstu.ottocontrol.view.DeviceListFragment"
         android:label="AvailableDevicesView" >
         <action
             android:id="@+id/action_availableDevicesView_to_controllerView"

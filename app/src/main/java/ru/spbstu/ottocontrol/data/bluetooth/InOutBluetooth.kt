@@ -8,7 +8,7 @@ import java.io.OutputStream
 import kotlin.concurrent.thread
 
 
-class InOutBluetooth(val CODE_RECEIVED_DATA_FROM_DEVICE: Int) {
+class InOutBluetooth(private val CODE_RECEIVED_DATA_FROM_DEVICE: Int) {
     private var inputStream: InputStream? = null
     private var outputStream: OutputStream? = null
     private lateinit var socket: BluetoothSocket
@@ -21,7 +21,9 @@ class InOutBluetooth(val CODE_RECEIVED_DATA_FROM_DEVICE: Int) {
         try {
             inputStream = socket.inputStream
             outputStream = socket.outputStream
-        } catch (ex: IOException) { ex.printStackTrace() }
+        } catch (ex: IOException) {
+            ex.printStackTrace()
+        }
 
         thread = thread {
             var buffer = ByteArray(bufferSize)
@@ -32,9 +34,18 @@ class InOutBluetooth(val CODE_RECEIVED_DATA_FROM_DEVICE: Int) {
                     // we use:
                     // val bytes = BluetoothSocketExample.inputStream.read(buffer)
 
-                    handler.sendMessage(handler.obtainMessage(CODE_RECEIVED_DATA_FROM_DEVICE, bytes, -1, buffer))
+                    handler.sendMessage(
+                        handler.obtainMessage(
+                            CODE_RECEIVED_DATA_FROM_DEVICE,
+                            bytes,
+                            -1,
+                            buffer
+                        )
+                    )
                     buffer = ByteArray(bufferSize)
-                } catch (e: IOException) { e.printStackTrace() }
+                } catch (e: IOException) {
+                    e.printStackTrace()
+                }
             }
         }
     }
@@ -48,7 +59,9 @@ class InOutBluetooth(val CODE_RECEIVED_DATA_FROM_DEVICE: Int) {
             outputStream?.close()
             if (this::thread.isInitialized && !thread.isInterrupted)
                 thread.interrupt()
-        } catch (e: IOException) { e.printStackTrace() }
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
     }
 
     fun sendDataToDevice(bytes: ByteArray) {
@@ -57,6 +70,8 @@ class InOutBluetooth(val CODE_RECEIVED_DATA_FROM_DEVICE: Int) {
             outputStream!!.write(bytes)
             // we use:
             // BluetoothSocketExample.outputStream.write(bytes)
-        } catch (e: IOException) { e.printStackTrace() }
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
     }
 }

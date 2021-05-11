@@ -4,33 +4,42 @@ import android.content.BroadcastReceiver
 import android.content.IntentFilter
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import ru.spbstu.ottocontrol.model.Model
-import ru.spbstu.ottocontrol.model.ModelInterface
+import ru.spbstu.ottocontrol.data.model.Model
+import ru.spbstu.ottocontrol.data.model.ModelInterface
 
 
-class AvailableDevicesViewModel : ViewModel() {
+class DeviceListViewModel : ViewModel() {
     private val model: ModelInterface = Model
-    val toastShort: MutableLiveData<String> = MutableLiveData()
+    val toastShort = MutableLiveData<String>()
     var showToast = false // crutch!
-    val receiverRegistrar: MutableLiveData<Pair<BroadcastReceiver, IntentFilter>> = MutableLiveData()
-    val availableDevicesText: MutableLiveData<MutableList<String>> = MutableLiveData()
-    val pairedDevicesText: MutableLiveData<MutableList<String>> = MutableLiveData()
+    val receiverRegistrar = MutableLiveData<Pair<BroadcastReceiver, IntentFilter>>()
+    val availableDevicesText = MutableLiveData<MutableList<String>>()
+    val pairedDevicesText = MutableLiveData<MutableList<String>>()
 
-    init { ViewModels.availableDevicesViewModel = this }
+    init {
+        ViewModels.deviceListViewModel = this
+    }
 
     fun connectToPairedDevice(index: Int) {
         model.connectToPairedDevice(index)
     }
+
     fun connectToAvailableDevice(index: Int) {
         model.connectToAvailableDevice(index)
     }
+
     fun askForTurnBluetoothOn() {
         showToast = true // crutch!
         toastShort.value = "Включите Bluetooth"
     }
-    fun registerDeviceDetectionReceiver(broadcastReceiver: BroadcastReceiver, intentFilter: IntentFilter) {
+
+    fun registerDeviceDetectionReceiver(
+        broadcastReceiver: BroadcastReceiver,
+        intentFilter: IntentFilter
+    ) {
         receiverRegistrar.value = broadcastReceiver to intentFilter
     }
+
     fun onClickButtonUpdateList() {
         model.searchAvailableDevices()
         val devices = mutableListOf<String>()
@@ -38,6 +47,7 @@ class AvailableDevicesViewModel : ViewModel() {
             devices.add("${device.name}; ${device.address}")
         pairedDevicesText.value = devices
     }
+
     fun closeDeviceConnection() {
         model.closeDeviceConnection()
     }

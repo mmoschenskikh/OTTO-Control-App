@@ -2,9 +2,11 @@ package ru.spbstu.ottocontrol
 
 import java.lang.Thread.sleep
 import kotlin.concurrent.thread
-import kotlin.math.min
 
-object BluetoothSocketExample {
+/**
+ * Stub to use when have no device to test.
+ */
+object BluetoothSocketStub {
     var dataWasReceivedFromAndroid = false
     var dataIsBeingProcessed = false
     lateinit var bytesFromAndroid: ByteArray
