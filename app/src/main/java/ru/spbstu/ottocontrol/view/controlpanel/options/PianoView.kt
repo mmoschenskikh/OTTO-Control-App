@@ -18,7 +18,13 @@ class PianoView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
     class Key(var rect: RectF, var sound: Int)
 
     var keyPressedIndex: Int? = null
-        private set
+        set(value) {
+            if (value == null || value in 0 until KEYS_COUNT) {
+                field = value
+            } else {
+                throw IndexOutOfBoundsException("Wrong key index $value when the piano contains ${KEYS_COUNT + 1} keys")
+            }
+        }
 
     private val black = Paint().also {
         it.color = Color.BLACK
@@ -47,7 +53,7 @@ class PianoView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         val widthSize = MeasureSpec.getSize(widthMeasureSpec)
         val heightSize = MeasureSpec.getSize(heightMeasureSpec)
-        val height = min(heightSize.toDouble(), widthSize * (150.0 / 23 / NUMBER_OF_KEYS)).toInt()
+        val height = min(heightSize.toDouble(), widthSize * (150.0 / 23 / WHITE_KEYS_COUNT)).toInt()
 
         setMeasuredDimension(widthSize, height)
     }
@@ -60,44 +66,46 @@ class PianoView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
     ) {
         super.onSizeChanged(currentWidth, currentHeight, oldWidth, oldHeight)
 
-        keyWidth = currentWidth / NUMBER_OF_KEYS
+        keyWidth = currentWidth / WHITE_KEYS_COUNT
         keyHeight = currentHeight
-        var count = 15
 
-        for (i in 0 until NUMBER_OF_KEYS) {
-
+        var index = 0
+        for (i in 0 until WHITE_KEYS_COUNT) {
             val left = i * keyWidth
-            var right = left + keyWidth
-
-            if (i == NUMBER_OF_KEYS - 1) right = currentWidth
+            val right =
+                if (i == KEYS_COUNT - 1)
+                    currentWidth
+                else
+                    left + keyWidth
 
             var rect = RectF(left.toFloat(), 0f, right.toFloat(), currentHeight.toFloat())
-            whiteKeys.add(Key(rect, i + 1))
+            whiteKeys.add(Key(rect, index))
+            index++
 
-            if (i != 0 && i != 3 && i != 7 && i != 10) {
+            if (i % 7 != 0 && i % 7 != 3) {
                 rect = RectF(
-                    (i - 1).toFloat() * keyWidth + 0.5f * keyWidth + 0.25f * keyWidth,
+                    (i - 1f) * keyWidth + 0.5f * keyWidth + 0.25f * keyWidth,
                     0f,
-                    i.toFloat() * keyWidth + 0.25f * keyWidth,
+                    left.toFloat() + 0.25f * keyWidth,
                     0.67f * height
                 )
-                blackKeys.add(Key(rect, count))
-                count++
+                blackKeys.add(Key(rect, index))
+                index++
             }
         }
     }
 
     override fun onDraw(canvas: Canvas) {
         whiteKeys.forEach { key ->
-            val paint = if (keyPressedIndex == key.sound - 1) green else white
+            val paint = if (keyPressedIndex == key.sound) green else white
             canvas.drawRect(key.rect, paint)
         }
-        for (i in 1 until NUMBER_OF_KEYS) {
+        for (i in 1 until WHITE_KEYS_COUNT) {
             val xStartStop = i * keyWidth.toFloat()
             canvas.drawLine(xStartStop, 0f, xStartStop, height.toFloat(), black)
         }
         blackKeys.forEach { key ->
-            val paint = if (keyPressedIndex == key.sound - 1) green else black
+            val paint = if (keyPressedIndex == key.sound) green else black
             canvas.drawRect(key.rect, paint)
         }
         canvas.drawRect(0f, 0f, width.toFloat(), height.toFloat(), border)
@@ -113,7 +121,7 @@ class PianoView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
                 val y = event.getY(touchIndex)
                 val key = keyCoordinates(x, y)
                 if (key != null) {
-                    keyPressedIndex = if (keyPressedIndex == key.sound - 1) null else key.sound - 1
+                    keyPressedIndex = if (keyPressedIndex == key.sound) null else key.sound
                 }
             }
 
@@ -130,7 +138,9 @@ class PianoView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
     }
 
     companion object {
-        const val NUMBER_OF_KEYS = 7
+        const val OCTAVES = 1
+        const val WHITE_KEYS_COUNT = 7 * OCTAVES
+        const val KEYS_COUNT = 12 * OCTAVES
         private const val BORDER_WIDTH = 8f
     }
 }
