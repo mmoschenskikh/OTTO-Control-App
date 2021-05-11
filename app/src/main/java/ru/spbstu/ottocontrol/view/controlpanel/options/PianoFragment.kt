@@ -2,9 +2,11 @@ package ru.spbstu.ottocontrol.view.controlpanel.options
 
 import android.os.Bundle
 import android.view.View
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.fragment.app.activityViewModels
 import ru.spbstu.ottocontrol.R
+import ru.spbstu.ottocontrol.data.util.isNotNull
 import ru.spbstu.ottocontrol.databinding.FragmentPianoBinding
 import ru.spbstu.ottocontrol.view.base.BaseFragment
 import ru.spbstu.ottocontrol.view.controlpanel.OttoControllerViewModel
@@ -23,6 +25,26 @@ class PianoFragment : BaseFragment<FragmentPianoBinding>(FragmentPianoBinding::i
         ).also { adapter ->
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             binding.spinner.adapter = adapter
+        }
+        binding.spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
+                val item = parent.getItemAtPosition(pos) as String
+                viewModel.onLengthChanged(item)
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) = Unit
+        }
+
+        binding.pianoView.subscribe(object : KeyIndexObserver {
+            override fun onChange(newKeyIndex: Int?) {
+                viewModel.onKeyClicked(newKeyIndex)
+            }
+        })
+
+        binding.playNoteButton.setOnClickListener { viewModel.onSoundPicked() }
+
+        viewModel.sound.observe(viewLifecycleOwner) { sound ->
+            binding.playNoteButton.isEnabled = sound.isNotNull()
         }
     }
 }

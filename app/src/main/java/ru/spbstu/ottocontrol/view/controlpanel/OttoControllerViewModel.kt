@@ -5,6 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import ru.spbstu.ottocontrol.data.*
 import ru.spbstu.ottocontrol.data.util.Matrix
+import ru.spbstu.ottocontrol.data.util.Sound
+import ru.spbstu.ottocontrol.data.util.parseFraction
 
 class OttoControllerViewModel : ViewModel() {
 
@@ -15,6 +17,9 @@ class OttoControllerViewModel : ViewModel() {
     val text: LiveData<String> = _text
 
     private val _matrix = MutableLiveData<Set<Pair<Int, Int>>>(emptySet())
+
+    private val _sound = MutableLiveData<Sound?>(null)
+    val sound: LiveData<Sound?> = _sound
 
     fun onAction(action: Action) {
         ActionRepository.sendAction(action)
@@ -52,6 +57,21 @@ class OttoControllerViewModel : ViewModel() {
         _matrix.value?.let { set ->
             val matrix = Matrix(MATRIX_SIZE, MATRIX_SIZE, set)
             ActionRepository.sendAction(FireMatrix(matrix))
+        }
+    }
+
+    fun onKeyClicked(index: Int?) {
+        _sound.value = Sound(index, sound.value?.length)
+    }
+
+    fun onLengthChanged(length: String) {
+        val time = length.parseFraction()
+        _sound.value = Sound(sound.value?.pitch, time)
+    }
+
+    fun onSoundPicked() {
+        sound.value?.let {
+            ActionRepository.sendAction(PlaySound(it))
         }
     }
 
