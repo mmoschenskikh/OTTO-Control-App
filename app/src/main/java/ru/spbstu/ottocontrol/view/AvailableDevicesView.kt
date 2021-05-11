@@ -1,6 +1,5 @@
 package ru.spbstu.ottocontrol.view
 
-import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -28,9 +27,9 @@ class AvailableDevicesView : Fragment() {
         override fun onReceive(context: Context, intent: Intent) {
             val action = intent.action
             val device: BluetoothDevice? = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE)
-            if (action == BluetoothAdapter.ACTION_CONNECTION_STATE_CHANGED ||
-                device?.bondState == BluetoothDevice.BOND_BONDED && action == BluetoothDevice.ACTION_ACL_CONNECTED) {
-                activity?.let {
+            if (device?.bondState == BluetoothDevice.BOND_BONDED &&
+                (action == BluetoothDevice.ACTION_BOND_STATE_CHANGED || action == BluetoothDevice.ACTION_ACL_CONNECTED)) {
+                    activity?.let {
                     if (Navigation.findNavController(it, R.id.nav_host_fragment).currentDestination?.id == R.id.availableDevicesView)
                         Navigation.findNavController(it, R.id.nav_host_fragment).navigate(R.id.action_availableDevicesView_to_controllerView)
                 }
@@ -44,7 +43,7 @@ class AvailableDevicesView : Fragment() {
         viewModel.closeDeviceConnection()
 
         val intentFilter = IntentFilter()
-        intentFilter.addAction(BluetoothAdapter.ACTION_CONNECTION_STATE_CHANGED)
+        intentFilter.addAction(BluetoothDevice.ACTION_BOND_STATE_CHANGED)
         intentFilter.addAction(BluetoothDevice.ACTION_ACL_CONNECTED)
         activity?.registerReceiver(broadcastReceiver, intentFilter)
 
