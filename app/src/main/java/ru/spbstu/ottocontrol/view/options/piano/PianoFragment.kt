@@ -8,6 +8,7 @@ import androidx.fragment.app.activityViewModels
 import ru.spbstu.ottocontrol.R
 import ru.spbstu.ottocontrol.data.util.isNotNull
 import ru.spbstu.ottocontrol.databinding.FragmentPianoBinding
+import ru.spbstu.ottocontrol.util.Observer
 import ru.spbstu.ottocontrol.view.base.BaseFragment
 
 class PianoFragment : BaseFragment<FragmentPianoBinding>(FragmentPianoBinding::inflate) {
@@ -33,9 +34,9 @@ class PianoFragment : BaseFragment<FragmentPianoBinding>(FragmentPianoBinding::i
             override fun onNothingSelected(parent: AdapterView<*>?) = Unit
         }
 
-        binding.pianoView.subscribe(object : KeyIndexObserver {
-            override fun onChange(newKeyIndex: Int?) {
-                viewModel.onKeyClicked(newKeyIndex)
+        binding.pianoView.subscribe(object : Observer<Int?> {
+            override fun onChange(data: Int?) {
+                viewModel.onKeyClicked(data)
             }
         })
 

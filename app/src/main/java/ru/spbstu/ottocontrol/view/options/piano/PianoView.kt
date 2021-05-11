@@ -11,10 +11,12 @@ import android.view.MotionEvent
 import android.view.View
 import androidx.core.content.ContextCompat
 import ru.spbstu.ottocontrol.R
+import ru.spbstu.ottocontrol.util.Observable
+import ru.spbstu.ottocontrol.util.Observer
 import kotlin.math.min
 
 class PianoView(context: Context?, attrs: AttributeSet?) :
-    View(context, attrs), KeyIndexObservable {
+    View(context, attrs), Observable<Int?> {
 
     private class Key(var rect: RectF, var sound: Int)
 
@@ -27,7 +29,7 @@ class PianoView(context: Context?, attrs: AttributeSet?) :
             }
         }
 
-    private val observers = mutableSetOf<KeyIndexObserver>()
+    private val observers = mutableSetOf<Observer<Int?>>()
 
     private val black = Paint().also {
         it.color = Color.BLACK
@@ -148,20 +150,11 @@ class PianoView(context: Context?, attrs: AttributeSet?) :
         private const val BORDER_WIDTH = 8f
     }
 
-    override fun subscribe(observer: KeyIndexObserver) {
+    override fun subscribe(observer: Observer<Int?>) {
         observers.add(observer)
     }
 
-    override fun unsubscribe(observer: KeyIndexObserver) {
+    override fun unsubscribe(observer: Observer<Int?>) {
         observers.remove(observer)
     }
-}
-
-interface KeyIndexObservable {
-    fun subscribe(observer: KeyIndexObserver)
-    fun unsubscribe(observer: KeyIndexObserver)
-}
-
-interface KeyIndexObserver {
-    fun onChange(newKeyIndex: Int?)
 }
