@@ -7,13 +7,8 @@ import ru.spbstu.ottocontrol.data.ActionRepository
 import ru.spbstu.ottocontrol.data.PlaySound
 import ru.spbstu.ottocontrol.data.util.Sound
 import ru.spbstu.ottocontrol.data.util.parseFraction
-import ru.spbstu.ottocontrol.viewmodel.ViewModels
 
 class PianoViewModel : ViewModel() {
-
-    init {
-        ViewModels.pianoViewModel = this
-    }
 
     private val _sound = MutableLiveData<Sound?>(null)
     val sound: LiveData<Sound?> = _sound

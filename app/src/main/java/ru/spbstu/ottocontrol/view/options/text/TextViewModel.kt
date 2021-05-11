@@ -5,13 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import ru.spbstu.ottocontrol.data.ActionRepository
 import ru.spbstu.ottocontrol.data.ShowText
-import ru.spbstu.ottocontrol.viewmodel.ViewModels
 
 class TextViewModel : ViewModel() {
-
-    init {
-        ViewModels.textViewModel = this
-    }
 
     private val _text = MutableLiveData("")
     val text: LiveData<String> = _text

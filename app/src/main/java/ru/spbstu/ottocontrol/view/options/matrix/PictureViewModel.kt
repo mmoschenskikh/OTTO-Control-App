@@ -5,13 +5,8 @@ import androidx.lifecycle.ViewModel
 import ru.spbstu.ottocontrol.data.ActionRepository
 import ru.spbstu.ottocontrol.data.FireMatrix
 import ru.spbstu.ottocontrol.data.util.Matrix
-import ru.spbstu.ottocontrol.viewmodel.ViewModels
 
 class PictureViewModel : ViewModel() {
-
-    init {
-        ViewModels.pictureViewModel = this
-    }
 
     private val _matrix = MutableLiveData<Set<Pair<Int, Int>>>(emptySet())
 

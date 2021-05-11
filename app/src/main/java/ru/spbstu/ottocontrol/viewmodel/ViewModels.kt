@@ -2,32 +2,48 @@ package ru.spbstu.ottocontrol.viewmodel
 
 import android.content.BroadcastReceiver
 import android.content.IntentFilter
+import ru.spbstu.ottocontrol.util.Observable
+import ru.spbstu.ottocontrol.util.Observer
 
-object ViewModels : ViewModelInterface {
+object ViewModels : ViewModelInterface, Observable<ByteArray> {
     lateinit var initViewModel: InitViewModel
-    lateinit var availableDevicesViewModel: AvailableDevicesViewModel
-    lateinit var controllerViewModel: ControllerViewModel
-    lateinit var ledViewModel: LedViewModel
-    lateinit var pianoViewModel: PianoViewModel
-    lateinit var textViewModel: TextViewModel
-    lateinit var pictureViewModel: PictureViewModel
+    lateinit var deviceListViewModel: DeviceListViewModel
 
-    override fun askForPermissionToUseBluetoothModule() { initViewModel.askForPermissionToUseBluetoothModule() }
-    override fun notifyThatBluetoothIsNotSupported() = initViewModel.notifyThatBluetoothIsNotSupported()
-    override fun askForTurnBluetoothOn() = availableDevicesViewModel.askForTurnBluetoothOn()
-    override fun registerDeviceDetectionReceiver(broadcastReceiver: BroadcastReceiver, intentFilter: IntentFilter) = availableDevicesViewModel.registerDeviceDetectionReceiver(broadcastReceiver, intentFilter)
-    override fun changeListOfAvailableDevices() = availableDevicesViewModel.changeListOfAvailableDevices()
+    /*
+     * Observable<ByteArray> is a stub for sending data back from the
+     * robot to the device. It would be more convenient to introduce
+     * a separate class like [ru.spbstu.ottocontrol.data.Action] to
+     * represent various types of data that might be received from the robot.
+     */
+    private val observers = mutableSetOf<Observer<ByteArray>>()
 
-    override fun getDataFromDevice(data: String) {
-        val splittedData = data.split(' ')
-        if (splittedData.isNotEmpty()) {
-            when (splittedData[0]) {
-                "step" -> controllerViewModel.showCommandExecutedByRobot(data)
-                "led" -> ledViewModel.showCommandExecutedByRobot(data)
-                "piano" -> pianoViewModel.showCommandExecutedByRobot(data)
-                "text" -> textViewModel.showCommandExecutedByRobot(data)
-                "matrix" -> pictureViewModel.showCommandExecutedByRobot(data)
-            }
-        }
+    override fun askForPermissionToUseBluetoothModule() {
+        initViewModel.askForPermissionToUseBluetoothModule()
+    }
+
+    override fun notifyThatBluetoothIsNotSupported() =
+        initViewModel.notifyThatBluetoothIsNotSupported()
+
+    override fun askForTurnBluetoothOn() =
+        deviceListViewModel.askForTurnBluetoothOn()
+
+    override fun registerDeviceDetectionReceiver(
+        broadcastReceiver: BroadcastReceiver,
+        intentFilter: IntentFilter
+    ) = deviceListViewModel.registerDeviceDetectionReceiver(broadcastReceiver, intentFilter)
+
+    override fun changeListOfAvailableDevices() =
+        deviceListViewModel.changeListOfAvailableDevices()
+
+    override fun getDataFromDevice(data: ByteArray) {
+        observers.forEach { it.onChange(data) }
+    }
+
+    override fun subscribe(observer: Observer<ByteArray>) {
+        observers.add(observer)
+    }
+
+    override fun unsubscribe(observer: Observer<ByteArray>) {
+        observers.remove(observer)
     }
 }

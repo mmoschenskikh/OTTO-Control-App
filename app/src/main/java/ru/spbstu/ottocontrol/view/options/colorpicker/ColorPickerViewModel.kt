@@ -5,13 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import ru.spbstu.ottocontrol.data.ActionRepository
 import ru.spbstu.ottocontrol.data.FireLed
-import ru.spbstu.ottocontrol.viewmodel.ViewModels
 
 class ColorPickerViewModel : ViewModel() {
-
-    init {
-        ViewModels.colorPickerViewModel = this
-    }
 
     private val _ledColor = MutableLiveData(0xFFFFFF)
     val ledColor: LiveData<Int> = _ledColor

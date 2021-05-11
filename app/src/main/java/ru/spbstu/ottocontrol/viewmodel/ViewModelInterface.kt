@@ -9,5 +9,5 @@ interface ViewModelInterface {
     fun askForTurnBluetoothOn()
     fun registerDeviceDetectionReceiver(broadcastReceiver: BroadcastReceiver, intentFilter: IntentFilter)
     fun changeListOfAvailableDevices()
-    fun getDataFromDevice(data: String)
+    fun getDataFromDevice(data: ByteArray)
 }
