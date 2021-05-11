@@ -2,7 +2,6 @@ package ru.spbstu.ottocontrol.view
 
 
 import android.content.Intent
-import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -19,20 +18,36 @@ import ru.spbstu.ottocontrol.viewmodel.InitViewModel
 class InitView : Fragment() {
     private val viewModel: InitViewModel by viewModels()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
 
         val view = inflater.inflate(R.layout.init_fragment, container, false)
 
         viewModel.initBluetooth()
 
         val buttonShowList: Button = view.findViewById(R.id.showList)
-        buttonShowList.setOnClickListener() { Navigation.findNavController(view).navigate(R.id.action_initView_to_availableDevicesView) }
+        buttonShowList.setOnClickListener {
+            Navigation.findNavController(view)
+                .navigate(R.id.action_initView_to_availableDevicesView)
+        }
 
-        val intentPermissionToUseBluetooth = Observer<Pair<Intent, Int>> { intentToCode -> startActivityForResult(intentToCode.first, intentToCode.second) }
-        viewModel.intentPermissionToUseBluetooth.observe(viewLifecycleOwner, intentPermissionToUseBluetooth)
+        val intentPermissionToUseBluetooth = Observer<Pair<Intent, Int>> { intentToCode ->
+            startActivityForResult(
+                intentToCode.first,
+                intentToCode.second
+            )
+        }
+        viewModel.intentPermissionToUseBluetooth.observe(
+            viewLifecycleOwner,
+            intentPermissionToUseBluetooth
+        )
 
-        val toastShort = Observer<String> { message -> Toast.makeText(activity, message, Toast.LENGTH_SHORT).show() }
+        val toastShort = Observer<String> { message ->
+            Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
+        }
         viewModel.toastShort.observe(viewLifecycleOwner, toastShort)
 
         return view

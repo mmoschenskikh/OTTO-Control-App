@@ -1,6 +1,5 @@
 package ru.spbstu.ottocontrol.view.controlpanel
 
-import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.activityViewModels
@@ -20,7 +19,6 @@ class OttoControllerFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
 
         with(binding) {
             soundButton.setOnClickListener { findNavController().navigate(R.id.action_controllerView_to_pianoView) }
