@@ -13,6 +13,7 @@ import android.view.MotionEvent
 import android.view.View
 import androidx.core.content.ContextCompat
 import ru.spbstu.ottocontrol.R
+import kotlin.math.min
 
 class PianoView(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
 
@@ -39,6 +40,14 @@ class PianoView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
     private var keyWidth = 0
     private var keyHeight = 0
     private val numOfKeys = 7
+
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        val widthSize = MeasureSpec.getSize(widthMeasureSpec)
+        val heightSize = MeasureSpec.getSize(heightMeasureSpec)
+        val height = min(heightSize.toDouble(), widthSize * (150.0 / 23 / numOfKeys)).toInt()
+
+        setMeasuredDimension(widthSize, height)
+    }
 
     override fun onSizeChanged(
         currentWidth: Int,
