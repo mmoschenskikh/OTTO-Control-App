@@ -38,7 +38,7 @@
     </fragment>
     <fragment
         android:id="@+id/pianoView"
-        android:name="ru.spbstu.ottocontrol.view.controlpanel.options.PianoView"
+        android:name="ru.spbstu.ottocontrol.view.controlpanel.options.PianoFragment"
         android:label="PianoView" />
     <fragment
         android:id="@+id/ledView"
