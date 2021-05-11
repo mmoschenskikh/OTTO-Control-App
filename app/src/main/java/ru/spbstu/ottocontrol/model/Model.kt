@@ -70,12 +70,7 @@ object Model : ModelInterface {
         pairedDevices = bluetoothSearcher.getBondedDevices().toList()
         return pairedDevices
     }
-    override fun connectToPairedDevice(index: Int) {
-        if (!availableDevices.contains(pairedDevices[index]))
-            viewModel.notifyThatChosenDeviceIsNotAvailable()
-        else
-            bluetoothDeviceConnector.openDeviceConnection(pairedDevices[index], handler)
-    }
+    override fun connectToPairedDevice(index: Int) = bluetoothDeviceConnector.openDeviceConnection(pairedDevices[index], handler)
     override fun connectToAvailableDevice(index: Int) = bluetoothDeviceConnector.openDeviceConnection(availableDevices[index], handler)
     override fun sendDataToDevice(data: String) = bluetoothDeviceConnector.sendDataToDevice(interpreter.getDataToDevice(data))
     override fun closeDeviceConnection() = bluetoothDeviceConnector.closeDeviceConnection()

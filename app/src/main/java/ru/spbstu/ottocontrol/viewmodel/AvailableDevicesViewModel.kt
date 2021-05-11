@@ -24,10 +24,6 @@ class AvailableDevicesViewModel : ViewModel() {
     fun connectToAvailableDevice(index: Int) {
         model.connectToAvailableDevice(index)
     }
-    fun notifyThatChosenDeviceIsNotAvailable() {
-        showToast = true // crutch!
-        toastShort.value = "Выбранное сопряжённое устройство не обнаружено"
-    }
     fun askForTurnBluetoothOn() {
         showToast = true // crutch!
         toastShort.value = "Включите Bluetooth"

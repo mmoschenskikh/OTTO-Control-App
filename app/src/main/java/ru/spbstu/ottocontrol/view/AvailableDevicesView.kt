@@ -62,7 +62,10 @@ class AvailableDevicesView : Fragment() {
             for (i in pairedDevices.indices) {
                 val button = Button(activity)
                 button.text = pairedDevices[i]
-                button.setOnClickListener { viewModel.connectToPairedDevice(i) }
+                button.setOnClickListener {
+                    Toast.makeText(activity, "Подключение может занять несколько секунд", Toast.LENGTH_SHORT).show()
+                    viewModel.connectToPairedDevice(i)
+                }
                 listOfPairedDevices.addView(button)
             }
         }
@@ -74,7 +77,10 @@ class AvailableDevicesView : Fragment() {
             for (i in availableDevices.indices) {
                 val button = Button(activity)
                 button.text = availableDevices[i]
-                button.setOnClickListener { viewModel.connectToAvailableDevice(i) }
+                button.setOnClickListener {
+                    Toast.makeText(activity, "Подключение может занять несколько секунд", Toast.LENGTH_SHORT).show()
+                    viewModel.connectToAvailableDevice(i)
+                }
                 listOfAvailableDevices.addView(button)
             }
         }

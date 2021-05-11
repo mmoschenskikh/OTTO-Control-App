@@ -14,7 +14,6 @@ object ViewModels : ViewModelInterface {
 
     override fun askForPermissionToUseBluetoothModule() { initViewModel.askForPermissionToUseBluetoothModule() }
     override fun notifyThatBluetoothIsNotSupported() = initViewModel.notifyThatBluetoothIsNotSupported()
-    override fun notifyThatChosenDeviceIsNotAvailable() = availableDevicesViewModel.notifyThatChosenDeviceIsNotAvailable()
     override fun askForTurnBluetoothOn() = availableDevicesViewModel.askForTurnBluetoothOn()
     override fun registerDeviceDetectionReceiver(broadcastReceiver: BroadcastReceiver, intentFilter: IntentFilter) = availableDevicesViewModel.registerDeviceDetectionReceiver(broadcastReceiver, intentFilter)
     override fun changeListOfAvailableDevices() = availableDevicesViewModel.changeListOfAvailableDevices()
