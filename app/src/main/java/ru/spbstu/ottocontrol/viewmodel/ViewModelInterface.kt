@@ -8,6 +8,6 @@ interface ViewModelInterface {
     fun notifyThatBluetoothIsNotSupported()
     fun askForTurnBluetoothOn()
     fun registerDeviceDetectionReceiver(broadcastReceiver: BroadcastReceiver, intentFilter: IntentFilter)
-    fun changeListOfPairedDevices()
+    fun changeListOfAvailableDevices()
     fun getDataFromDevice(data: String)
 }

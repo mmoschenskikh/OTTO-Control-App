@@ -16,7 +16,8 @@ object ViewModels : ViewModelInterface {
     override fun notifyThatBluetoothIsNotSupported() = initViewModel.notifyThatBluetoothIsNotSupported()
     override fun askForTurnBluetoothOn() = availableDevicesViewModel.askForTurnBluetoothOn()
     override fun registerDeviceDetectionReceiver(broadcastReceiver: BroadcastReceiver, intentFilter: IntentFilter) = availableDevicesViewModel.registerDeviceDetectionReceiver(broadcastReceiver, intentFilter)
-    override fun changeListOfPairedDevices() = availableDevicesViewModel.changeListOfPairedDevices()
+    override fun changeListOfAvailableDevices() = availableDevicesViewModel.changeListOfAvailableDevices()
+
     override fun getDataFromDevice(data: String) {
         val splittedData = data.split(' ')
         if (splittedData.isNotEmpty()) {

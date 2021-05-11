@@ -8,7 +8,10 @@ BluetoothSerial SerialBT;
 
 void callback(esp_spp_cb_event_t event, esp_spp_cb_param_t *param){
   if(event == ESP_SPP_SRV_OPEN_EVT){
-    Serial.println("Client Connected");
+    Serial.println("Client connected");
+  }
+  if(event == ESP_SPP_CLOSE_EVT ){
+    Serial.println("Client disconnected");
   }
 }
 
@@ -26,7 +29,7 @@ void setup() {
 }
 
 void loop() {
-  const int buffer_size = 32;
+  const int buffer_size = 64;
   uint8_t buffer[buffer_size];
   int pos = 0;
   while (SerialBT.available() > 0) {

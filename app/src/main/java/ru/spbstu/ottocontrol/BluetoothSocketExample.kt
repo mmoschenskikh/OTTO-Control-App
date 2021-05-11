@@ -36,7 +36,7 @@ object BluetoothSocketExample {
         thread {
             while (true) {
                 if (dataIsBeingProcessed) {
-                    val timeToProcessData = (1000..2000).random()
+                    val timeToProcessData = 10
                     sleep(timeToProcessData.toLong())
                     dataIsBeingProcessed = false
                 }

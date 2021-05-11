@@ -31,7 +31,8 @@ class BluetoothDeviceConnector(CODE_RECEIVED_DATA_FROM_DEVICE: Int) {
                 } catch (ex: IOException) { ex.printStackTrace() }
                 return@thread
             }
-            inOutBluetooth.openCommunication(socket, handler)
+            if (socket.isConnected)
+                inOutBluetooth.openCommunication(socket, handler)
         }
     }
 
@@ -39,10 +40,13 @@ class BluetoothDeviceConnector(CODE_RECEIVED_DATA_FROM_DEVICE: Int) {
         if (!this::socket.isInitialized)
             return
         try {
-            socket.close()
             inOutBluetooth.closeCommunication()
         } catch (e: IOException) { e.printStackTrace() }
     }
 
-    fun sendDataToDevice(bytes: ByteArray) = inOutBluetooth.let { if (this::socket.isInitialized) it.sendDataToDevice(bytes) }
+    fun sendDataToDevice(bytes: ByteArray) = inOutBluetooth.let {
+        if (!this::socket.isInitialized || !socket.isConnected)
+            return@let
+        it.sendDataToDevice(bytes)
+    }
 }

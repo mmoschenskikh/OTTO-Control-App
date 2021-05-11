@@ -12,14 +12,15 @@ import android.os.Parcelable
 import ru.spbstu.ottocontrol.model.bluetoothdeviceconnector.BluetoothDeviceConnector
 import ru.spbstu.ottocontrol.model.bluetoothsearcher.BluetoothSearcher
 import ru.spbstu.ottocontrol.model.interpreter.Interpreter
-import ru.spbstu.ottocontrol.viewmodel.ViewModelInterface
 import ru.spbstu.ottocontrol.viewmodel.ViewModels
+import ru.spbstu.ottocontrol.viewmodel.ViewModelInterface
 
 object Model : ModelInterface {
     private val viewModel: ViewModelInterface = ViewModels
 
     private const val CODE_RECEIVED_DATA_FROM_DEVICE = 1
-    private val pairedDevices = mutableListOf<BluetoothDevice>()
+    private lateinit var pairedDevices: List<BluetoothDevice>
+    private val availableDevices = mutableListOf<BluetoothDevice>()
     private val bluetoothSearcher = BluetoothSearcher()
     private val bluetoothDeviceConnector = BluetoothDeviceConnector(CODE_RECEIVED_DATA_FROM_DEVICE)
     private val interpreter = Interpreter()
@@ -28,9 +29,9 @@ object Model : ModelInterface {
         override fun onReceive(context: Context, intent: Intent) {
             if (intent.action == BluetoothDevice.ACTION_FOUND) {
                 val device = intent.getParcelableExtra<Parcelable>(BluetoothDevice.EXTRA_DEVICE) as BluetoothDevice
-                if (!pairedDevices.contains(device) && device.name != null) {
-                    pairedDevices.add(device)
-                    viewModel.changeListOfPairedDevices()
+                if (!availableDevices.contains(device) && device.name != null) {
+                    availableDevices.add(device)
+                    viewModel.changeListOfAvailableDevices()
                 }
             }
         }
@@ -52,23 +53,25 @@ object Model : ModelInterface {
             viewModel.askForPermissionToUseBluetoothModule()
     }
 
-    override fun searchPairedDevices() {
-        pairedDevices.clear()
-        pairedDevices.addAll(bluetoothSearcher.getBondedDevices())
+    override fun searchAvailableDevices() {
+        availableDevices.clear()
         if (bluetoothSearcher.isDiscovering())
             bluetoothSearcher.cancelDiscovery()
         if (!bluetoothSearcher.searchPairedDevices()) {
             viewModel.askForTurnBluetoothOn()
             return
         }
-        viewModel.changeListOfPairedDevices()
+        viewModel.changeListOfAvailableDevices()
         viewModel.registerDeviceDetectionReceiver(broadcastReceiver, IntentFilter(BluetoothDevice.ACTION_FOUND))
     }
 
-    override fun getPairedDevices(): MutableList<BluetoothDevice> = pairedDevices
-    override fun connectToDevice(index: Int) =
-        bluetoothDeviceConnector.openDeviceConnection(pairedDevices[index], handler)
-
+    override fun getListOfAvailableDevices(): List<BluetoothDevice> = availableDevices
+    override fun getListOfPairedDevices(): List<BluetoothDevice> {
+        pairedDevices = bluetoothSearcher.getBondedDevices().toList()
+        return pairedDevices
+    }
+    override fun connectToPairedDevice(index: Int) = bluetoothDeviceConnector.openDeviceConnection(pairedDevices[index], handler)
+    override fun connectToAvailableDevice(index: Int) = bluetoothDeviceConnector.openDeviceConnection(availableDevices[index], handler)
     override fun sendDataToDevice(data: ByteArray) = bluetoothDeviceConnector.sendDataToDevice(data)
     override fun closeDeviceConnection() = bluetoothDeviceConnector.closeDeviceConnection()
 }
