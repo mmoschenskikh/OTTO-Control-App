@@ -29,7 +29,7 @@ void setup() {
 }
 
 void loop() {
-  const int buffer_size = 64;
+  const int buffer_size = 1024;
   uint8_t buffer[buffer_size];
   int pos = 0;
   while (SerialBT.available() > 0) {
