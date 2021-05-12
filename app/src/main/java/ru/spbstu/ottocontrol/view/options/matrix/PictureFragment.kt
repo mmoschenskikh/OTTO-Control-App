@@ -34,6 +34,7 @@ class PictureFragment : BaseFragment<FragmentPictureBinding>(FragmentPictureBind
                 layout.maxWidth = cellSize
 
                 val cell = ToggleButton(requireContext())
+                cell.textOn = ""
                 cell.textOff = ""
                 cell.id = i * MATRIX_SIZE + j
                 cell.isChecked = false
