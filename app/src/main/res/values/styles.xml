@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="ActionButtonRound">
+        <item name="android:background">@drawable/action_button_selector</item>
+        <item name="android:padding">16dp</item>
+        <item name="android:elevation">8dp</item>
+        <item name="android:scaleX">@dimen/scale_multiplier</item>
+        <item name="android:scaleY">@dimen/scale_multiplier</item>
+    </style>
+</resources>

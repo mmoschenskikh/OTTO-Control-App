@@ -36,10 +36,19 @@ android {
 
 dependencies {
     implementation(Dependencies.kotlin)
-    implementation(Android.coreKtx)
+
     implementation(Android.appcompat)
-    implementation(Dependencies.materialDesign)
     implementation(Android.constraintLayout)
+    implementation(Android.coreKtx)
+    implementation(Android.fragmentKtx)
+    implementation(Android.gridLayout)
+
+    implementation(Navigation.navigationUiKtx)
+    implementation(Navigation.navigationFragmentKtx)
+
+    implementation(Dependencies.colorPicker)
+    implementation(Dependencies.materialDesign)
+
     testImplementation(Testing.jUnit)
     androidTestImplementation(Testing.extJUnit)
     androidTestImplementation(Testing.espresso)

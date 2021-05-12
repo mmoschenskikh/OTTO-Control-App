@@ -1,3 +1,24 @@
 <resources>
     <string name="app_name">OTTO</string>
+    <string name="button_update_lists">Обновить списки</string>
+    <string name="button_show_list">Показать доступные устройства</string>
+    <string name="button_disconnect">Отсоединиться</string>
+    <string name="button_left">Влево</string>
+    <string name="button_right">Вправо</string>
+    <string name="button_back">Назад</string>
+    <string name="button_forward">Вперёд</string>
+    <string name="paired_devices">Сопряжённые устройства:</string>
+    <string name="available_devices">Обнаруженные устройства:</string>
+    <string name="choose_piano">Пианино</string>
+    <string name="choose_led">Светодиод</string>
+    <string name="choose_text">Текст</string>
+    <string name="choose_picture">Рисунок</string>
+    <string name="example">Example</string>
+    <string name="choose_color">Выбрать цвет</string>
+    <string name="show_picture">Показать на роботе</string>
+    <string name="enter_text_hint">Введите текст, который отобразит робот</string>
+    <string name="text_done">Отправить текст роботу</string>
+    <string name="play_note">Сыграть ноту</string>
+    <string name="note_length">Длительность:</string>
+    <string name="seconds">сек.</string>
 </resources>
